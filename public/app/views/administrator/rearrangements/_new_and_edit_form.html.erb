@@ -1,0 +1,26 @@
+<h3>Rearrangement</h3>
+<%= form_for(rearrangement, :url => path) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%#= error_messages_for(:rearrangement, :object => rearrangement) %>
+  <% if @rearrangement.errors.any? %>
+    <ul>
+      <% @rearrangement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <fieldset>
+    <legend>Rearrangement details</legend>
+    <div>
+      <%= f.label(:title) %>*
+      <%= f.text_field(:title, :size => '30') %>
+    </div>
+    <div>
+      <%= f.label(:summary) -%>
+      <%= f.text_area(:summary, :size => '60x3', :class => 'widgEditor') -%>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit(rearrangement.new_record? ? 'Create' : 'Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

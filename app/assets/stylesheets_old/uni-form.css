@@ -1,0 +1,37 @@
+@import "uni-form-generic.css";
+.uniForm fieldset legend{color:#333;font-size:100%;font-weight:bold;margin:0;padding:.5em 0;}
+.uniForm .ctrlHolder{border-bottom:1px solid #dfdfdf;padding:7px;}
+.uniForm .buttonHolder{text-align:left;}
+.uniForm .resetButton{float:left;}
+.uniForm .primaryAction{font-weight:bold;}
+.uniForm .focused{background:#efefef;}
+.uniForm .inlineLabel input,.uniForm .inlineLabels .inlineLabel input,.uniForm .blockLabels .inlineLabel input{float:left;margin:0 .4em 0 0;}
+.uniForm .inlineLabel span{float:left;width:90%;}
+.uniForm label,.uniForm .blockLabels label,.uniForm .blockLabels .label{margin:0 0 .5em;}
+.uniForm .selectInput,.uniForm select,.uniForm .blockLabels .selectInput,.uniForm .blockLabels select{width:53.5%;}
+.uniForm textarea,.uniForm .blockLabels textarea{height:12em;width:53%;}
+.uniForm .formHint,.uniForm .blockLabels .formHint{color:#777;font-size:.9em;position:relative;top:-.5em;width:45%;}
+.uniForm .multiField .blockLabel,.uniForm .blockLabels .multiField .blockLabel{margin:0 10px 0 0;width:30%;}
+.uniForm .inlineLabels label,.uniForm .inlineLabels .label{margin:.3em 2% 0 0;width:45%;}
+.uniForm .inlineLabels textarea{height:12em;width:45%;}
+.uniForm .inlineLabels .formHint{color:#777;font-size:.9em;margin-left:47%;margin-top:0;position:static;}
+.uniForm .inlineLabels .multiField{margin:0 0 .3em;width:45%;}
+.uniForm .inlineLabels .multiField .blockLabel{float:left;margin:0 3% 0 0;width:26%;}
+.uniForm div.focused .formHint{color:#333;}
+.uniForm .col{margin:0 2% 20px 0;width:47.9%;}
+.uniForm .col.first{clear:none;float:left;width:49%;}
+.uniForm .col.last{clear:none;float:right;margin-right:0;width:49%;}
+.uniForm #errorMsg{background:#ffdfdf;border:1px solid #df7d7d;border-width:1px 0;margin:0 0 1.5em;padding:7px;}
+.uniForm .error{background:#ffdfdf;border:1px solid #df7d7d;border-width:1px 0;margin-bottom:5px;}
+.uniForm #errorMsg dt,.uniForm #errorMsg h3{font-size:100%;font-weight:bold;line-height:100%;margin:0 0 .5em;}
+.uniForm #errorMsg ol li{border-bottom:1px dotted #df7d7d;list-style-position:inside;margin:0;padding:2px;position:relative;}
+.uniForm .errorField{color:#af4c4c;margin:0 0 6px;padding:4px;}
+.uniForm #OKMsg{background:#C8FFBF;border:1px solid #A2EF95;border-width:1px 0;margin:0 0 1.5em;padding:7px;}
+.uniForm #OKMsg p{margin:0;}
+.uniForm select.datetime,.uniForm .blockLabels select.datetime{float:none;width:auto;}
+.uniForm .textInput,.uniForm .blockLabels .textInput,.uniForm .blockLabels .fileUpload,.uniForm .multiField,.uniForm .blockLabels .multiField{width:53%;}
+.uniForm .multiField .inlineLabel,.uniForm .blockLabels .multiField .inlineLabel,.uniForm .inlineLabels .multiField .inlineLabel{display:block;margin:0 0 .5em;}
+.uniForm .multiField .blockLabel .textInput,.uniForm .multiField .blockLabel .selectInput,.uniForm .multiField .blockLabel select,.uniForm .blockLabels .multiField .blockLabel .textInput,.uniForm .blockLabels .multiField .blockLabel .selectInput,.uniForm .blockLabels .multiField .blockLabel select,.uniForm .inlineLabels .multiField .blockLabel .textInput,.uniForm .inlineLabels .multiField .blockLabel .selectInput,.uniForm .inlineLabels .multiField .blockLabel select{margin:.3em 0 0;width:100%;}
+.uniForm .inlineLabels .textInput,.uniForm .inlineLabels .fileUpload,.uniForm .inlineLabels .selectInput,.uniForm .inlineLabels select{width:45%;}
+.uniForm .ctrlHolder .textInput:focus,.uniForm .ctrlHolder textarea:focus{outline:none;}
+.uniForm #errorMsg dd,.uniForm #errorMsg ol{margin:0;padding:0;}

@@ -1,0 +1,69 @@
+<%= uni_form_for(attachment, :url => path, :html => { :autocomplete => 'off', :onsubmit => 'return imageValidate()', :multipart => true }) do |f| %>
+  <div class="grid_16 alpha margin_top_20">
+    <%= error_messages(@attachment) %>
+    <% f.fieldset(:type => "block", :legend => "Attachment Details") do %>
+      <%= f.text_field(:title, :required => false, :label => "Title", :style => "width: 99%;") -%>
+      <%= f.text_field(:meta_data, :required => false, :label => "Meta Data", :style => "width: 99%;") -%>
+      <%= f.text_area(:description, :label => "Description", :style => "width: 99%;") -%>
+      <%= f.text_field(:vimeo_video_id, :size => '30', :label => "Vimeo Video ID", :style => "width: 99%;") %>
+      <%= f.text_field(:youtube_video_id, :size => '30', :label => "Youtube Video ID", :style => "width: 99%;") %>
+      <% unless @attachable.is_a?(User) %>
+        <%= f.text_field(:position, :label => 'Position', :style => "width: 100px;") -%>
+      <% end %>
+    <% end %>
+    <%- if attachment.new_record? -%>
+      <% f.fieldset(:type => "block", :legend => "Upload a video") do %>
+        <%= f.file_field(:vimeo_asset, :label => "File to upload") -%>
+      <% end %>
+      <% f.fieldset(:type => "block", :legend => "Upload a file") do %>
+        <%= f.file_field(:asset, :label => "File to upload", :required => true) -%>
+      <% end %>
+    <%- elsif attachment.image? -%>
+      <% f.fieldset(:type => "block", :legend => "Current Attachment") do %>
+        <%= image_tag(attachment.s3_url(:medium), :alt => 'Attachment', :title => attachment.title, :style => "margin-left: 5px;") %>
+      <% end %>
+    <%- end -%>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <%- unless !defined?(redirect) || redirect.nil? -%><%= f.hidden_field(:redirect, :value => redirect) -%><%- end -%>
+  <%- if attachment.new_record? -%>
+    <%= f.hidden_field(:attachable_type) -%>
+    <%= f.hidden_field(:attachable_id) -%>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Create", {:icon_path => "icons/tick.png"} %>
+  <%- else -%>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Update", {:icon_path => "icons/tick.png"} %>
+  <%- end -%>
+<% end %>
+<input type="hidden" id="imageWidth" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script>
+jQuery(document).ready(function() {
+jQuery('#attachment_asset').change(function() {
+    
+    var fr = new FileReader;    
+    fr.onload = function() {
+        var img = new Image;        
+        img.onload = function() {
+             jQuery('#imageWidth').val(img.width);
+        };        
+        img.src = fr.result;
+    };    
+    fr.readAsDataURL(this.files[0]);
+    
+});
+});
+function imageValidate()
+{
+	var width = jQuery('#imageWidth').val();
+	if(width > 851 && width !='')
+	{
+		alert('Photos should be uploaded at 850 pixels')
+		return false;
+	}
+	return true;
+	
+}
+</script>

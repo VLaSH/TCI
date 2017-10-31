@@ -1,0 +1,34 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'instructors' }
+    page.primary_navigation_section = :mentorship
+    page.title.unshift('Mentorship')
+  end 
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="The Compelling Image Mentorship Program" />
+  <meta name="description" content="Take an online course in photography or video production with The Compelling Image. Our industry established experts take you from strength to strength." />
+<% end %>
+
+<div class="grid_11">
+  <h1>Signup for the Mentorship Program</h1>
+  <p>You have selected to signup to the Mentorship Program with your chosen mentor <strong><%= @item_name %></strong> for a duration of <strong><%= @item_number %></strong>.</p>
+  <p>The price for this selected program is $<%= @amount %> - please click the button below to make payment via PayPal - you will be able to review your payment in PayPal before any money is taken.</p>
+  
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post">  
+      <input type="hidden" name="cmd" value="_xclick">  
+      <input type="hidden" name="business" value="tuition@thecompellingimage.com">  
+      <input type="hidden" name="item_name" value="<%= @item_name -%>">
+      <input type="hidden" name="item_number" value="<%= @item_number -%>">
+      <input type="hidden" name="amount" value="<%= @amount -%>">
+      <input type="hidden" name="no_shipping" value="1">  
+      <input type="hidden" name="no_note" value="1">  
+      <input type="hidden" name="currency_code" value="USD">  
+      <input type="hidden" name="lc" value="US">  
+      <input type="hidden" name="bn" value="PP-BuyNowBF">  
+      <input type="hidden" name="return" value="<%= @redirect -%>">  
+      <input type="submit" value="Pay with PayPal!">  
+  </form>  
+  
+</div>

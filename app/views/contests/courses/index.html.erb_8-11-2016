@@ -1,0 +1,64 @@
+<% content_for :meta do %>
+  <meta name="keywords" content="Online Photography Courses, Photography Classes Online, Photography Courses Online, Photography School Online" /> 
+ <meta name="description" content="Learn online photography courses, photography classes online covering a range of topics including portraits, landscapes, black & white, digital slr and more." />
+ <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<% end %>
+
+<div class="container content_bg"><!-- Container -->
+  <div class="two_column_banner">
+    <ul>
+      <li>
+        <%= image_tag photography_course_banner_image, alt: "Photography" %>
+        <h3>photography</h3>
+        <span>
+          <strong>Learn Photography Online</strong>
+            <p>TCI provides you with the ability to learn photography online - covering a wide range of topics including portraits, landscapes, black & white, DSLR and more. Our professional photography instructors guide you through every step of the learning process.</p>
+            <% if params[:course_type] == 'photography'%>
+              <%= link_to 'photography courses', '/courses/types/photography', class: 'background-color-black' %>
+            <% else %>
+              <%= link_to 'photography courses', '/courses/types/photography' %>
+            <% end %>
+            <!-- <a href="#">photography courses</a> -->
+        </span>
+      </li>
+      <li>
+        <%= image_tag  multimedia_course_banner_image, alt: "Multimedia" %>
+        <h3>multi-media</h3>
+        <span>
+          <strong>Learn Multimedia Online</strong>
+            <p>TCI provides you with the ability to learn multimedia online and interactively - covering a range of topics that combine audio and still photographs, video clips. stills and combinations thereof, to produce powerful and compelling multimedia stories and productions.</p>
+            <% if params[:course_type] == 'multimedia'%>
+              <%= link_to 'multimedia courses', '/courses/types/multimedia', class: 'background-color-black' %>
+            <% else %>
+              <%= link_to 'multimedia courses', '/courses/types/multimedia' %>
+            <% end %>
+            <!-- <a href="#">photography courses</a> -->
+        </span>
+      </li>
+    </ul>
+  </div><!-- Two column Banner -->
+
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div class= "courses_container">
+        <%= render 'courses/course_list', course_list: @courses %>
+      </div>
+      <% if @courses.nil? || @courses.empty? %>
+        <div class="course margin_top_20"><p>There are no courses that match your selected criteria.</p></div>
+      <% end %>
+      <%= will_paginate @courses %>
+    </div><!-- Left Content -->
+
+    <div class="inner_content_right">
+      <%= render 'filter' %>
+      <%#= render 'upcoming' %>
+      <!-- <div class="sort_by">
+        <p>Sort by:</p>
+        <ul>
+          <li><%#= @sort == "t" ? "Course Name" : link_to("Course Name", courses_path(@options.merge({:s => 't'}))) -%></li>
+          <li class='last'><%#= @sort == "p" ? "Price" : link_to("Price", courses_path(@options.merge({:s => 'p'}))) -%></li>
+        </ul>
+      </div> -->
+    </div><!-- Sidebar -->
+  </div>
+</div><!-- Container -->

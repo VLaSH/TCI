@@ -1,0 +1,45 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(contest, :url => polymorphic_path([ :administrator, contest ]), :html => { :multipart => true }) do |f| %>
+
+    <% f.fieldset(:type => "block", :legend => "Contest Details") do %>
+    
+    <%= error_messages(@course) %>
+
+    <%#= label_tag 'Select Year' %>
+    <%# select_year(Date.today, start_year: 2017, end_year: 2050) =%>
+
+    <%= f.select 'year', options_for_select(["2017"]), prompt:'---Select Year---', required: true %>
+
+    <%= f.select 'month', options_for_select(month_list), prompt: '---Select Month---', required: true %>
+    <%= f.check_box(:status, :label=>"No Contest for this month", :id=> "status", :checked=> 'false') %>
+
+    <% f.fieldset(:type => "block", :id=> "winner_details") do %>
+      <%= f.text_field :winner_name, :label =>"Winner Name" %>
+      <%= f.file_field(:photo, :label => "Winner Pic") %>
+      <%= f.text_field :winner_date, :label =>"Winning Date" %>
+      <%= f.text_field :winner_prize, :label =>"Winner Prize" %>
+    <% end %>
+ 
+    <%- if contest.photo? && !contest.photo.dirty? -%>
+      <%= f.check_box(:delete_photo, :label => "Delete photo") %>
+      <%= image_tag(contest_photo_path(:id => contest.id, :style => :medium), :alt => 'Photo', :title => 'Current photo', :style => "padding: 10px;") %>
+      <%- end -%>
+    <% end %>
+
+    <span id="spanButtonPlaceholder"></span>
+    
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (contest.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $('#status').on('change', function(){
+    if ($(this).is(':checked')) {        
+      document.getElementById('winner_details').disabled = true;
+    }
+    else
+      document.getElementById('winner_details').disabled = false; 
+});
+</script>

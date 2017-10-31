@@ -1,0 +1,1 @@
+<%= render(:partial => 'forum_topics/new_and_edit_form', :locals => { :forum_topic => @forum_topic, :path => polymorphic_path([ :student, @forum_topic.discussable, :forum_topics ]) }) -%>

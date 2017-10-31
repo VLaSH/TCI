@@ -1,0 +1,20 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete partner <%= h(@partner.name) -%></h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th class="centred">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= h(@partner.name) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @partner ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+  <% end %>
+</div>

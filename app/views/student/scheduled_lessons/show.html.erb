@@ -1,0 +1,34 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4><%= @lesson.course.title %></h4>
+  <h5><%= @lesson.title -%></h5>
+  <hr />
+  <%- if @lesson.vimeo_asset? && (@lesson.delete_vimeo ==0) -%>
+  <%= "<p><iframe src='https://player.vimeo.com/video/#{@lesson.vimeo_asset}' width='620' height='440' frameborder='0' webkitallowfullscreen='' mozallowfullscreen='' allowfullscreen=''></iframe></p>".html_safe %>
+  <%- end -%>
+  <%= interpolate_attachments(@lesson.description, @lesson.attachments, 620, 440).html_safe -%>
+  <%= render(:partial => "common/citation", :locals => {:course => @lesson.course}) -%>
+  
+  <h5>Discuss this Lesson with your Classmates and Instructor</h5>
+  <%= render(:partial => "student/forum_posts/forum_posts", :locals => {:forum_topics => @forum_topics})%>
+  <%= render(:partial => 'student/forum_posts/new_forum_post', :locals => {:discussable => @scheduled_lesson, :redirect => student_course_lesson_path(@scheduled_lesson.scheduled_course, @scheduled_lesson)}) unless @forum_topics.nil? -%>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/users/instructor", :locals => {:instructor => @lesson.course.instructors.first, :classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/users/classmates", :locals => {:allenrolment => @allenrolment, :students => @scheduled_lesson.scheduled_course.students, :classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/scheduled_lessons/assignments", :locals => {:classes => "margin_bottom_20", :lesson => @lesson, :scheduled_lesson => @scheduled_lesson}) -%>
+  <%= render(:partial => "student/attachments/attachments", :locals => {:classes => "margin_bottom_20", :title => 'Examples', :attachments => @lesson.attachments}) -%>
+</div>
+<div class="clear">&nbsp;</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script>
+	jQuery(function($){	
+		$(".lightview").each(function( i,j ) {
+			str = $(this).attr('href');
+			if (str.toLowerCase().indexOf("https://player.vimeo.com") >= 0){
+				var filename = $(this).find('img').attr('src').replace( /^.*?([^\/]+)\..+?$/, '$1' );
+				$(this).find('img').attr('src','/images/'+filename+'.png');
+			}
+		});
+	})
+</script>

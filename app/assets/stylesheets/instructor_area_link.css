@@ -1,0 +1,8 @@
+ /*css for instructor dashboard link */
+div#header span#instructor_link {position: absolute; right: 0; bottom: 11px;font-weight: bold;}
+div#header span#instructor_link a, div#header span#instructor_link a:visited {color: #ddd;}
+div#header ul#instructor_link, div#header ul#instructor_link a {position: absolute; right: 0px; top: 7px; color: #fff;}
+div#header span#instructor_link a{background: url(/assets/navigation-bg.gif) no-repeat 100% 0;color: #fff;display: block;padding: 2px 8px 2px 5px;text-decoration: none;}
+#logout a{
+  color: #fff;display: block;padding: 2px 8px 2px 5px;text-decoration: none;margin-right: 110px;}
+#logout a:hover {background: url(/assets/navigation-bg.gif) no-repeat 0 -20px;}

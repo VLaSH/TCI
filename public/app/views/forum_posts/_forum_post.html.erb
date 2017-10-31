@@ -1,0 +1,18 @@
+<% if forum_post.user%>
+  <li>
+    <cite><%- if forum_post.user.instructor? -%><span class="instructor">instructor</span><br /><%- end -%><%= forum_post.user.full_name -%><br /><span class="date"><%= time_ago_in_words(forum_post.created_at) -%> ago</span></cite>
+    <blockquote class="rounded topHeavy">
+      <span class="tr cnr"></span>
+      <span class="tl cnr"></span>
+      <span><%= simple_format(forum_post.content) -%></span>
+      <span>
+        <% if forum_post.attachments.present? %>
+          <%= image_tag forum_post.attachments.first.asset.url(:medium) %>
+        <% end %>
+      </span>
+      <span class="br cnr"></span>
+      <span class="bl cnr"></span>
+    </blockquote>
+  </li>
+<% end %>
+<div class="clear">&nbsp;</div>

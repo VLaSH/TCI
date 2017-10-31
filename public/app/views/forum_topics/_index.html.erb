@@ -1,0 +1,8 @@
+<% unless forum_topics.size.zero? %>
+  <ol>
+    <%= render(:partial => 'forum_topics/forum_topic', :collection => forum_topics) -%>
+  </ol>
+<% else %>
+  <p>Forum coming soon.</p>
+<% end %>
+<p><%# link_to('New topic', new_polymorphic_path([ current_user.role, discussable, :forum_topic ])) -%></p>

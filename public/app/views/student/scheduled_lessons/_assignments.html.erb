@@ -1,0 +1,13 @@
+<% if lesson.assignments.size > 0 %>
+  <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+    <h4>Assignments</h4>
+    <div class="body padding_5 assignments">
+      <%- scheduled_lesson.scheduled_assignments.each_with_index do |scheduled_assignment, index| %>
+        <%- if index > 0 -%><hr style="margin-top: 5px; margin-bottom: 5px;"/><%- end -%>
+        <p>
+          <div><%=  link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></div>
+        </p>
+      <%- end %>
+    </div>
+  </div>
+<% end %>

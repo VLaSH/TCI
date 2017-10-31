@@ -1,0 +1,10 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6><%= !attachment.title.nil? && attachment.title.empty? ? "Delete Attachment" : h("Delete: #{attachment.title}") %></h6>
+  <p><%= image_tag(attachment.s3_url(:medium), :alt => 'Attachment', :title => attachment.title) if attachment.image? %></p>
+  <p>Warning: Pressing delete will remove this image forever</p>
+  <%= form_for(attachment, :url => destroy_path, :html => { :method => :delete }) do |f| %>
+    <%- unless !defined?(redirect) || redirect.nil? -%><%= f.hidden_field(:redirect, :value => redirect) -%><%- end -%>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %></p>
+  <% end %>
+</div>

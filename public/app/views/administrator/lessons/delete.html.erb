@@ -1,0 +1,11 @@
+<dl>
+  <dt>Course</dt>
+  <dd><%= h(@lesson.course.title) %></dd>
+  <dt>Title</dt>
+  <dd><%= h(@lesson.title) %></dd>
+  <dt>Summary</dt>
+  <dd><%= h(@lesson.summary) %></dd>
+</dl>
+<%= form_for([ :administrator, @lesson ], :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

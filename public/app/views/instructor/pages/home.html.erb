@@ -1,0 +1,47 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'instructor', :id => 'home' }
+    page.primary_navigation_section = :instructor_area
+    page.title.unshift('Instructor Area')
+    page.title.unshift('Home')
+  end
+-%>
+
+<%
+  if params.has_key?(:all) && params[:all].to_i == 1
+    @scheduled_courses = ScheduledCourse.joins(:course).active.for_instructor(current_user).non_deleted.active.page(params[:page]).order('created_at ASC')
+  else
+    @scheduled_courses = ScheduledCourse.joins(:course).active.for_instructor(current_user).non_deleted.active.enrolled.page(params[:page]).order('created_at ASC')
+  end
+%>
+
+<div id="running_courses">
+  <h2>Courses Currently Running</h2>
+  <% if params.has_key?(:all) && params[:all].to_i == 1 %>
+    <ul class="extras"><li><%= link_to("Running With Enrollments", "?all=0") -%></li><li>All Running</li></ul>
+  <% else %>
+    <ul class="extras"><li>Running With Enrollments</li><li><%= link_to("All Running", "?all=1") -%></li></ul>
+  <% end %>
+  <% unless @scheduled_courses.empty? %>
+    <table summary="List of active scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Course</th>
+          <th class="centred">Enrollments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @scheduled_courses.each do |scheduled_courses| %>
+          <% course = scheduled_courses.course %>
+          <tr>
+            <td class="centred"><%= link_to(course.title, instructor_scheduled_course_path(course)) -%></td>
+            <td class="centred"><%= link_to(course.scheduled_course.enrolments.find_non_deleted_enrollments.size, instructor_scheduled_course_enrolments_path(course.scheduled_course), :rel => "There #{course.scheduled_course.enrolments.size == 1 ? 'is' : 'are'} #{pluralize(course.scheduled_course.enrolments.size, "student")} enroled on this course session") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@scheduled_courses) %>
+  <% else %>
+    <p>No active scheduled courses exist.</p>
+  <% end %>
+</div>

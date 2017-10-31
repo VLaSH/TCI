@@ -1,0 +1,12 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <h4>Course selection</h4>
+  <div class="body padding_5 tags">
+    <p style="margin-bottom: 5px;">What sort of course are you looking for?</p>
+    <dl>
+      <% CourseType.all.each do |c| %>
+        <dt style="padding-top: 6px; font-size: 130%; font-weight: bold;"><%= link_to(c.homepage_description, (courses_path(local_assigns.has_key?(:external) ? {:ct => c.id} : params.merge(:ct => c.id))))%></dt>
+      <% end %>
+      <dt style="padding-top: 12px;"><%= link_to("Show me all courses", courses_path(local_assigns.has_key?(:external) ? {:ct => ''} : params.merge(:ct => '')))%></dt>
+    </dl>
+  </div>
+</div>

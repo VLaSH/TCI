@@ -1,0 +1,44 @@
+<%=javascript_include_tag "image_ordering" %>
+<div class="grid_11 margin_top_20 alpha">
+  <h6>Attachments</h6>
+  <% unless @attachments.blank? %>
+    <div id="attachment_thumbnail_container">
+      <ol id="attachment_thumbnails">
+        <% unless @attachments.rearrangement.blank? %>
+          <% @attachments.rearrangement.split(',').each do |attachment_id| %>
+            <% attachment = Attachment.find_by_id(attachment_id) %>
+            <% unless attachment.blank? %>
+              <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.meta_data, :class => "draggable") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview", :rel => "View the image fullsize") -%><%= link_to(image_tag("icons/pencil.png"), edit_instructor_attachment_path(attachment, params.merge(submission_id: @attachments)), :rel => "Edit this attachment") -%><%= link_to(image_tag("icons/delete.png"), 'javascript: void(0)', class: 'remove_rearrangement', :rel => "Delete this attachment") -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ol>
+    </div>
+  <% else %>
+    <div id="attachment_thumbnail_container">
+      <p>No attachments exist.</p>
+    </div>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= link_to 'Back to Submission', instructor_submission_path(@attachments)%>
+  <% unless @attachments.blank?%>
+    <div class="margin_top_20">
+      <%= form_tag order_instructor_submission_attachments_path(@attachments), method: :post, remote: true do %>
+        <%= hidden_field_tag :attachment_thumbnails %>
+        <%= submit_tag 'save position', class: 'submit' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="clear">&nbsp;</div>
+<script type="text/javascript">
+  $(".submit").click(function(){
+    get_image_id();
+  })
+
+  $(".remove_rearrangement").click(function(){
+    $(this).closest('li').remove();
+  })
+</script>

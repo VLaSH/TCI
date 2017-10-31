@@ -1,0 +1,39 @@
+<% if !local_assigns[:protocol].nil? && protocol == :https %>
+  <!--[if lt IE 8]>
+    <%= javascript_include_tag("IE8.js") %>
+  <![endif]-->
+  <%= javascript_include_tag "prototype", 'uni-form.prototype' %>
+<% else %>
+  <!--[if lt IE 8]>
+    <%= javascript_include_tag("IE8") %>
+  <![endif]-->
+  <%= javascript_include_tag 'jquery', 'jquery_ujs', "swfobject", 'prototype', 'uni-form.prototype', 'scriptaculous', 'effects','dragdrop', 'lightview', 'prototip', 'tinymce/tinymce.min.js', 'swfupload' %>
+  <script type="text/javascript">
+    tinyMCE.baseURL = "/assets/tinymce"
+    tinyMCE.init({
+      mode : "specific_textareas",
+      editor_selector : "widgEditor",
+      //theme : "advanced",
+      menubar:false,
+      statusbar: false,
+      toolbar: true,
+      cleanup_on_startup : true,
+      toolbar: "uploadimage | undo redo | styleselect | bold italic | forecolor | link | unlink | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table | fullscreen | code ",
+      plugins: "uploadimage,paste,fullscreen,spellchecker,code,textcolor,link",
+      fullscreen_new_window : false,
+      theme_advanced_toolbar_location : "top",
+      theme_advanced_toolbar_align : "left",
+      theme_advanced_buttons1 : "formatselect,|,bold,italic,|,forecolor,|,bullist,numlist,|,link,unlink,|,cut,copy,pastetext,spellchecker,|,undo,redo,|,fullscreen,code",
+      theme_advanced_buttons2 : "",
+      theme_advanced_buttons3 : "",
+      spellchecker_languages : "+English=en",
+      spellchecker_rpc_url : "/spellings",
+      fullscreen_settings : {
+        theme_advanced_path_location : "top"
+      },
+    });
+
+
+  </script>
+  <%= yield :additional_footer_js %>
+<% end %>

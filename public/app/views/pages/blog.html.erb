@@ -1,0 +1,23 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'blog' }
+    page.primary_navigation_section = :blog
+    page.title.unshift('Blog')
+  end
+-%>
+
+<div class="grid_11">
+  <h4>Blog</h4>
+  <% if BlogPost.all.count == 0 -%>
+    <p>No blog posts available.</p>
+  <% else -%>
+    <% BlogPost.all.each_with_index do |blog_post, i| -%>
+      <p class="date"><%= blog_post.created_at.to_s(:short_date_month_year) -%></p>
+      <h5><%= link_to(blog_post.title, blog_post.url, :target => '_blank') -%></h5>
+    <% end -%>
+  <% end -%>
+</div>
+<div class="grid_5">
+  <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

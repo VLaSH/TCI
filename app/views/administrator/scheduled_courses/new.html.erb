@@ -1,0 +1,11 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Scheduled course for <%= h(@course.title) -%></h6>
+  <%= uni_form_for(@scheduled_course, :url => administrator_course_scheduled_courses_path(@scheduled_course.course), :html => { :autocomplete => 'off', :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Schedule Details") do %>
+      <%#= f.datetime_select(:starts_on, :default => Date.current) %>
+      <%= f.text_field :duration, placeholder: "Duration in Day"%>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (@scheduled_course.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

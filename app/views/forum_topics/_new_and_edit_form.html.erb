@@ -1,0 +1,10 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>New Discussion Topic</h4>
+  <%= uni_form_for(forum_topic, :url => path) do |f| %>
+    <% f.fieldset(:type => "block") do %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 95%;") %>
+      <%= f.text_area(:content, :size => '60x5', :label => "Content", :required => true, :style => "width: 95%;") -%>
+    <% end %>
+    <%= f.submit(forum_topic.new_record? ? 'create' : 'update', :style => "margin-top: 20px;", data: { disable_with: "Please wait..." }) -%>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<%= @forum_post.user.full_name -%> has commented on "<%= @forum_post.topic.title -%>"
+
+View the discussion:
+ <%post_count = @forum_post.topic.posts.count%>
+<%=
+  case @forum_post.topic.discussable
+  when ScheduledLesson
+   link = @instructor ? instructor_lesson_url(@forum_post.topic.discussable.lesson) + "#comment_#{post_count}" : student_course_lesson_url(@forum_post.topic.discussable.scheduled_course, @forum_post.topic.discussable) + "#comment_#{post_count}"
+  when ScheduledAssignment
+    link = @instructor ? instructor_assignment_url(@forum_post.topic.discussable.assignment) + "#comment_#{post_count}": student_assignment_url(@forum_post.topic.discussable) + "#comment_#{post_count}"
+  end
+%>
+<%= link_to link, link %>
+Regards,
+The Compelling Image

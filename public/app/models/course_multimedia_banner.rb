@@ -1,0 +1,2 @@
+class CourseMultimediaBanner < BannerImage
+end

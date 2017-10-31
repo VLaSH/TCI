@@ -1,0 +1,311 @@
+h1 {font-size: 18px;}
+h6.h7{font-size:14px;}
+h6.h8{font-size:13px;}
+body.sales{background:url(/assets/body-bg.gif) repeat-x;}
+body.student,body.administrator{background:url(/assets/body-student-bg.gif) repeat-x;}
+body div#navigation ul#navigation{color:#fff;float:left;height:36px;list-style:none;margin:0;min-height:36px;padding:12px 0 0;position:relative;text-align:left; z-index:1;}
+body div#navigation ul#navigation li{display:inline;float:left;font-size:10px;margin:0 10px 0 0;padding-left:3px;text-transform:uppercase;}
+body div#navigation ul#login{color:#fff;float:right;height:36px;list-style:none;margin:0;min-height:36px;padding:12px 0 0;position:relative;text-align:left;}
+body div#navigation ul#login li{display:inline;float:left;font-size:10px;margin:0 0 0 10px;padding-left:3px;text-transform:uppercase;}
+body div#header{height:37px;padding-bottom:20px;padding-top:20px;position:relative;text-align:left;}
+body div#header #fauxh1 a{background:url(/assets/tci-logo.jpg) no-repeat;display:block;float:left;height:37px;margin:0;padding:0 0 10px;text-indent:-9999px;width:275px;}
+body div#header #fauxh2{color:#666;float:right;font-size:12px;line-height:12px;margin:0;position:relative;text-align:right;top:17px;vertical-align:middle;}
+body div#footer{border-top:1px solid #ccc;font-size:10px;margin-top:30px;padding-top:5px;}
+body div#secondary-navigation{border-top:1px solid #999;}
+body div#secondary-navigation ul#secondary-navigation{color:#000;float:left;height:41px;list-style:none;margin:0;min-height:41px;padding:15px 0 0;position:relative;text-align:left;}
+body div#secondary-navigation ul#account{color:#000;float:right;height:41px;list-style:none;margin:0;min-height:41px;padding:15px 0 0;position:relative;text-align:left;}
+body span.red{color:#d03523;}
+body div.margin_top_10{margin-top:10px;}
+body div.margin_top_20{margin-top:20px;}
+.float_left{float:left;}
+body#home div#home_image{background:#000;display:block;float:left;height:440px;margin:0;padding:0;width:660px;}
+body#home div#home_hero{background:#d03523;display:block;float:right;height:440px;margin:0;min-height:440px;overflow:hidden;padding:0;position:relative;width:280px;}
+body#home div#home_hero div#heading h3{color:#fff;font-size:14px;font-weight:bold;}
+body#home div#home_hero div#heading dl dd{color:#fff;font-size:12px;font-weight:bold;}
+body div.callout_box{background:url(/assets/callout-box-bg.gif) repeat-y;border-bottom:2px solid #ccc;min-height:200px;overflow:hidden;}
+body div.fixed{height:200px;}
+body div.fixed_300{height:300px; position: relative;}
+body div.callout_box h4{background:#353533;color:#fff;display:block;font-size:12px;margin:0;padding:5px;}
+body div.callout_box h4 a{background:url(/assets/internal-link-grey.gif) no-repeat 1px;color:#fff;display:block;float:right;font-weight:bold;padding-left:15px;text-decoration:none;}
+body div.callout_box div.blog p,body div.callout_box div.upcoming p,body div.callout_box div.instructor p{margin:0;}
+body div.callout_box div.blog p.date{color:#666;font-size:11px;font-weight:normal;margin:0;padding:0;}
+body div.callout_box div.blog h5,body div.callout_box div.upcoming h5{border-bottom:1px solid #ccc;color:#000;display:block;font-size:11px;margin-bottom:6px;}
+body div.callout_box div.blog h5.last,body div.callout_box div.upcoming h5.last{border:none;}
+body div.callout_box div.instructor p a{color:#d03523;display:block;margin-top:5px;text-decoration:none;}
+body div.callout_box div.instructor h5{color:#000;display:block;font-size:11px;margin-bottom:6px;}
+body div.callout_box div.instructor img{float:left;padding-bottom:10px;padding-right:10px;}
+body div.callout_box div.tags ul{list-style:none;margin:0;padding:0;}
+body div.callout_box div.tags ul li{display:inline;font-weight:bold;margin:0;}
+body div.callout_box div.tags ul li:after{content:", ";}
+body div.callout_box div.attachments p{clear:both;}
+body div.callout_box div.attachments img{float:left;margin:0;padding:0 7px 7px 0;}
+body div.callout_box div.assignments div.assignment{font-size:90%;margin:0;padding:0;}
+body div.callout_box div.assignments div.title{font-size:125%;}
+body div.callout_box div.topics div.date{font-size:90%;font-weight:normal;margin:0;padding:0;}
+body#courses div#courses_header{background:#353533;color:#fff;display:block;font-size:12px;margin:0;padding:5px;}
+body#courses div#courses_header h1{font-size: 14px; padding: 0; margin: 0;}
+body#courses div#courses_hero{background:#d03523;display:block;float:right;height:440px;margin:0;min-height:230px;overflow:hidden;padding:0;position:relative;width:280px;}
+body#courses div#courses_hero div#heading h3,body#courses div#courses_hero div#heading h3 a{color:#fff;font-size:14px;font-weight:bold;text-decoration:none;}
+body#courses div#courses_hero div#heading dl dd,body#courses div#courses_hero div#heading dl dd a{color:#fff;font-size:12px;font-weight:bold;text-decoration:none;}
+body#courses div#courses_hero p a {color:#fff;font-size:12px;font-weight:bold;text-decoration:none;}
+body#courses div#courses_hero p {color:#fff;font-size:12px;font-weight:normal;text-decoration:none; padding: 10px; margin: 0;}
+body#courses div#courses_hero div#courses_hero_selection {margin-top: 20px; border-top: 1px solid #fff; margin-left: 10px; margin-right: 10px; padding-top: 20px;}
+body#courses div#courses_hero div#courses_hero_selection h5 {font-size: 14px; color: #fff; margin: 0; padding: 0;}
+body#courses div#courses_hero div#courses_hero_selection p {margin: 0; padding: 0;}
+body#courses div.courses div.course{border-bottom:1px solid #ccc;overflow:auto;}
+body#courses div.courses div.course h3{font-size:14px;font-weight:bold;}
+body#courses div.courses div.course p a{background:url(/assets/internal-link-white.gif) no-repeat 1px;color:#d03523;font-weight:bold;padding-left:15px;text-decoration:none;}
+body#courses div.courses div.filters{border-bottom:1px solid #ccc;color:#333;font-size:12px;padding-bottom:5px;padding-top:4px;text-align:right;}
+body#courses div.courses div.course div.course_meta{background:#353533;color:#fff;}
+body#courses div.courses div.course div.course_meta p,body#courses div.courses div.course div.course_meta dl{font-size:11px;margin:0;padding:0;}
+body#courses div.courses div.course div.course_meta dl{padding:4px;}
+body#courses div.courses div.course div.course_meta dd,body#courses div.courses div.course div.course_meta dd a{color:#fff;font-weight:bold;text-decoration:none;}
+
+body#courses div.courses div.course div.course_meta_new p,body#courses div.courses div.course div.course_meta_new dl{font-size:11px;margin:0;padding:0;}
+body#courses div.courses div.course div.course_meta_new dl{padding:4px;}
+body#courses div.courses div.course div.course_meta_new dd,body#courses div.courses div.course div.course_meta_new dd a{color:#fff;font-weight:bold;text-decoration:none;}
+body#course dl.course_meta_new{font-size:11px;margin:0 0 20px;padding:10px;}
+body#course dl.course_meta_new dt{padding-right:5px;}
+body#course dl.course_meta_new dd{font-weight:bold;padding-bottom:10px; }
+
+ul.pagination{list-style:none;margin:20px 0 0;}
+ul.pagination li.current{background:#fff;border:1px solid #eee;color:#000;display:inline;margin:0 6px 0 0;padding:5px 10px;}
+ul.pagination li a{background:#eee;color:#d03523;padding:6px;text-decoration:none;}
+body#tag_cloud div.hTagcloud ul{line-height:40px;list-style:none;margin:0;padding:0;}
+body#tag_cloud div.hTagcloud ul li{display:inline;font-weight:normal;margin:0;}
+body#tag_cloud div.hTagcloud ul .popular{font-weight:bold;margin-right:10px;}
+body#tag_cloud div.hTagcloud ul .v-popular{font-size:18px;font-weight:bold;margin-right:10px;}
+body#tag_cloud div.hTagcloud ul .vv-popular{font-size:24px;font-weight:bold;margin-right:10px;}
+body#tag_cloud div.hTagcloud ul .vvv-popular{font-size:30px;font-weight:bold;margin-right:10px;}
+body#tag_cloud div.hTagcloud ul .vvvv-popular{font-size:36px;font-weight:bold;margin-right:10px;}
+body#instructors div.instructors div.instructor{float:left;margin-bottom:20px;margin-right:20px;overflow:hidden;width:145px;}
+body#instructors div.instructors div.instructor h5{background:#d03523;color:#fff;font-size:12px;margin:0;padding:3px;}
+body#instructors div.instructors div.instructor p{background:#353533;color:#fff;font-size:12px;margin:0;padding:3px;}
+body#course dl.course_meta{font-size:11px;margin:0 0 20px;padding:0;}
+body#course dl.course_meta dt{display:inline;padding-right:5px;}
+body#course dl.course_meta dd{display:inline;font-weight:bold;padding-right:20px;}
+body.student div.gallery{background:#eee;float:left;}
+body.student div.gallery ul{list-style:none;margin:0;padding:10px;}
+body.student div.gallery ul li{display:inline;float:left;margin:0 10px 10px 0;width:75px;}
+body.student div.gallery ul li span{display:block;font:8px;line-height:15px;margin-top:5px;}
+ul.scheduleditems{list-style:none;margin-left:0;}
+ul.scheduleditems li{clear:both;margin-left:0;}
+ul.scheduleditems li span.date{color:#999;display:block;float:left;font-weight:bold;margin-bottom:5px;width:150px;}
+.rounded{position:relative;}
+.rounded span,.rounded span p{background:none;position:relative;z-index:2;}
+.rounded .cnr{position:absolute;width:51%;z-index:1;}
+.rounded .tl{left:0;top:0;}
+.rounded .tr{background-position:right top;right:0;top:0;}
+.rounded .bl{background-position:left bottom;bottom:0;left:0;}
+.rounded .br{background-position:right bottom;bottom:0;right:0;}
+.topHeavy .tl,.topHeavy .tr,.bigBottom .bl,.bigBottom .br{height:71%;}
+.topHeavy .bl,.topHeavy .br,.bigBottom .tl,.bigBottom .tr{height:31%;}
+#comments ul li{list-style:none;list-style-type:none;margin:0;padding:0 0 0 110px;}
+#comments blockquote{float:left;font-size:100%;margin:-5px 0 0;padding:9px 22px 17px;position:relative;width:480px;}
+#comments blockquote .cnr{background-image:url(/assets/bgComment.gif);}
+div.forum_topics ul li{list-style:none;list-style-type:none;margin:0 0 10px;padding:0 0 10px;}
+div.forum_topics ul li div.forum_topic{padding-left:110px;}
+div.forum_topics ul li div.forum_topic blockquote{float:left;font-size:100%;margin:0;padding:0;position:relative;width:480px;}
+div.forum_topics ul li div.forum_topic blockquote span{font-size:110%;margin:0;padding:0;}
+div.forum_topics ul li div.forum_topic blockquote div.clear{line-height:5px;margin:0;padding:0;}
+body.student div.errorExplanation h2{font-size:15px;}
+#attachment_thumbnail_container ol#attachment_thumbnails li{float:left;list-style:none;list-style-type:none;margin:0 10px 10px 0;padding:0;}
+#attachment_thumbnail_container ol#attachment_thumbnails li div.photo_frame{background:url(/assets/w60xh60-bg.png) repeat-y;padding-left:8px;padding-right:9px;}
+#attachment_thumbnail_container ol#attachment_thumbnails li div.photo_frame_header{background:url(/assets/w60xh60-bg-top.png) no-repeat;height:8px;line-height:8px;margin:0;}
+#attachment_thumbnail_container ol#attachment_thumbnails li div.photo_frame_footer{background:url(/assets/w60xh60-bg-bot.png) no-repeat;height:8px;line-height:8px;margin:0;}
+#attachment_thumbnail_container ol#attachment_thumbnails li img.draggable{display:block;height:60px;margin-bottom:5px;overflow:hidden;width:60px;}
+#attachment_thumbnail_container ol#attachment_thumbnails li div.controls{clear:both;text-align:center;width:100%;}
+#attachment_thumbnail_container ol#attachment_thumbnails li div.controls img{padding:2px;}
+
+div.photo_frame {position: relative;}
+div.photo_frame span {position: absolute; left: -6px; top: 0; z-index: 2; text-align: center; background: #666; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+div.photo_frame span.yours {position: absolute; left: -6px; top: 24px; z-index: 2; text-align: center; background: #d03523; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+div.photo_frame span.ours {position: absolute; left: -6px; top: 24px; z-index: 2; text-align: center; background: green; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li{float:left;list-style:none;list-style-type:none;margin:0 10px 10px 0;padding:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame{background:url(/assets/w60xh60-bg.png) repeat-y;padding-left:8px;padding-right:9px;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame_header{background:url(/assets/w60xh60-bg-top.png) no-repeat;height:8px;line-height:8px;margin:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame_footer{background:url(/assets/w60xh60-bg-bot.png) no-repeat;height:8px;line-height:8px;margin:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li img.draggable{display:block;height:60px;margin-bottom:5px;overflow:hidden;width:60px;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.controls{clear:both;text-align:center;width:100%;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.controls img{padding:2px;}
+
+table.pretty{width:100%;}
+table.pretty th{padding:5px;text-align:left;}
+form.pretty{background:#eee;padding:8px;}
+form.pretty fieldset{margin-bottom:5px;}
+#scheduled_course_starts_on_1i{float:none;width:75px;}
+#scheduled_course_starts_on_2i{float:none;width:120px;}
+td.lesson_lozenge span{background:#4ba;color:#fff;display:block;padding:4px;text-align:center;width:70px;}
+td.assignment_lozenge span{background:#09b;color:#fff;display:block;padding:4px;text-align:center;width:70px;}
+body a,body div.callout_box div.blog h5 a,body div.callout_box div.upcoming h5 a,body div.callout_box div.instructor h5 a,body#courses div.courses div.course h3 a,body#courses div.courses div.filters a,body#blog h5 a{color:#d03523;text-decoration:none;}
+body div#navigation ul#navigation li a,body div#navigation ul#login li a{color:#fff;display:block;padding:2px 8px 2px 5px;text-decoration:none;}
+body div#navigation ul#navigation li:hover,body div#navigation ul#login li:hover{background:url(/assets/navigation-bg.gif) no-repeat 0 -20px;}
+
+body div#navigation ul#navigation li.nohover:hover{background:none;}
+
+body div#navigation ul#navigation li:hover a,body div#navigation ul#login li:hover a{background:url(/assets/navigation-bg.gif) no-repeat 100% -20px;}
+body div#navigation ul#navigation li.current,body div#navigation ul#login li.current{background:url(/assets/navigation-bg.gif) no-repeat 0 0;}
+body div#navigation ul#navigation li.current a,body div#navigation ul#login li.current a{background:url(/assets/navigation-bg.gif) no-repeat 100% 0;}
+body div#navigation ul#login ul,body#home div#home_hero div#heading dl,body div.callout_box div.assignments p,body div.callout_box div.topics p,body#courses div#courses_hero div#heading dl{margin:0;padding:0;}
+body div#secondary-navigation ul#secondary-navigation li,body div#secondary-navigation ul#account li{background:#444;color:#ccc;display:inline;float:left;font-size:10px;margin:0 1px 0 0;padding:8px 8px 4px;text-transform:uppercase;}
+body div#secondary-navigation ul#secondary-navigation li a,body div#secondary-navigation ul#account li a{color:#ccc;text-decoration:none;}
+body div#secondary-navigation ul#secondary-navigation li.current,body div#secondary-navigation ul#secondary-navigation li:hover,body div#secondary-navigation ul#account li.current,body div#secondary-navigation ul#account li:hover{background:#fff url(/assets/tab-bg.gif) repeat-x;color:#000;}
+body div#secondary-navigation ul#secondary-navigation li.current a,body div#secondary-navigation ul#secondary-navigation li:hover a,body div#secondary-navigation ul#secondary-navigation li a:hover,body div#secondary-navigation ul#account li.current a,body div#secondary-navigation ul#account li:hover a,body div#secondary-navigation ul#account li a:hover{background:#fff;color:#000;}
+body div#secondary-navigation ul#secondary-navigation li.gap,body div#secondary-navigation ul#account li.gap{margin-right:10px;}
+body span.strong,form.pretty legend{font-weight:bold;}
+body div.margin_bottom_10,#comments div.clear{margin-bottom:10px;}
+body div.margin_bottom_20,#comments,div.forum_topics{margin-bottom:20px;}
+body div.padding_5,table.pretty td{padding:5px;}
+.float_right,body#courses div.courses div.course h3 span.price,body#course h1 span{float:right;}
+body#package h4 span {float: right;}
+body#home div#home_hero img,body#courses div#courses_hero img{float:right;margin-bottom:8px;margin-left:10px;}
+body#home div#home_hero div#heading,body#courses div#courses_hero div#heading{background:#353533;color:#fff;min-height:104px;padding:8px;}
+body#home div#home_hero div#heading_shorter,body#courses div#courses_hero div#heading_shorter{background:#353533;color:#fff;min-height:70px;padding:8px;}
+body#home div#home_hero div#details,body#courses div#courses_hero div#details{color:#fff;padding:8px;}
+body#home div#home_hero div#details a,body#courses div#courses_hero div#details a{background:url(/assets/internal-link-red.gif) no-repeat 1px;color:#fff;font-weight:bold;padding-left:15px;text-decoration:none;}
+body#home div#home_hero div#more,body#courses div#courses_hero div#more{background:#353533;bottom:0;color:#fff;padding:8px;position:absolute;width:280px;}
+body#home div#home_hero div#more a,body#courses div#courses_hero div#more a{background:url(/assets/internal-link-grey.gif) no-repeat 1px;color:#fff;font-weight:bold;padding-left:15px;text-decoration:none;}
+body div.callout_box div.upcoming p.date,body#blog p.date{color:#666;font-size:11px;margin:0;}
+body div.callout_box div.tags li a,body#tag_cloud div.hTagcloud li a{color:#d03523;margin-top:5px;text-decoration:none;}
+body div.callout_box div.tags ul li:last-child:after,body#tag_cloud div.hTagcloud ul li:last-child:after{content:"";}
+body div.callout_box div.assignments div.date,body div.callout_box div.topics div{font-size:90%;font-weight:bold;}
+body#courses div#courses_image,body#instructors div#instructors_image,body#instructor div#instructor_image,body#course div#course_image{display:block;float:left;height:440px;margin:0;padding:0;width:660px;}
+ul.pagination li,ul.pagination li.disabled{background:#eee;color:#999;display:inline;margin:0 6px 0 0;padding:6px;}
+body#instructors div#instructors_title,body#instructor div#instructor_title,body#course div#course_title{display:block;float:left;height:440px;margin:0;padding:0;width:40px;}
+body#instructors div#instructors_photo,body#instructor div#instructor_photo,body#course div#course_photo{display:block;float:left;height:440px;margin:0;padding:0;width:240px; background:#353533;}
+body div#instructors_photo, body div#instructors_photo a,
+body div#instructor_photo, body div#instructor_photo a {background: #454543; color: #fff;}
+body div#course_photo, body div#course_photo a {background: #454543; color: #fff;}
+body#instructors div.instructors div.instructor h5 a,body#instructors div.instructors div.instructor p a{color:#fff;text-decoration:none;}
+body#instructors div.instructors div.last,body#instructor div.gallery ul li.last,body.instructor div.gallery ul li.last,body#course div.gallery ul li.last,body.student div.gallery ul li.last{margin-bottom:0;margin-right:0;}
+body#instructor div.gallery,body.instructor div.gallery,body#course div.gallery{background:#eee;overflow:auto;padding:10px;}
+body#instructor div.gallery h5,body.instructor div.gallery h5,body#course div.gallery h5{font-size:12px;margin-bottom:0;}
+body#instructor div.gallery h5 span,body.instructor div.gallery h5 span,body#course div.gallery h5 span{float:right;font-size:10px;}
+body#instructor div.gallery ul,body.instructor div.gallery ul,body#course div.gallery ul{list-style:none;margin:0;padding:0;}
+body#instructor div.gallery ul li,body.instructor div.gallery ul li,body#course div.gallery ul li{display:inline;float:left;height:53px;margin:10px 10px 0 0;padding:0;width:53px;}
+body#instructor div.gallery ul li img,body.instructor div.gallery ul li img,body#course div.gallery ul li img,body.student div.gallery ul li img{margin:0;padding:0;}
+
+body#workshops div#workshops_image{display:block;float:left;height:440px;margin:0;padding:0;width:660px;}
+body#workshops div#workshops_photo{display:block;float:left;height:440px;margin:0;padding:0;width:240px; background:#353533;}
+body div#workshops_photo, body div#workshops_photo a {background: #454543; color: #fff;}
+
+body#workshops div.instructors div.instructor{float:left;margin-bottom:20px;margin-right:20px;overflow:hidden;width:145px;}
+body#workshops div.instructors div.instructor h5{background:#d03523;color:#fff;font-size:12px;margin:0;padding:3px;}
+body#workshops div.instructors div.instructor p{background:#353533;color:#fff;font-size:12px;margin:0;padding:3px;}
+
+body#workshops div.instructors div.instructor h5 a,body#instructors div.instructors div.instructor p a{color:#fff;text-decoration:none;}
+body#workshops div.instructors div.last,body#instructor div.gallery ul li.last,body.instructor div.gallery ul li.last,body#course div.gallery ul li.last,body.student div.gallery ul li.last{margin-bottom:0;margin-right:0;}
+body#workshops div#instructors_title,body#instructor div#instructor_title,body#course div#course_title{display:block;float:left;height:440px;margin:0;padding:0;width:40px;}
+body#workshops div#instructors_photo,body#instructor div#instructor_photo,body#course div#course_photo{display:block;float:left;height:440px;margin:0;padding:0;width:240px; background:#353533;}
+
+body#workshops div.course_meta_new p,
+body#workshops div.course_meta_new dl{font-size:11px;margin:0;padding:0;}
+body#workshops div.course_meta_new dl{padding:4px;}
+body#workshops div.course_meta_new dd,
+body#workshops div.course_meta_new dd a{color:#fff;font-weight:bold;text-decoration:none;}
+body#workshops dl.course_meta_new{font-size:11px;margin:0 0 20px;padding:10px;}
+body#workshops dl.course_meta_new dt{padding-right:5px;}
+body#workshops dl.course_meta_new dd{font-weight:bold;padding-bottom:10px; }
+body#workshops dl.course_meta_new dd p {margin-bottom: 6px; padding:0;}
+
+body#instructors div.course_meta_new p,
+body#instructors div.course_meta_new dl{font-size:11px;margin:0;padding:0;}
+body#instructors div.course_meta_new dl{padding:4px;}
+body#instructors div.course_meta_new dd,
+body#instructors div.course_meta_new dd a{color:#fff;font-weight:bold;text-decoration:none;}
+body#instructors dl.course_meta_new{font-size:11px;margin:0 0 20px;padding:10px;}
+body#instructors dl.course_meta_new dt{padding-right:5px;}
+body#instructors dl.course_meta_new dd{font-weight:bold;padding-bottom:10px; }
+body#instructors dl.course_meta_new dd p {margin-bottom: 6px; padding:0;}
+
+body#instructor div.course_meta_new p,
+body#instructor div.course_meta_new dl{font-size:11px;margin:0;padding:0;}
+body#instructor div.course_meta_new dl{padding:4px;}
+body#instructor div.course_meta_new dd,
+body#instructor div.course_meta_new dd a{color:#fff;font-weight:bold;text-decoration:none;}
+body#instructor dl.course_meta_new{font-size:11px;margin:0 0 20px;padding:10px;}
+body#instructor dl.course_meta_new dt{padding-right:5px;}
+body#instructor dl.course_meta_new dd{font-weight:bold;padding-bottom:10px; }
+body#instructor dl.course_meta_new dd p {margin-bottom: 6px; padding:0;}
+
+#comments ul,div.forum_topics ul,#attachment_thumbnail_container ol#attachment_thumbnails, .rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails{list-style:none;list-style-type:none;margin:0;padding:0;}
+#comments cite,div.forum_topics ul li div.forum_topic cite{color:#999;float:left;font-size:90%;font-style:normal;font-weight:bold;margin-left:-110px;width:100px;}
+#comments cite span.instructor,div.forum_topics ul li div.forum_topic cite span.instructor{background:#999;color:#fff;font-size:80%;font-weight:normal;padding:3px;}
+#comments cite span.date,div.forum_topics ul li div.forum_topic cite span.date{color:#999;font-size:80%;font-weight:normal;}
+div.forum_topics ul li div.forum_topic div.clear,table.pretty tr{border-bottom:1px solid #eee;}
+#scheduled_course_starts_on_3i,#scheduled_course_starts_on_4i,#scheduled_course_starts_on_5i{float:none;width:50px;}
+td.lesson_lozenge,td.assignment_lozenge{font-size:9px;text-transform:uppercase;vertical-align:middle;}
+
+.flash,.user_notifications li{background:no-repeat 10px 10px;color:#fff;margin-bottom:10px;padding:9px 15px 9px 30px;position:relative;}
+.notice,.complete li{background-color:#87c873;background-image:url(/assets/icons/accept.png) no-repeat;font-weight:700; text-align: center;}
+.error,.created li{background-color:#ff5d51;background-image:url(/assets/icons/delete.png) no-repeat;}
+
+body#packages div#packages_hero{background:#d03523;display:block;float:right;height:440px;margin:0;min-height:230px;overflow:hidden;padding:0;position:relative;width:280px;}
+body#packages div#packages_hero div#heading h3,body#packages div#packages_hero div#heading h3 a{color:#fff;font-size:14px;font-weight:bold;text-decoration:none;}
+body#packages div#packages_hero div#heading dl dd,body#packages div#packages_hero div#heading dl dd a{color:#fff;font-size:12px;font-weight:bold;text-decoration:none;}
+body#packages div.packages div.package{border-bottom:1px solid #ccc;overflow:auto;}
+body#packages div.packages div.package h3{font-size:14px;font-weight:bold;}
+body#packages div.packages div.package p a{background:url(/assets/internal-link-white.gif) no-repeat 1px;color:#d03523;font-weight:bold;padding-left:15px;text-decoration:none;}
+body#packages div.packages div.filters{border-bottom:1px solid #ccc;color:#333;font-size:12px;padding-bottom:5px;padding-top:4px;text-align:right;}
+body#packages div.packages div.package div.package_meta{background:#353533;color:#fff;}
+body#packages div.packages div.package div.package_meta p,body#packages div.packages div.package div.package_meta dl{font-size:11px;margin:0;padding:0;}
+body#packages div.packages div.package div.package_meta dl{padding:4px;}
+body#packages div.packages div.package div.package_meta dd,body#packages div.packages div.package div.package_meta dd a{color:#fff;font-weight:bold;text-decoration:none;}
+
+body#packages div.packages div.package div.package_meta_new p,body#packages div.packages div.package div.package_meta_new dl{font-size:11px;margin:0;padding:0;}
+body#packages div.packages div.package div.package_meta_new dl{padding:4px;}
+body#packages div.packages div.package div.package_meta_new dd,body#packages div.packages div.package div.package_meta_new dd a{color:#fff;font-weight:bold;text-decoration:none;}
+body#package dl.package_meta_new{font-size:11px;margin:0 0 20px;padding:10px;}
+body#package dl.package_meta_new dt{padding-right:5px;}
+body#package dl.package_meta_new dd{font-weight:bold;padding-bottom:10px; }
+
+body a,body div.callout_box div.blog h5 a,body div.callout_box div.upcoming h5 a,body div.callout_box div.instructor h5 a,body#packages div.packages div.package h3 a,body#packages div.packages div.filters a,body#blog h5 a{color:#d03523;text-decoration:none;}
+body div#navigation ul#login ul,body#home div#home_hero div#heading dl,body div.callout_box div.assignments p,body div.callout_box div.topics p,body#packages div#packages_hero div#heading dl{margin:0;padding:0;}
+.float_right,body#packages div.packages div.package h3 span.price,body#package h1 span{float:right;}
+body#home div#home_hero img,body#packages div#packages_hero img{float:right;margin-bottom:8px;margin-left:10px;}
+body#home div#home_hero div#heading,body#packages div#packages_hero div#heading{background:#353533;color:#fff;min-height:104px;padding:8px;}
+body#home div#home_hero div#details,body#packages div#packages_hero div#details{color:#fff;padding:8px;}
+body#home div#home_hero div#details a,body#packages div#packages_hero div#details a{background:url(/assets/internal-link-red.gif) no-repeat 1px;color:#fff;font-weight:bold;padding-left:15px;text-decoration:none;}
+body#home div#home_hero div#more,body#packages div#packages_hero div#more{background:#353533;bottom:0;color:#fff;padding:8px;position:absolute;width:280px;}
+body#home div#home_hero div#more a,body#packages div#packages_hero div#more a{background:url(/assets/internal-link-grey.gif) no-repeat 1px;color:#fff;font-weight:bold;padding-left:15px;text-decoration:none;}
+body#packages div#packages_image,body#instructors div#instructors_image,body#instructor div#instructor_image,body#package div#package_image{display:block;float:left;height:440px;margin:0;padding:0;width:660px;}
+body#workshops div#instructors_image {display:block;float:left;height:440px;margin:0;padding:0;width:660px;}
+
+p#white_intro {color: #fff; padding: 10px; margin-bottom: 0;}
+p#white_intro a {color: #fff; text-decoration: underline; padding: 10px;}
+div#home_hero ul {color: #fff; list-style: none; line-height: 30px; padding: 0;}
+div#home_hero li {padding-left: 25px; background-image: url(/assets/tick-box.png); background-repeat: no-repeat; background-position: 0 5px; margin-left: 10px; margin-right: 10px;}
+body#about h2 {font-size: 12pt;}
+
+body#home h2 {
+  font-size: 12pt;
+}
+
+.attachment_thumbnail_container ol.attachment_thumbnails li{float:left;list-style:none;list-style-type:none;margin:0 10px 10px 0;padding:0;}
+.photo_frame {position: relative;}
+.photo_frame span {position: absolute; left: -6px; top: 0; z-index: 2; text-align: center; background: #666; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+.photo_frame span.yours {position: absolute; left: -6px; top: 24px; z-index: 2; text-align: center; background: #d03523; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+
+#workshops_meta { background: #353533; display: block; float: left; height: 440px; width: 280px;}
+#workshops_meta h6, #workshops_meta dl, #workshops_meta p { padding-left: 10px; padding-right: 10px; color: #fff; }
+#workshops_meta h6 {padding-top: 10px;}
+#workshops_meta a { color: #fff; text-decoration: underline; }
+#workshops_meta dl dt {font-weight: bold;}
+
+dl.in_lesson dt, dl.in_lesson dd { text-align: center; }
+
+img.whats_new_image {float: left; margin-right: 5px; margin-bottom: 5px;}
+
+
+/* Dropdown-css */
+ul#navigation li:hover .show_dropdown{display:block;}
+.show_dropdown {background-color: #1d1d1b; display: none; left: -9px; list-style: outside none none; padding: 0; position: absolute; padding: 21px 10px 10px 10px; z-index: 500;}
+.show_dropdown li{border-right:none !important; line-height:10px;margin-bottom:10px;}
+.show_dropdown li:last-child{margin-bottom:0;}
+.show_dropdown li a{color:#fff;font-size:10px;font-family:Montserrat, sans-serif; text-transform: uppercase;}
+
+
+.text-center{ text-align: center;}
+.line-h-50{ line-height: 3em;}
+.auto_Scroll{max-height: 185px; overflow-y: auto;}

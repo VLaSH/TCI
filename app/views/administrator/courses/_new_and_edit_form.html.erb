@@ -1,0 +1,43 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(course, :url => polymorphic_path([ :administrator, course ]), :html => { :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Course Details") do %>
+      <%= error_messages(@course) %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 99%;") %>
+      <%= f.course_type_select(:course_type_id, :label => "Course Type") %>
+      <%= f.text_field(:page_title, :size => '30', :label => "Page Title", :required => false, :style => "width: 99%;") %>
+      <%= f.text_field(:meta_description, :size => '30', :label => "Meta Description", :style => "width: 99%;") %>
+      <%= f.text_field(:meta_keywords, :size => '30', :label => "Meta Keywords",:style => "width: 99%;") %>
+      <%= f.select :duration, options_for_select([["2 days","2"],["7 days","7"],["10 days","10"], ["60 days","60"], ["90 days","90"]], course.duration), :prompt => 'Select', :label => 'Duration', :required => true %>
+      <%= f.boolean_select(:available, :label => 'Available', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:hidden, :label => 'Hidden', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:portfolio_review, :label => 'Portfolio Review', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:hide_dates, :label => 'Hide Dates', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:instant_access, :label => 'Instant Access', :required => true, :include_blank => false) %>
+      <%= f.text_area(:summary, :size => '60x3', :class => 'widgEditor', :label => "Summary", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_area(:description, :size => '60x5', :class => 'widgEditor', :label => "Description", :required => true, :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_field(:price, :size => 5, :label => "Price (€)", :required => true, :style => "width: 75px;") -%>
+      <%#= f.text_field(:tag_list, :size => '30', :label => "Tags (space separated)", :style => "width: 99%;") %>
+      <%= f.file_field(:photo, :label => "Photo") -%>
+
+      <%= f.text_field(:vimeo_video_id, :size => '30', :label => "Vimeo Video ID", :style => "width: 99%;") %>
+      <%= f.text_field(:youtube_video_id, :size => '30', :label => "Youtube Video ID", :style => "width: 99%;") %>
+      <%= f.boolean_select(:category_1, :label => 'Beginner', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:category_2, :label => 'Intermediate', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:category_5, :label => 'Advance', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:category_3, :label => 'Portfolio Reviews', :required => true, :include_blank => false) %>
+      <%= f.boolean_select(:category_4, :label => 'One-on-One Mentorship', :required => true, :include_blank => false) %>
+
+      <%- if course.photo? && !course.photo.dirty? -%>
+        <%= f.check_box(:delete_photo, :label => "Delete photo") %>
+        <%= image_tag(course_photo_path(:id => course.id, :style => :medium), :alt => 'Photo', :title => 'Current photo', :style => "padding: 10px;") %>
+      <%- end -%>
+    <% end %>
+    <span id="spanButtonPlaceholder"></span>
+
+    <% f.fieldset(:type => "block", :legend => "Instructors") do %>
+      <%= f.course_instructor_select(:instructor_ids, { :label => "Instructors", :hint => "Select one or more instructors" }, { :size => 5 }) %>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (course.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<%= form_for(critique, :url => path) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%= error_messages_for(:critique, :object => critique) %>
+  <fieldset>
+    <div>
+      <%= f.label(:comment) -%>
+      <%= f.text_area(:comment, :size => '60x5', :class => 'widgEditor') -%>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit(critique.new_record? ? 'Create' : 'Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

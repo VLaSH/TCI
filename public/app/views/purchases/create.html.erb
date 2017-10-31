@@ -1,0 +1,44 @@
+<div class="container content_bg">
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <% content_for :head do %>
+        <%= javascript_include_tag('purchase') %>
+      <% end %>
+      <% payment_service_for(@purchase.id,
+                            @purchase.gateway_settings.account,
+                            :amount => @purchase.price.to_s,
+                            :currency => @purchase.price_currency,
+                            :service => @purchase.gateway.underscore.to_sym,
+                            :html => { :id => 'purchase_form' }) do |service|
+
+        service.customer(:first_name => @purchase.student.given_name,
+                         :last_name => @purchase.student.family_name,
+                         :email => @purchase.student.email,
+                         :phone => @purchase.student.phone_voice)
+
+        service.shipping_address(:address1 => @purchase.student.address_street.to_s.squeeze("\n ").gsub("\n", ', '),
+                                 :city => @purchase.student.address_locality,
+                                 :state => @purchase.student.address_region,
+                                 :zip => @purchase.student.address_postal_code,
+                                 :country => @purchase.student.address_country)
+
+        service.item_name("TheCompellingImage - #{@purchase.course.title}")
+        service.tax('0.00')
+
+        service.notify_url(purchase_notifications_url(:gateway => @purchase.gateway.underscore))
+        service.return_url(purchase_completions_url(:gateway => @purchase.gateway.underscore))
+        service.cancel_return_url(student_root_url) %>
+
+        <%= hidden_field_tag('lc', 'US') if @purchase.gateway == 'Paypal' -%>
+        <%= hidden_field_tag('rm', '1') if @purchase.gateway == 'Paypal' -%>
+        <%= hidden_field_tag('desc', @purchase.course.title) -%>
+        <fieldset style='border: none;'>
+          <p class="hint">You are now being redirected to the secure transaction environment to complete your purchase.</p>
+          <p class="hint">Remember to check your personal details are correct on the payment page</p>
+          <p>If you are not redirected within 5 seconds, click the enroll now button.</p>
+          <%= submit_tag('Enroll now', :id => nil, :name => nil, class: 'btn') %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

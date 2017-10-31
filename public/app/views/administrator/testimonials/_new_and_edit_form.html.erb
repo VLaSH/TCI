@@ -1,0 +1,12 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(@testimonial, :url => polymorphic_path([ :administrator, testimonial ]), :html => { :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Testimonial Details") do %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 99%;") %>
+      <%= f.text_area(:content, :size => '60x3', :class => 'widgEditor', :label => "Content", :style => "width: 99%; height: 300px;") -%>
+      <%= f.file_field :logo, :label => "Logo" %>
+    <% end %>
+
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (testimonial.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

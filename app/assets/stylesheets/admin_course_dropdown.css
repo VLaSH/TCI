@@ -1,0 +1,21 @@
+
+body div#navigation ul#navigation li{position:relative;}
+body div#navigation ul#navigation li:hover .drop-menu{display:block;}
+body div#navigation ul#navigation li ul.drop-menu{background:#666666; display: none; position: absolute; z-index: 99; top: 97%;  left: 0;}
+body div#navigation ul#navigation li ul.drop-menu li{margin:0;padding:0; display: block;  width: 100%; background: none;}
+body div#navigation ul#navigation li ul.drop-menu li a{padding:5px;}
+body div#navigation ul#navigation li:hover li a{background:none;}
+body div#navigation ul#navigation li ul.drop-menu li:hover a{color:#000; background-image:none;}
+
+.remove_bullet{
+  list-style-type: none;
+}
+.image_button{
+  margin-top: 10px;
+}
+.remove_bullet li {float: left;}
+.remove_bullet li > img {
+  display: inline-block;
+  height: 50px;
+  width: 100px;
+}

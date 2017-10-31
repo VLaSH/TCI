@@ -1,0 +1,63 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'instructors' }
+    page.primary_navigation_section = :mentorship
+    page.title.unshift('Mentorship')
+  end
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="The Compelling Image Mentorship Program" />
+  <meta name="description" content="Take an online course in photography or video production with The Compelling Image. Our industry established experts take you from strength to strength." />
+<% end %>
+
+<div class="grid_11 instructors">
+  <img src="/images/mentorship.jpg">
+  <h1>The TCI Mentorship Program</h1>
+  <h2>What is a Mentor?</h2>
+  <p>Someone who champions your work and possesses the experience, expertise and empathy to guide you in a supportive and confident manner.  A mentor is a working professional who has “been down that road” and is willing to lend one-on-one assistance to move you toward your desired goal, as a photographer, videographer or multimedia storyteller.</p>
+  <h2>Who is a TCI Mentorship meant for?</h2>
+  <p>TCI’s Mentorship Program is designed for keen amateurs and aspiring professionals who are passionate about their image-making and want to hone their craft and expand their vision.  Whether the aim is publication, preparation for an exhibition, establishing that long-dreamed-of career or building a stronger, more impressive portfolio of work, mentorship can be an invaluable experience.</p>
+  <h2>What can I expect to gain from mentorship?</h2>
+  <p>Under the watchful guidance of a TCI mentor, you can anticipate much quicker progress in your development - shorter time in reaching your goals.  Expect confidence-building too, for along with progressive success comes the awareness of one’s own talent and the ability to apply it creativity on a consistent basis.</p>
+  <h2>How does the program work?</h2>
+  <p>Choose a 1-, 3- or 6-month program of enrollment and select a participating TCI mentor of your choice.  From here you will be assigned a mentorship webpage, through which all one-on-one interaction with your mentor will take place.</p>
+  <p>The first step in your program will be to provide background information on yourself as an image-maker, along with a description of the goal or associated goals you wish to reach in the course of your tuition.</p>
+  <p>Following this, you and your mentor will agree on a time to discuss your aims via a Skype consultation (approximately 30 minutes in length).  With this information, a mentorship “path” will be established to include goal-oriented lessons and assignments, tailored to move you productively in the direction you want to go.  In the course of a month, a second Skype consultation will take place to assess progress made and fine-tune your program for the remainder of your tuition.</p>
+  <p><strong>Note:</strong> While your mentor will be available to guide and encourage your development with respect to your stated goal(s), it must be appreciated that each TCI mentor is also a working professional, with his or her own professional responsibilities. Therefore, all mentorship interaction should be treated with respect in terms of time commitment and privacy, as well as approached with a degree of flexibility.</p>
+  <h2>How do I decide which instructor to select as my mentor?</h2>
+  <p>The TCI mentor - student relationship is an important one.  For it to be maximally productive, the “match” must be comfortable and dynamic.  Consider the area of image-making you are interested in - photography, video production or multi-media.  Read the profiles of participating instructors, working in those areas.  Go to their personal websites and look through their work.  When you feel you’ve found the TCI mentor that best fits your direction and needs, enroll on the length of program that suits you and indicate the mentor you would like to work with.</p>
+  <h2>Can I change mentors if I want?</h2>
+  <p>Yes.  If you find that your first mentorship choice is not exactly what you’re looking for, you may select another mentor.  Simply place your request for change at <a href="mailto:support@thecompellingimage.com">support@thecompellingimage.com</a> before the start of your second week of tuition.</p>
+  <h2>What if I want to stop my mentorship program completely?</h2>
+  <p>Not a problem.  As long as your termination request is filed at <a href="mailto:support@thecompellingimage.com">support@thecompellingimage.com</a> before the start of your program’s second week, you will receive your tuition immediately and in full.</p>
+  <h2>Questions</h2>
+  <p>Contact us at <a href="mailto:support@thecompellingimage.com">support@thecompellingimage.com</a> or schedule Skype time to discuss your needs further.</p>
+  <% unless User.mentors.visible.empty? %>
+    <h2>The TCI Mentors</h2>
+    <% User.mentors.visible.alpha.each_with_index do |instructor, i| %>
+      <div class="instructor<%= " last" if (i+1) % 4 == 0 -%>"><h5><%= link_to(instructor.full_name, instructor_path(instructor)) -%></h5><%= link_to(image_tag(user_photo_path(:id => instructor.id, :style => :w145xh145), :width => 145, :height => 145, :alt => "Picture of #{instructor.full_name}"), instructor_path(instructor)) -%><p><%= link_to("Read profile..", instructor_path(instructor)) -%></p></div>
+    <% end %>
+    <br clear="both" />
+    <h2>Get Started Now!</h2>
+    <p>To sign-up for the mentorship simply select your mentor from the list below and select the length of mentorship you would like to sign up for.</p>
+    <p>A one month mentorship costs <strong>$269</strong>, three months <strong>$649</strong> and six months just <strong>$1279</strong>
+    <%= form_tag('/simple_signups', :method => :post, :id => "signup_form") do %>
+      <input type="hidden" name="signup_type" value="mentorship" />
+
+      <label>Mentor</label>
+      <%= select_tag(:mentor, options_for_select(User.mentors.visible.alpha.map(&:full_name).insert(0,"-- select mentor --"))) %>
+
+      <label>Duration</label>
+      <%= select_tag(:duration, options_for_select([ "-- select duration --", "1 month", "3 months", "6 months" ])) %>
+
+      <input type="submit" value="Sign up!"/>
+    <% end %>
+  <% end %>
+</div>
+<div class="grid_5">
+  <%= render(:partial => "common/mentorship", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "common/promo", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

@@ -1,0 +1,15 @@
+<%= render(:partial => 'attachments/delete_form', :locals => { :attachment => @attachment, :destroy_path => student_attachment_path(@attachment), :redirect => @redirect.nil? ? local_assigns[:redirect] ? redirect : nil : @redirect }) -%>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script>
+	jQuery(function($){	
+		$(".lightview").each(function( i,j ) {
+			str = $(this).attr('href');
+			if (str.toLowerCase().indexOf("https://player.vimeo.com") >= 0){
+				var filename = $(this).find('img').attr('src').replace( /^.*?([^\/]+)\..+?$/, '$1' );
+				$(this).find('img').attr('src','/images/'+filename+'.png');
+			}
+		});
+	})
+</script>

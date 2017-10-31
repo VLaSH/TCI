@@ -1,0 +1,25 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(lesson, :url => path, :html => { :multipart => true }) do |f| %>
+    <%= error_messages(@lesson) %>
+    <% f.fieldset(:type => "block", :legend => "Lesson Details") do %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 99%;") %>
+      <%= f.text_area(:description, :size => '60x5', :class => 'widgEditor', :label => "Description", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_field(:position, :size => 5, :label => "Position", :required => true, :style => "width: 75px;") -%>
+      <%= f.file_field(:vimeo_asset, :label => "Video Upload") -%>
+      <%- if lesson.vimeo_asset? && (lesson.delete_vimeo ==0) -%>
+        <%= f.check_box(:delete_vimeo, :label => "Delete Vimeo") %>
+        <%#=  Lesson.get_thumbnail(lesson.vimeo_asset) %>
+        <%= image_tag(Lesson.get_thumbnail(lesson.vimeo_asset), alt:  'Video', title:  'Current video',  style:  "padding: 10px;") %>
+      <%- end -%>
+  
+      <%= f.file_field(:photo, :label => "Photo") -%>
+      <%- if lesson.photo? && !lesson.photo.dirty? -%>
+        <%= f.check_box(:delete_photo, :label => "Delete photo") %>
+        <%#= image_tag(lesson_photo_path(:id => lesson.id, :style => :medium), :alt => 'Photo', :title => 'Current photo', :style => "padding: 10px;") %>
+        <%= image_tag(lesson.photo_s3_url(:medium), alt:  'Photo', title:  'Current photo',  style:  "padding: 10px;") %>
+      <%- end -%>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (lesson.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+User-agent: *
+Disallow:
+Disallow: /cgi-bin/
+Disallow: /courses?cat=2&page=2
+Disallow: /courses?page=2
+Disallow: /partners
+Disallow: /6-test-pacakage
+Disallow: /photography?page=2
+Disallow: /courses?cat=&course_type=photography
+Disallow: /courses?cat=1&course_type=photography
+Disallow: /courses?cat=&course_type=photography
+Disallow: /courses?cat=1&course_type=photography
+Disallow: /courses?cat=2&course_type=photography
+Disallow: /courses?cat=5&course_type=photography
+Disallow: /courses?cat=3&course_type=photography
+Disallow: /courses?cat=4&course_type=photography
+Disallow: /courses?cat=3&instructor=77
+Disallow: /courses?cat=&instructor=95
+Disallow: /courses?cat=2&instructor=95
+Disallow: /courses?cat=5&instructor=95
+Disallow: /courses?cat=3&instructor=95
+Disallow: /courses?cat=4&instructor=95
+Disallow: /courses?cat=&instructor=52
+Disallow: /courses?cat=1&instructor=52
+Disallow: /courses?cat=2&instructor=52
+Disallow: /courses?cat=5&instructor=52
+Disallow: /courses?cat=3&instructor=52
+Disallow: /courses?cat=4&instructor=52
+Disallow: /courses?cat=
+Disallow: /courses?cat=5
+Disallow: /courses?cat=4
+Disallow: /courses?instructor=52
+Disallow: /courses?cat=1
+Disallow: /courses?cat=2&instructor=67
+Disallow: /courses?cat=2
+
+sitemap: https://www.thecompellingimage.com/sitemap.xml

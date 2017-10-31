@@ -1,0 +1,23 @@
+form{margin:0 0 15px;}
+td form{margin:0;}
+form *{vertical-align:middle;}
+fieldset{border:0;padding:5px;}
+legend{color:#000;}
+.smalltext input[type="text"]{width:100px;}
+label{display:block;margin:0 0 3px;padding:0 5px 0 0;}
+input,textarea{margin:0 0 10px;}
+input[type=text],input[type=password],textarea{padding:2px;width:300px;}
+#content_secondary input[type=text],#content_secondary input[type=password],#content_secondary textarea{width:220px;}
+textarea{border:1px solid #dadada;display:block;height:5em;}
+select{margin:0 0 10px;padding:2px;width:208px;}
+option{display:block!important;}
+input[type=radio],input[type=checkbox]{margin-bottom:5px;}
+.buttons{margin:10px 0 0;}
+.buttons *{line-height:1;margin-bottom:0;vertical-align:middle;}
+.buttons .submit{margin-right:10px;}
+#filter *{display:inline;margin-bottom:0;vertical-align:middle;}
+#filter .more{margin-left:30px;}
+#errorExplanation{border:solid #e4e4e4;border-width:0 1px 1px;color:#333;margin:0 0 20px;padding:0 10px;width:540px;}
+#errorExplanation h2{background:#ff5d51 url(/assets/icon_error.png) no-repeat 10px 10px;border:0;color:#fff;margin:0 -11px 5px;padding:9px 30px 7px;text-transform:none;}
+#errorExplanation p{margin:0 0 5px;}
+#errorExplanation li{background-image:url(/assets/bg_li_error.png);font-weight:bold;}

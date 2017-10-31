@@ -1,0 +1,11 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h2> <b> Add Review for <%= @review.course.title%> </b></h2>
+  <%= uni_form_for([:student, @course,  @review]) do |f| %>
+    <% f.fieldset(:type => "block") do %>
+      <%= hidden_field_tag 'course_id', @review.course_id%>
+      <%= f.text_area(:content, :size => '60x5', :class => 'widgEditor', :label => "Review", :style => "width: 99%; height: 200px;") -%>
+      <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (@review.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

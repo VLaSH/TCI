@@ -1,0 +1,2 @@
+class PortfolioGridSection < BannerImage
+end

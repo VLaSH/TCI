@@ -1,0 +1,39 @@
+.prototip{color:#000;font:11px Arial, Helvetica, sans-serif;overflow:hidden;position:absolute;}
+.prototip .hint{background:#fff6aa;color:#313120;width:250px;}
+.prototip .hint .toolbar{background:#fdf1a0;font-weight:bold;}
+.prototip .protoblue .toolbar{background:#0d7cd0;font-weight:bold;}
+.prototip .protoblue .content{background:#1e90ff;padding:5px;}
+.prototip .creamy{color:#bb9c61;width:250px;}
+.prototip .creamy .toolbar{background:#f3edc2;font-weight:bold;}
+.prototip .creamy .content{background:#f8f4ca;padding:5px;}
+.prototip .darkgrey .toolbar{background:#5f5f5f;font-weight:bold;}
+.prototip .darkgrey .content{background:gray;padding:5px;}
+.prototip .protogrey{background:#fff;color:#fff;width:250px;}
+.prototip .protogrey .toolbar{background:#969c92;font-weight:bold;}
+.prototip .protogrey .content{color:gray;padding:5px;}
+.prototip .protogrey .toolbar .close{height:14px;width:14px;}
+.prototipLoader{border:1px solid #ddd;height:14px;left:-1000px;overflow:hidden;position:absolute;top:-1000px;width:14px;}
+.prototip .tooltip,.prototip .toolbar,.prototip .toolbar .title{position:relative;}
+.prototip .content{clear:both;}
+.prototip .toolbar .close{border:0;cursor:pointer;display:block;float:right;font-size:0;height:15px;line-height:0;position:relative;text-decoration:none;width:19px;}
+.prototip .tooltip{clear:both;float:left;}
+.prototip .borderLeftWrapper,.prototip .borderRightWrapper{height:20px;left:0;position:absolute;top:0;width:300px;}
+.prototip .borderFrame{float:left;height:100%;margin:0;padding:0;position:relative;width:100%;}
+.prototip .borderTop,.prototip .borderBottom{overflow:hidden;}
+.prototip .borderRow{clear:both;float:left;list-style-type:none;margin:0;padding:0;position:relative;width:100%;}
+.prototip_CornerWrapper{clear:both;height:100%;left:0;margin:0;padding:0;position:absolute;top:0;width:100%;}
+.prototip_CornerTr,.prototip_CornerBr{float:right;}
+.prototip_BetweenCorners{clear:both;left:0;overflow:hidden;position:absolute;top:0;width:100%;}
+.prototip .borderCenter{float:left;height:100%;position:relative;}
+.prototip_StemWrapper{clear:both;height:auto;position:relative;width:100%;}
+.prototip_Stem{overflow:hidden;position:absolute;width:100%;}
+.iframeShim{background:none;border:0;margin:0;overflow:hidden;padding:0;position:absolute;}
+.prototip .clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+.prototip .clearfix{display:block;}
+.prototip .default,.prototip .basic{color:gray;width:250px;}
+.prototip .default .toolbar,.prototip .basic .toolbar{background:#f1f1f1;font-weight:bold;}
+.prototip .default .title,.prototip .basic .title,.prototip .hint .title,.prototip .hint .content,.prototip .protoblue .title,.prototip .creamy .title,.prototip .darkgrey .title,.prototip .protogrey .title{padding:5px;}
+.prototip .default .content,.prototip .basic .content{background:#fff;padding:5px;}
+.prototip .protoblue,.prototip .darkgrey{color:#fff;width:250px;}
+.prototip_Corner,.prototip_StemBox{float:left;position:relative;}
+.prototip canvas,.prototip .borderMiddle{float:left;position:relative;}

@@ -1,0 +1,2 @@
+class WorkshopBanner < BannerImage
+end

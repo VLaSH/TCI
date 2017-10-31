@@ -1,0 +1,34 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @partners.empty? %>
+    <table summary="List of partners" class="pretty">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Name</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @partners.each do |partner| %>
+          <tr>
+            <td valign="top" style="vertical-align: top;"><%= image_tag(partner.logo_url(:thumb), :alt => partner.name) if partner.logo? -%></td>
+            <td valign="top" style="vertical-align: top;"><%= link_to(h(partner.name), edit_administrator_partner_path(partner)) -%></td>
+            <td valign="top" style="vertical-align: top;" align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit partner"), edit_administrator_partner_path(partner), :rel => "Edit Partner", title: "Edit") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete partner"), delete_administrator_partner_path(partner), :rel => "Delete this partner", title: "Delete") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@partners) %>
+  <% else %>
+    <p>No partners exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new partner", new_administrator_partner_path, {:icon_path => "icons/add.png"} %>
+  </p>
+</div>
+<div class="clear">&nbsp;</div>

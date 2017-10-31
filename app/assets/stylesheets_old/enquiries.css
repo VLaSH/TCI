@@ -1,0 +1,3 @@
+/*CSS For new enquiery form */
+.enquiries_button {background-color:buttonface;border:2px outset buttonface;cursor:default;}
+.enquiries_text_area:focus{ border:2px solid #6e6f6f;outline:none;}

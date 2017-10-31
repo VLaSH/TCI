@@ -1,0 +1,19 @@
+<% @instructor = User.activated.visible.instructor.random.first %>
+
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>"><h4><%= link_to("See All", instructors_path) -%>Featured Instructor</h4>
+  <div class="body padding_5 instructor">
+    <% if @instructor.nil? -%>
+      <p>No instructors available.</p>
+    <% else -%>
+      <%= link_to(image_tag(user_photo_path(:id => @instructor.id, :style => :w50xh60), :width => 50, :height => 60, :alt => @instructor.full_name), instructor_path(@instructor)) -%>
+      <h5><%= link_to(@instructor.full_name, instructor_path(@instructor)) -%></h5>
+      <%= truncate_html(@instructor.profile) -%>
+      <% if !@instructor.vimeo_video_id.blank? %>
+        <p><a class="fancybox-media" href="http://vimeo.com/<%= @instructor.vimeo_video_id -%>">View <%= "#{@instructor.given_name}'s" %> introduction video..</a></p>
+      <% elsif !@instructor.youtube_video_id.blank? %>
+        <p><a class="fancybox-media" href="http://www.youtube.com/watch?v=<%= @instructor.youtube_video_id -%>">View <%= "#{@instructor.given_name}'s" %> introduction video..</a></p>
+      <% end %>
+      <p><%= link_to("Read #{@instructor.given_name}'s Profile..", instructor_path(@instructor)) -%></p>
+    <% end -%>
+  </div>
+</div>

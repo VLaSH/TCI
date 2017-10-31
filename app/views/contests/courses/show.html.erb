@@ -1,0 +1,84 @@
+<% content_for :meta do %>
+  <% unless @course.meta_description.nil? %>
+    <meta name="description" content="<%= @course.meta_description -%>" />
+  <% end %>
+  <% unless @course.meta_keywords.nil? %>
+    <meta name="keywords" content="<%= @course.meta_keywords -%>" />
+  <% end %>
+<% end %>
+<div class="content_wrapper"><!-- Main -->
+  <div class="container content_bg"><!-- Container -->
+    <div class="banner_with_instructor about_course_container">
+      <div class="banner_image">
+        <% if !@course.vimeo_video_id.blank? %>
+          <iframe src="https://player.vimeo.com/video/<%= @course.vimeo_video_id -%>" width="729" height="466" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <% elsif !@course.youtube_video_id.blank? %>
+          <iframe width="660" height="440" src="https://www.youtube.com/embed/<%= @course.youtube_video_id -%>" frameborder="0" allowfullscreen></iframe>
+        <% elsif @course.photo? %>
+          <%= image_tag(course_photo_path(:id => @course.id, :style => :w660xh440), :width => 660, :height => 440, :alt => @course.title) -%>
+        <% else %>
+          <%= image_tag("courses-banner/courses-adventure.jpg", alt: "Adventure Courses") %>
+        <% end %>
+      </div>
+      <div class="instructor_title">
+        <span>Course Directory</span>
+      </div>
+      <div class="instuctor_block about_course_metatdata">
+        <%= instructor_block_image %>
+        <div class="description">
+          <p>Instructor :
+            <span>
+              <%= instructors_names %>
+            </span>
+          </p>
+          <% if @course.scheduled_course.present?%>
+            <p> Duration : <span><%= duration_for_display(@course.duration) -%></span></p>
+          <% end %>
+          <%# tags = [] -%>
+          <%# @course.tags.each do |tag| -%>
+            <%# tags << link_to(tag.name, course_tags_path(tag)) -%>
+          <%# end -%>
+          <!-- <p>Tags : <span><%#= tags.size > 0 ? tags.join(" ").html_safe : "No tags for this course" -%></span></p> -->
+        </div>
+        <dt class='slider-btns'>
+          <%= course_enrolment_btn %>
+        </dt>
+      </div>
+    </div><!-- Banner -->
+    <div class="inner_content_container">
+      <div class="inner_content_left" style='width:100%'>
+        <div class="page_title" style="margin-bottom: 4px;">
+          <%= @course.title %>            
+        </div>
+        <div style="margin-bottom: 15px;"><span>Course Price:</span> <strong>$<%= @course.price %> U.S.</strong></div>
+        <div class="page_description">
+          <%= @course.description.try :html_safe %>
+        </div>
+
+        <h6>Lesson plan:</h6>
+        <% if @course.lessons.present? %>
+          <ul>
+            <% @course.lessons.each do |lesson| -%>
+              <li><%= lesson.title -%></li>
+            <% end -%>
+          </ul>
+        <% end %>
+        <% if current_user && @course.scheduled_course.enrollable?(@course.scheduled_course.id, current_user) %>
+          <h6>Enroll on this Course:</h6>
+          <% if @course.scheduled_course %>
+            <%= link_to "#{@course.duration} days", new_course_purchase_path(@course, scheduled_course: @course.scheduled_course.id), title: "Enroll #{@course.title}" %></br></br>
+          <% end %>
+        <% else %>
+          <h6>Your Course Duration:</h6>
+          <%= "#{@course.duration} days" %>
+        <% end %>
+        <div class='reviews'>
+          <%= render 'courses/review' %>
+        </div>
+      </div><!-- Left Content -->
+      <!-- <div class="inner_content_right">
+        <%#= render "courses/upcoming" %>
+      </div> --><!-- Sidebar -->
+    </div>
+  </div><!-- Container -->
+</div><!-- Main Content -->

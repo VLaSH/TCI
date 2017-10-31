@@ -1,0 +1,35 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>My Courses</h4>
+  <% if @scheduled_courses.size == 0 %>
+    <p class="margin_bottom_20">You're not currently enrolled on any courses - check out <%= link_to("our selection of courses", courses_path) -%> and enroll today!</p>
+  <% else %>
+    <% Enrolment.select_uniq_row(current_user.id).each do |enrolment| %>
+      <% unless enrolment.scheduled_course.course == nil || enrolment.scheduled_course.course.deleted? %>
+        <h6><%= enrolment.scheduled_course.course.title -%></h6>
+        <ul class="scheduleditems">
+          <% if enrolment.created_at + 7.day > Time.now %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.limit(1).each do |scheduled_lesson| %>
+              <li style="border-bottom: 1px solid #ccc;"><%= link_to(scheduled_lesson.lesson.title, student_course_lesson_path(scheduled_lesson.scheduled_course, scheduled_lesson)) -%><span class="date"><%= link_to 'Generate PDF', student_course_lesson_path(scheduled_lesson.scheduled_course, scheduled_lesson, :pdf),target: :blank, title: 'Generate pdf of this page' %></span></li>
+            <% end %>
+          <% else %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.each do |scheduled_lesson| %>
+              <li style="border-bottom: 1px solid #ccc;"><%= link_to(scheduled_lesson.lesson.title, student_course_lesson_path(scheduled_lesson.scheduled_course, scheduled_lesson)) -%><span class="date"><%= link_to 'Generate PDF', student_course_lesson_path(scheduled_lesson.scheduled_course, scheduled_lesson, :pdf),target: :blank, title: 'Generate pdf of this page' %></span></li>
+            <% end %>
+         <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+    <br />
+    <%= will_paginate(@scheduled_courses) %>
+  <% end %>
+</div>
+<% if @scheduled_courses.size != 0 %>
+<div class="grid_11 margin_top_20 alpha">
+	<%= link_to 'Download e-Book',courses_fulldownload_path(:pdf), target: :blank, title: 'Generate pdf of this page' %>
+</div>
+<% end %>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/forum_topics/latest", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/forum_topics/latest_from_courses", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

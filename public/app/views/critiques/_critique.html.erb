@@ -1,0 +1,12 @@
+<li>
+  <p><%= h(critique.comment) -%></p>
+  <p>by <%= h(critique.user.full_name) -%> @ <%= critique.created_at.to_formatted_s(:long) -%></p>
+  <p>
+    <%- if critique.editable?(current_user) -%>
+      <%= link_to('Edit', edit_polymorphic_path([ current_user.role, critique ])) -%>
+    <%- end -%>
+    <%- if critique.deletable?(current_user) -%>
+      <%= link_to('Delete', polymorphic_path([ current_user.role, critique ], :action => :delete)) -%>
+    <%- end -%>
+  </p>
+</li>

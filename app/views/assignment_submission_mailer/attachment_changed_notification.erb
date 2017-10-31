@@ -1,0 +1,25 @@
+Hi,
+
+A student changed some attachments in Submission.
+
+
+AssignmentSubmission:
+  <%= @assignment_submission.title %>
+
+Assignment:
+  <%= @assignment_submission.assignment_title %>
+
+Course:
+  <%= @assignment_submission.course_title %>
+
+Date:
+  <%= @assignment_submission.enrolment.scheduled_course.created_at.to_formatted_s(:long) %>
+
+Lesson:
+  <%= @assignment_submission.scheduled_assignment.lesson.title %>
+
+Student
+  <%= @assignment_submission.enrolment.student.full_name %>
+
+Regards,
+The Compelling Image

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" id="thecompellingimage-com">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <%= javascript_include_tag 'application', "slides.jquery", "jquery.easing.1.3", "jquery.lightbox", "select_link_color" %>
+    <%= render(:partial => 'common/stylesheets') %>
+    <%= stylesheet_link_tag 'lightbox' %>
+    <%= title_tag %>
+    <%= yield :head %>
+    <%= yield :meta %>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64147029-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <link rel="icon" href="http://former.thecompellingimage.com/images/favicon.ico" type="image/x-icon" />
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="http://former.thecompellingimage.com/images/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript">
+      var switchTo5x=true;
+      stLight.options({publisher: "ur-7570cea5-afe3-c1d2-cfc4-68775ecc6413"});
+    </script>
+
+  </head>
+  <body>
+    <div class="header_wrapper">
+      <%= render 'shared/header_wrapper' %>
+    </div>
+    <div class="content_wrapper">
+      <%= yield %>
+    </div>
+    <div class="footer_wrapper">
+      <div class="container">
+        <div class="copyright">
+          <span id="navigation"><%= link_to("Privacy Policy", page_path('privacy')) -%> | <%= link_to("Sitemap", sitemap_path) -%> | <%= link_to("Contact", new_enquiry_path) -%></span> |
+          <span id="copyright">Copyright &copy; <%= Time.now.year -%> The Compelling Image</span>
+        </div><!-- Copyright -->
+      </div>
+    </div>
+  </body>
+</html>

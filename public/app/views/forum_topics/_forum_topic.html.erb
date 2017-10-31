@@ -1,0 +1,24 @@
+<%
+  if forum_topic.discussable.nil?
+    title_prefix = ''
+  elsif forum_topic.discussable.is_a?(ScheduledLesson)
+    title_prefix = 'Lesson Discussion: '
+  elsif forum_topic.discussable.is_a?(ScheduledAssignment)
+    title_prefix = 'Assignment Discussion: '
+  end
+%>
+
+<% if (forum_topic.discussable.is_a?(ScheduledLesson) && forum_topic.discussable.lesson.course.instructor?(current_user)) || (forum_topic.discussable.is_a?(ScheduledAssignment) && forum_topic.discussable.scheduled_lesson.lesson.course.instructor?(current_user)) || (forum_topic.readable?(current_user) && current_user.role == :student) %>
+
+<li<%= ' style="border-top: 1px solid #eee; padding-top: 10px;"' if forum_topic_counter > 0 -%>>
+  <div class="forum_topic">
+    <cite><%- if forum_topic.user && forum_topic.user.instructor? -%><span class="instructor">instructor</span><br /><%- end -%><%= forum_topic.user.full_name -%><br /><span class="date">started <%= time_ago_in_words(forum_topic.publish_on) -%> ago</span></cite>
+    <blockquote><span><%= title_prefix -%><%= link_to(h(forum_topic.title), polymorphic_path([ current_user.role, forum_topic ])) -%></span>
+      <div class="clear">&nbsp;</div>
+      <small><%= pluralize(forum_topic.posts_count, "post") -%><%- if forum_topic.posts_count > 0 -%> - last post by <%= begin forum_topic.posts.last.user.full_name rescue 'a Student' end -%> <%- begin -%>about <%= time_ago_in_words(forum_topic.posts.last.created_at) -%> ago<%- rescue -%><%- end -%><%- end -%></small>
+    </blockquote>
+  </div>
+  <div class="clear">&nbsp;</div>
+</li>
+
+<% end %>

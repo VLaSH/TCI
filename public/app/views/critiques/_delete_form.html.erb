@@ -1,0 +1,7 @@
+<dl>
+  <dt>Comment</dt>
+  <dd><%= h(critique.comment) %></dd>
+</dl>
+<%= form_for(critique, :url => destroy_path, :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

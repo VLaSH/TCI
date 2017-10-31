@@ -1,0 +1,8 @@
+<%= uni_form_for(assignment_submission, :url => path) do |f| %>
+  <%= error_messages('assignment_submission') -%>
+  <% f.fieldset(:type => "block") do %>
+    <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 95%;") %>
+    <%= f.text_area(:description, :size => '60x5', :label => "Description", :required => false, :class => 'widgEditor') -%>
+  <% end %>
+  <%= f.submit(assignment_submission.new_record? ? 'save and send' : 'update', :style => "margin-top: 20px;") -%>
+<% end %>

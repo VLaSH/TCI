@@ -1,0 +1,43 @@
+<ul class="courses_list">
+  <% course_list.each do |course| %>
+    <li>
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+          <div class= 'courses_image_block'>
+            <%= link_to course_path(course) do%>
+            <%= image_tag course_photo_path(id: course.id, style: :w160xh120), alt: course.title %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+          <div class="description_container">
+            <h4><%= link_to course.title, course_path(course) %></h4>
+            <ul class= 'course_instructor_info instructors_name'>
+              <li><span>Instructor :</span>
+                <span>
+                <% course.instructors.each do |instructor| -%>
+                  <% unless instructor.nil? || instructor.full_name.blank? %>
+                  <%= link_to(instructor.full_name, instructor_path(instructor), class: 'color_black') -%>
+                  <% end %>
+                <% end -%>
+              </span>
+              </li>
+              <!-- need to check skill level -->
+              <li><span>Skill level :</span> <%= course_skil_level(course)%></li>
+
+              <li><span>Category :</span> <%= get_course_type(course) %></li>
+              <li><span>Duration :</span> <%= duration_for_display(course.duration) %></li>
+              <li><span>Cost :</span><strong> <%= session[:currency] || "USD" %> <%= Money.new(course.price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %></strong></li>
+            </ul>
+
+            <p><%#= course.summary.html_safe%></p>
+            <%= link_to course_path(course) do%>
+              <i class="star"></i> <span class='find_out_more'>Find out more</span>
+            <% end %>
+            <!-- <a href="#"><i class="star"></i> Find out more</a> -->
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

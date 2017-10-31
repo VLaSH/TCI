@@ -1,0 +1,145 @@
+<% content_for :meta do %>
+  <% unless @blog.meta_description.nil? %>
+    <meta name="description" content="<%= @blog.meta_description -%>" />
+  <% end %>
+  <% unless @blog.meta_keywords.nil? %>
+    <meta name="keywords" content="<%= @blog.meta_keywords -%>" />
+  <% end %>
+<% end %>
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "ef32fe92-b92c-45b4-a042-b9563a5c3fac", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+<script type="text/javascript">
+    tinyMCE.baseURL = "/assets/tinymce"
+    tinyMCE.init({
+      mode : "specific_textareas",
+      editor_selector : "widgEditor",
+      //theme : "advanced",
+      menubar:false,
+      statusbar: false,
+      cleanup_on_startup : true,
+      toolbar: "uploadimage | undo redo | styleselect | bold italic | forecolor | link | unlink | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table | fullscreen | code ",
+      plugins: "uploadimage,paste,fullscreen,spellchecker,code,textcolor,link",
+      fullscreen_new_window : false,
+      theme_advanced_toolbar_location : "top",
+      theme_advanced_toolbar_align : "left",
+      theme_advanced_buttons1 : "formatselect,|,bold,italic,|,forecolor,|,bullist,numlist,|,link,unlink,|,cut,copy,pastetext,spellchecker,|,undo,redo,|,fullscreen,code",
+      theme_advanced_buttons2 : "",
+      theme_advanced_buttons3 : "",
+      spellchecker_languages : "+English=en",
+      spellchecker_rpc_url : "/spellings",
+      fullscreen_settings : {
+        theme_advanced_path_location : "top"
+      },
+    });
+
+
+  </script>
+
+
+
+
+<div class="container content_bg margin-t-70"><!-- Container -->
+  <div class="row clearfix">
+    <div class="col-lg-12">      
+        
+    </div>
+  </div>
+  <div class="inner_content_container">
+    <div class="inner_content">
+      <div class= "blogs_container">
+       <ul class="blogs_list">
+		  
+			<li>			  
+			  <div class="description_container desc_blog">
+				  <h1 class="headline"><%= @blog.title %></h1> 					
+    
+				<!--div class= 'blogs_image_block'>				
+				<%= image_tag blog_photo_path(id: @blog.id, style: :w660xh390), alt: @blog.title %>
+			
+			  </div-->
+				<%= @blog.content.html_safe%>				
+				
+			  </div>
+			</li>		 
+		</ul>
+      </div>
+      <div id="comments">
+		<ul>          
+      <% @Blogcomment.each do |comment| %>
+		<li id="comment_1" class="comment-section">
+            <cite><span class="instructor"><%= (comment.role == 's' ? 'student' : 'instructor') %></span><br><%=comment.given_name %><br><span class="date"><%= time_ago_in_words(comment.created_at) -%></span></cite>
+            <blockquote class="rounded topHeavy">
+            <div class="arrow"></div>
+              <span class="tr cnr"></span>
+              <span class="tl cnr"></span>
+              <span class="comment-data" style="display:flex;">
+                <p><%= time_ago_in_words(comment.created_at) -%> - <%=comment.given_name %>
+					-- <%=comment.comment.try :html_safe %>
+                </p>
+              </span>
+              <span>
+              </span>
+              <span class="br cnr"></span>
+              <span class="bl cnr"></span>
+            </blockquote>
+          </li>
+          <div class="clear">&nbsp;</div>
+      <% end %>
+      </ul>
+        <span class='st_facebook_large' displayText='Facebook'></span>
+		<span class='st_twitter_large' displayText='Tweet'></span>
+		<span class='st_linkedin_large' displayText='LinkedIn'></span>
+		<span class='st_pinterest_large' displayText='Pinterest'></span>
+		<br/>
+      </div>
+      
+      <div class="clear"></div>
+		
+		  <b>Comment</b>
+		 <form accept-charset="UTF-8" action="" class="uniForm" id="new_forum_post" method="post"><div style="display:none">
+				 <input name="utf8" type="hidden" value="&x2713;" />
+				 <input name="authenticity_token" type="hidden" value="21R0AkvpvL1Mx4ZuJqgXTq/9BxpzEToN1F1fZync/zM=" /></div>
+				<fieldset class="blockLabels">
+					<div class="ctrlHolder">
+				
+						<textarea class="widgEditor" cols="60" id="forum_post_content" name="forum_post[content]" rows="5" style="width: 99%;">
+						</textarea>
+					</div>
+			</fieldset> 
+			  <input  id="blog_id" type="hidden" value="<%= @blog.id%>" />
+			  <div class="buttonHolder"><button class="submitButton" name="commit" type="button">create</button>
+			  </div>
+			 </form>	
+      
+  </div>
+</div><!-- Container -->
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+
+ $('.submitButton').on('click', function(){
+	if(tinymce.get('forum_post_content').getContent() != ''){
+		var url = 'http://www.thecompellingimage.com/blogs/savecomment';
+		//var url = 'http://localhost:3000/blogs/savecomment';
+		a = $.post(url,
+					{comment: { comment:tinymce.get('forum_post_content').getContent(),blog_id:$('#blog_id').val() }}, 
+					function(d){						
+						if(d == 1){
+							window.location.reload(true); 
+						}						
+					})
+					  .fail(function() {
+						alert( "Please login to comment !!" );
+					  });
+	}
+	else
+	{
+		alert('Please type your comment !!');
+		
+	}
+ })
+});
+
+</script>
+

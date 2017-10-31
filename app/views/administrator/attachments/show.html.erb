@@ -1,0 +1,25 @@
+<%- if @attachment.image? -%>
+  <%= image_tag(get_attachment_url(@attachment, style: 'detail'), :alt => 'Attachment', :title => @attachment.title) %>
+<%- elsif @attachment.video? -%>
+  <%= image_tag(get_attachment_url(@attachment, style: 'detail'), :alt => 'Attachment', :title => @attachment.title) %>
+  <p><%= link_to('Download', @attachment.s3_url(:original)) -%></p>
+<%- else -%>
+  <p><%= link_to('Download', @attachment.s3_url(:original)) -%></p>
+<%- end -%>
+<dl>
+  <dt>Title</dt>
+  <dd><%= h(@attachment.title) %></dd>
+  <dt>Given name</dt>
+  <dd><%= h(@attachment.description) %></dd>
+</dl>
+<h3>Critiques</h3>
+<% unless @attachment.critiques.size.zero? %>
+  <ol>
+    <%= render(:partial => 'critiques/critique', :collection => @attachment.critiques) -%>
+  </ol>
+<% else %>
+  <p>No critiques exist.</p>
+<% end %>
+<p><%= link_to('Create new critique', new_polymorphic_path([ :administrator, @attachment, :critique ])) -%></p>
+<p><%= link_to('Edit this attachment', edit_administrator_attachment_path(@attachment)) %></p>
+<p><%= link_to('Delete this attachment', delete_administrator_attachment_path(@attachment)) %></p>

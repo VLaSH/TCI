@@ -1,0 +1,11 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4><%= @lesson.course.title %></h4>
+  <h5><%= @lesson.title -%></h5>
+  <hr />
+  <%= interpolate_attachments(@lesson.description, @lesson.attachments, 620, 440).html_safe -%>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p><%= link_to('Edit this lesson', edit_administrator_lesson_path(@lesson)) %></p>
+  <%= render(:partial => "student/attachments/attachments", :locals => {:classes => "margin_bottom_20", :title => 'Examples', :attachments => @lesson.attachments}) -%>
+</div>
+<div class="clear">&nbsp;</div>

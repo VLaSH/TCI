@@ -1,0 +1,10 @@
+<h4><%= forum_topic.title %></h4>
+<p><strong>Topic started about <%= time_ago_in_words(forum_topic.publish_on) -%> ago by <%= forum_topic.user.full_name -%></strong></p>
+<p><%= simple_format(h(forum_topic.content)) -%></p>
+<% unless forum_topic.discussable.nil? %>
+  <% if forum_topic.discussable.is_a?(ScheduledLesson) -%>
+    <p><%= link_to("View Lesson", student_course_lesson_path(forum_topic.discussable)) -%></p>
+  <% elsif forum_topic.discussable.is_a?(ScheduledAssignment) -%>
+    <p><%= link_to("View Assignment", student_assignment_path(forum_topic.discussable)) -%></p>
+  <% end %>
+<% end %>

@@ -1,0 +1,16 @@
+<% unless !defined?(@other_submissions) || @other_submissions.nil? %>
+  <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;" >
+    <h4>Other Submissions</h4>
+    <div class="body padding_5 instructor" id="other_submission">
+      <% if @other_submissions.count == 0 %>
+        <p>There are no other submissions for this assignment.</p>
+      <% else %>
+        <p>View submissions by fellow students</p>
+        <% @other_submissions.each do |submission| %>
+          <p><%= link_to(submission.title, student_submission_path(submission), :style => "font-weight: bold;") -%></p>
+          <p>Created <%= time_ago_in_words(submission.created_at) -%> ago by <%= submission.enrolment.student.full_name -%></p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

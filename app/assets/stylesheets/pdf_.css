@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'MyriadPro-Regular';  
+  src: url('<%= Rails.root.join('app', 'assets', 'fonts', "MyriadPro-Regular.eot?#iefix") %>') format('embedded-opentype'), 
+       url('<%= Rails.root.join('app', 'assets', 'fonts', "MyriadPro-Regular.otf") %>') format('opentype') ,
+       url('<%= Rails.root.join('app', 'assets', 'fonts', "MyriadPro-Regular.woff") %>') format('woff') ,
+	   url('<%= Rails.root.join('app', 'assets', 'fonts', "MyriadPro-Regular.ttf") %>') format('truetype') ,
+	   url('<%= Rails.root.join('app', 'assets', 'fonts', "MyriadPro-Regular.svg#MyriadPro-Regular") %>') format('svg') ;		 
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'BadScript-Regular'; 
+  src: url('<%= Rails.root.join('app', 'assets', 'fonts', "BadScript-Regular.eot?#iefix") %>') format('embedded-opentype'),          
+       url('<%= Rails.root.join('app', 'assets', 'fonts', "BadScript-Regular.woff") %>') format('woff') ,                   
+       url('<%= Rails.root.join('app', 'assets', 'fonts', "BadScript-Regular.ttf") %>') format('truetype'),        
+       url('<%= Rails.root.join('app', 'assets', 'fonts', "BadScript-Regular.svg#BadScript-Regular") %>') format('svg') ;
+        font-weight: normal;
+		font-style: normal;
+}
+
+/*@font-face {
+  font-family: 'GothamRndBook';
+  src: url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.eot') %>');
+  src: url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.eot') %>') format('embedded-opentype'),
+       url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.woff2') %>') format('woff2'),
+       url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.woff') %>') format('woff'),
+       url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.ttf') %>') format('truetype'),
+       url('<%= Rails.root.join('app', 'assets', 'fonts', 'GothamRndBook.svg#GothamRndBook') %>') format('svg');
+}
+@font-face {
+  font-family: 'GothamRndBold';
+  src: url('GothamRndBold.eot');
+  src: url('GothamRndBold.eot') format('embedded-opentype'),
+       url('GothamRndBold.woff2') format('woff2'),
+       url('GothamRndBold.woff') format('woff'),
+       url('GothamRndBold.ttf') format('truetype'),
+       url('GothamRndBold.svg#GothamRndBold') format('svg');
+}
+ @font-face {
+      
+      font-weight: 100;
+      font-style: normal;
+      font-family: "GothamRndBold";
+      src:url("<%= asset_data_base64('GothamRndBold.eot') %>");
+      src: url("<%= asset_data_base64('GothamRndBold.eot') %>") format('embedded-opentype'),
+		   url("<%= asset_data_base64('GothamRndBold.woff2') %>") format('woff2'),
+		   url("<%= asset_data_base64('GothamRndBold.ttf') %>") format('truetype'),
+		   url("<%= asset_data_base64('GothamRndBold.svg#GothamRndBold') %>") format('svg');      
+    }*/
+
+
+
+.TCICertificate {
+	position:relative;
+	width:800px;
+	height:1131px; margin:0 auto;
+}
+.txtName {
+	position:absolute; left:182px; top:500px; text-align:center; font-family: 'BadScript-Regular'; font-size:50px;
+	width:437px;
+	height:79px; 
+}
+.des {
+	position:absolute; left:182px; top:615px; text-align:center; font-family: 'MyriadPro-Regular'; font-size:18px;
+	width:437px;
+	height:125px;
+}
+.date {
+	position:absolute; left:182px; top:970px; text-align:center; font-family: 'MyriadPro-Regular'; font-size:18px;
+	width:437px;
+	height:30px;
+}
+

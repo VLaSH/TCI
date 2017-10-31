@@ -1,0 +1,76 @@
+<html>
+<head>
+  <style type="text/css">
+    body{font-size: 14px;}
+    #comments ul, div.forum_topics ul, #attachment_thumbnail_container ol#attachment_thumbnails, .rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#comments blockquote {
+    float: left;
+    font-size: 100%;
+    margin: -5px 0 0;
+    padding: 9px 22px 17px;
+    position: relative;
+    width: 480px;
+}
+#comments ul li {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 110px;
+}
+  </style>
+</head>
+<body>
+<span ><%= wicked_pdf_image_tag ('tci-logo.jpg') %></span>
+  <div class="grid_11 margin_top_20 alpha">
+    <% @data.each_with_index{
+		|vl, index | 
+		
+		@d = ActiveRecord::Base.connection.execute("select title,description,id from courses where id= #{vl[0]} and deleted_at IS NULL ")
+		@d.each_with_index{
+			|val_, index |  %>
+			 <h3><%="#{val_[0]}"%></h3>			 
+					 <% 
+					 
+					@img = ActiveRecord::Base.connection.execute("SELECT MAX(scheduled_lessons.id) as id FROM scheduled_lessons INNER JOIN lessons ON lessons.id = scheduled_lessons.lesson_id WHERE scheduled_lessons.scheduled_course_id= #{vl[1]} AND scheduled_lessons.deleted_at IS NULL AND scheduled_lessons.student_user_id = #{current_user.id} GROUP BY scheduled_course_id, student_user_id, lesson_id  ORDER BY position ASC")
+					objArray = []		
+					 @img.each_with_index { | v, i |  objArray.push v[0] }	
+						
+						@d = ActiveRecord::Base.connection.execute("select title,description,id from lessons where course_id=#{val_[2]} order by position asc")
+						@d.each_with_index {
+						|vall, index |  iid = objArray[index]
+						
+						%>
+						
+						<strong>Lession - <%=index = index+1%></strong>
+							 <h5> <%="#{vall[0]}"%> </h5>
+							 <%
+							  @scheduled_lesson = ScheduledLesson.find("#{iid}")
+							  @forum_topics = ForumTopic.where(discussable_id: @scheduled_lesson.lesson.scheduled_lessons.pluck(:id), discussable_type: 'ScheduledLesson')
+							  @forum_topic = @forum_topics.first
+							 
+							  %>
+							 <%= interpolate_pdf_attachments("#{vall[1]}", @scheduled_lesson.lesson.attachments, 620, 440).html_safe -%>
+							 <hr>
+							
+								 <h5>Discuss this Lesson with your Classmates and Instructor</h5>
+								  <%= render(:partial => "student/forum_posts/forum_posts", :locals => {:forum_topics => @forum_topics})%>
+							  
+							
+					<% } %>
+			 <hr/>			
+		<% }
+	}	%>
+   
+</div>
+  <div class="clear">&nbsp;</div>
+ 
+  <div style='margin-left:25%;'>
+    Copyright &copy; <%= Time.now.year -%><span style= 'margin-left: 2px;'>The Compelling Image </span>
+  </div>
+</body>
+</html>

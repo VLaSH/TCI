@@ -1,0 +1,19 @@
+
+<div class="container margin-t-70 content_bg"><!-- Container -->
+  <div class="banner">
+    <%= image_tag portfolio_banner_image, alt: "Portfolio" %>
+    <span>
+      portfolio review
+    </span>
+  </div><!-- Banner -->
+  <div class="inner_content_container">
+    <div class="inner_content_left" >
+      <div class= "courses_container">
+        <%= render 'courses/course_list', course_list: @courses %>
+      </div>
+    </div>
+    <div class="inner_content_right">
+      <%= render 'filter' %>
+    </div><!-- Sidebar -->
+  </div>
+</div><!-- Container

@@ -1,0 +1,15 @@
+<div class="block block_testimonial">
+  <div class="block_heading1"><span>Testimonials</span></div>
+  <div class="block_content">
+    <ul>
+      <% testimonials.each do |testimonial|%>
+
+      <li>
+        <%= image_tag(testimonial.logo.url(:thumb), size: "80", :alt => testimonial.title) if testimonial.logo? -%>
+          <h5><%=testimonial.title %></h5>
+          <p><%=testimonial.content.html_safe%></p>
+      </li>
+      <% end -%>
+    </ul>
+  </div>
+</div><!-- Testimonial Block -->

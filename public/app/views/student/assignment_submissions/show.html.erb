@@ -1,0 +1,147 @@
+<script type="text/javascript">
+document.observe('dom:loaded', function() {
+  Sortable.create('rearrangement_thumbnails',{tag:'li', onUpdate: function() { $('rearrangement').value = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});}});
+
+  $('rearrangement_reset').observe('click', resetRearrangement);
+  $('rearrangement_save').observe('click', saveRearrangement);
+  $('rearrange_delete').observe('click', removeFromRearrangement);
+});
+
+function resetRearrangement(event) {
+  document.location = '<%= student_student_sequence_path(@assignment_submission) -%>?sequence=';
+  return false;
+}
+
+function saveRearrangement(event) {
+  sequence = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});
+  document.location = '<%= student_student_sequence_path(@assignment_submission) -%>?sequence=' + sequence;
+  return false;
+}
+
+function removeFromRearrangement(id) {
+  $("rearrangement_thumbnailer_" + id).remove();
+  return false;
+}
+
+</script>
+
+<div class="grid_11 margin_top_20 alpha">
+  <h4>Your Photo or Video Assignment Submission</h4>
+  <p>Next you must:</p>
+  <ol>
+    <li>Attach your photos or videos</li>
+  </ol>
+  <p>You may also:</p>
+  <ol>
+    <li>Edit your submission</li>
+    <li>Sequence your photos</li>
+  </ol>
+  <p>Now - you must <strong>SUBMIT</strong> your assignment for instructor critique and comments. <strong>VERY IMPORTANT:</strong> If you do not "submit" your assignment, your instructor will not receive notification that you have completed it.</p>
+  <p>* Note that you may always return to submit additional photos or videos, as well as edit and sequence you assignment work.</p>
+
+  <% if @assignment_submission.enrolment.student == current_user %>
+    <p><%= link_to("Add an attachment to your submission", new_student_submission_attachment_path(@assignment_submission, :redirect => student_submission_path(@assignment_submission))) -%> | <%= link_to("Sequence your images", sequence_student_submission_attachments_path(@assignment_submission)) -%> | <%= link_to("Edit your assignment submission", edit_student_submission_path(@assignment_submission)) -%></p>
+  <% end %>
+  <h6><%= @assignment_submission.title -%></h6>
+
+  <% if @assignment_submission.assignment.rearrangements.size > 0 %>
+    <% @assignment_submission.assignment.rearrangements.each do |rearrangement| %>
+      <h6><%= rearrangement.title %></h6>
+      <%= rearrangement.summary.html_safe %>
+      <p><strong>Original Sequence</strong></p>
+      <div id="attachment_thumbnail_container">
+        <ol id="attachment_thumbnails">
+          <% rearrangement.attachments.each do |attachment| %>
+            <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><span><%= attachment.position -%></span><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "attachment_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+          <% end %>
+        </ol>
+      </div>
+      <br clear="both" /><br />
+      <p><strong>Your Sequence</strong></p>
+      <p><a href="#" id="rearrangement_reset">Reset</a> | <a href="#" id="rearrangement_save">Save</a></p>
+      <div class="rearrangement_attachment_thumbnail_container" id="rearranger"><form>
+        <% if @assignment_submission.rearrangement.blank? %>
+          <ol id="rearrangement_thumbnails">
+            <% rearrangement.attachments.each_with_index do |attachment, i| %>
+              <li id="rearrangement_thumbnailer_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><span><%= attachment.position -%></span><span class="yours"><%= i + 1 -%></span><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "rearrangement_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><a href="#" onclick="removeFromRearrangement(<%= attachment.id -%>); return false;" id="rearrange_delete" rel="<%= attachment.id -%>"><img src="/assets/icons/delete.png"></a></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+            <% end %>
+          </ol>
+          <%= hidden_field_tag(:original, rearrangement.attachments.map{|a| a.id}.join(','))%>
+          <%= hidden_field_tag(:rearrangement, rearrangement.attachments.map{|a| a.id}.join(','), :id => "rearrangement")%>
+        <% else %>
+          <ol id="rearrangement_thumbnails">
+            <% @assignment_submission.rearrangement.split(',').each_with_index do |attachment_id, i| %>
+              <% attachment = Attachment.find_by_id(attachment_id) %>
+              <% unless attachment.nil? %>
+                <li id="rearrangement_thumbnailer_<%= attachment.id -%>" rel="<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><span><%= attachment.position -%></span><span class="yours"><%= i + 1 -%></span><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "rearrangement_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><a href="#" onclick="removeFromRearrangement(<%= attachment.id -%>); return false;" id="rearrange_delete" rel="<%= attachment.id -%>"><img src="/assets/icons/delete.png"></a></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+              <% end %>
+            <% end %>
+          </ol>
+          <%= hidden_field_tag(:original, rearrangement.attachments.map{|a| a.id}.join(','))%>
+          <%= hidden_field_tag(:rearrangement, @assignment_submission.rearrangement, :id => "rearrangement") %>
+        <% end %></form>
+      </div>
+    <% end %>
+  <% end %>
+
+  <br clear="both" /><br />
+  <h6>Your description</h6>
+  <% unless @assignment_submission.description.nil? || @assignment_submission.description.empty? %>
+    <p><%= @assignment_submission.description.html_safe -%></p>
+  <% end %>
+
+  <% if @assignment_submission.completed? %>
+    <% @assignment_submission.critiques.each_with_index do |critique, i| %>
+      <div class="grid_11 margin_top_20 alpha">
+        <h6><%= i == 0 ? "Critique Summary" : "Comment" -%> by <%= critique.user.full_name %></h6>
+        <% if critique.attachments.size > 0 %><p><%= attachment_thumbnail(critique.attachments.first, :style => :w360xh270, :lightview => true, size: '360x270') -%></p><% end %>
+        <%= critique.comment.html_safe unless critique.comment == "File attached" || critique.comment == 'Rearrangement' -%>
+        <% if critique.original_sequence != critique.rearrangement_sequence %>
+          <p><strong>Suggested sequence</strong></p>
+          <div class="attachment_thumbnail_container" style="padding-left: 20px;">
+            <ol class="attachment_thumbnails">
+              <% original = critique.original_sequence.split(',') %>
+              <% critique.rearrangement_sequence.split(',').each_with_index do |attachment_id, i| %>
+                <% attachment = Attachment.find_by_id(attachment_id) %>
+                <% unless attachment.nil? %>
+                  <li id="<%= critique.id -%>_rearrangement_thumbnailer_<%= attachment.id -%>" rel="<%= attachment.id -%>" class="photo_frame">
+                    <span><%= begin original.index(attachment.id.to_s) + 1 rescue '-' end -%></span><span class="yours"><%= i + 1 -%></span>
+                      <%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, size: '60x60') -%>
+                  </li>
+                <% end %>
+              <% end %>
+            </ol>
+          </div><br clear="both" />
+        <% end %>
+        <p><%= link_to("Respond to this critique", new_student_submission_critique_critique_path(@assignment_submission, critique)) -%></p>
+      </div>
+      <hr />
+    <% end %>
+    <% @assignment_submission.attachments.each_with_index do |attachment, i| %>
+      <% if attachment.critiques.size > 0 %>
+        <div class="grid_11 margin_top_20 alpha">
+          <div class="margin_top_20">
+            <div class="grid_11 alpha">
+              <h4>Attachment <%= i + 1 %> of <%= @assignment_submission.attachments.size %></h4>
+              <p><%= attachment_thumbnail(attachment, :style => :w360xh270, :lightview => true,size: '360x270') -%><br><strong><%= attachment.title -%></strong></p>
+              <% attachment.critiques.each_with_index do |critique, i| %>
+                <p><strong><%= i == 0 ? "Critique" : "Comment" %> by <%= critique.user.full_name %></strong></p>
+                <% if critique.attachments.size > 0 %><p><%= attachment_thumbnail(critique.attachments.first, :style => :w360xh270, :lightview => true, size: '360x270') -%></p><% end %>
+                <p><%= critique.comment.html_safe unless critique.comment == "File attached" -%></p>
+                <p><%= link_to("Respond to this critique", new_student_submission_critique_critique_path(@assignment_submission, critique)) -%></p>
+              <% end %>
+            </div>
+            <hr />
+            <div class="clear">&nbsp;</div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/users/instructor", :locals => {:instructor => @assignment_submission.scheduled_assignment.scheduled_lesson.course.instructors.first, :classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "submit", :locals => {:assignment_submission => @assignment_submission, :classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/attachments/attachments", :locals => {:classes => "margin_bottom_20", :title => 'Attachments', :attachments => @assignment_submission.attachments, :controls => true, :redirect => student_submission_path(@assignment_submission)}) -%>
+</div>
+<div class="clear">&nbsp;</div>

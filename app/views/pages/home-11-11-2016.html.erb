@@ -1,0 +1,292 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'home' }
+    page.primary_navigation_section = :home
+    page.title.unshift('Online Photography Schools, Photography Schools Online, Online Photography Classes')
+  end
+
+  @course = Course.visible.available.random.first
+  @instructors = @course.instructors if @course
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography Class Online, Online Photography Courses, Photography Course" />
+  <meta name="description" content="The Compelling Image is an online photography schools and visual storytelling that inspires and equips you to be the best photographer you can be.">
+<% end %>
+
+<%= stylesheet_link_tag "style" %>
+<%= stylesheet_link_tag "effects" %>
+<%= stylesheet_link_tag "bootstrap" %>
+<%= stylesheet_link_tag "owl.carousel" %>
+<%= stylesheet_link_tag "owl.theme" %>
+<%= stylesheet_link_tag "owl.transitions" %>
+
+<style type="text/css">
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+
+<!--<%= hidden_field_tag :slide_speed, get_banner_slide_speed, id: 'slide_speed' %>
+<div class="container content_bg" style="margin-bottom:20px">
+  <div class="home-slider">
+    <div class="cycle">
+      <% unless home_banner_images.blank? %>
+        <% home_banner_images.each do |banner| %>
+            <%= image_tag banner.image_s3_url(:w947xh469), width: '100%' %>
+        <% end %>
+      <% end %>
+    </div>
+    <% unless home_banner_images.blank? %>
+      <div class="slider-content">
+        <div class='inner_slider_content'>
+          <p>online interactive courses in photography and multimedia storytelling taught by the professionals</p>
+          <p><%= (link_to 'Sign up for a course', new_user_path) unless find_student_enroll_and_logged_in? %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='home_inner_container'>
+    <div class="offer_content">
+      <%= link_to content_tag(:h2, 'Get started today - Try a sample lesson for FREE!'), free_course %>
+
+   <!--  <span>Sign up for a no-strings-attached account, enroll on the <span class="red- font">FREE</span> sample lesson and you're set to begin!</span> -->
+   <!-- </div><!-- Offer Content -->
+    <!--<div class="content-text">
+      <p>        
+        <strong>The Compelling Image</strong> is an online photography school offering interactive classes for photographers of all skill levels and interests - an affordable, convenient and inspiring way to learn and encourage your creativity - wherever you live.		
+      </p>
+    </div><!-- Content Text -->
+  <!--</div>-->
+
+  <!-- <div id="myCarousel" class="carousel slide"> 
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>   
+    <div class="carousel-inner">
+      <% unless home_banner_images.blank? %>
+        <% home_banner_images.each do |banner| %>
+            <div class="item">
+              <%= image_tag banner.image_s3_url(:w947xh469), width: '100%' %>
+              <div class="wrapper-content">
+                <p>online interactive courses in  photography and multimedia storytelling taught by the professionals</p>
+                <a href="#" class="btn btn-transparent btn-md"><%= (link_to 'Sign up for a course', new_user_path) unless find_student_enroll_and_logged_in? %></a>
+              </div>
+            </div>
+        <% end %>
+      <% end %>
+      <div class="item active">
+        <img src="assets/images/banner-bg.jpg" alt="Second slide">
+        <div class="wrapper-content">
+          <p>online interactive courses in  photography and multimedia storytelling taught by the professionals</p>
+          <a href="#" class="btn btn-transparent btn-md">Signup for a Course</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="assets/images/banner-bg.jpg" alt="Third slide">
+        <div class="wrapper-content">
+          <p>online interactive courses in  photography and multimedia storytelling taught by the professionals</p>
+          <a href="#" class="btn btn-transparent btn-md">Signup for a Course</a>
+        </div>
+      </div>     
+    </div>
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div> -->
+  <div id="owl-demo" class="owl-carousel owl-theme">
+    <% unless home_banner_images.blank? %>
+    <% home_banner_images.each do |banner| %>
+      <div class="item">
+        <%= image_tag banner.image_s3_url(:w947xh469), width: '100%' %>
+        <div class="wrapper-content">
+          <p>Online interactive courses in photography and multimedia storytelling taught by the professionals</p>
+          <%= (link_to 'Sign up for a course', new_user_path, class: 'btn btn-transparent btn-md') unless find_student_enroll_and_logged_in? %>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+
+
+
+  <!--Page Content-->
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-12">
+        <h1>The Compelling Image<span>The Compelling Image is an online school of photography offering interactive classes for photographers of all skill levels and interests - an affordable, convenient and inspiring way to learn and encourage your creativity with a camera - wherever you live.</span></h1>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href=<%= courses_path %>>
+        <div class="box">
+          <%= image_tag(course_grid_section, :id => 'd1') %>
+          <div class="over">
+            <a href="#">
+              <p>Course Selection</p>
+            </a>
+          </div>
+        </div>
+      </a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href=<%= courses_path(cat: 3)%>>
+        <div class="box">
+          <%= image_tag(portfolio_grid_section) %>
+          <div class="over">
+            <a href="#">
+              <p>Portfolio Reviews</p>
+            </a>
+          </div>
+        </div>
+      </a>  
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href='http://www.thecompellingimage.com/workshops'>
+        <div class="box">
+          <%= image_tag(mentorship_grid_section) %>
+          <div class="over">
+            <a href="#">
+              <p>Workshops</p>
+            </a>
+          </div>
+        </div>
+      </a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href=<%= student_galleries_path %> >
+        <div class="box">
+          <%= image_tag(student_gallery_grid_section) %>
+          <div class="over">
+            <a href="#">
+              <p>Student Gallery</p>
+            </a>
+          </div>
+        </div>
+      </a>  
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href= <%= instructors_path %> >
+        <div class="box">
+          <%= image_tag(whats_new_grid_section) %>
+          <div class="over">
+            <a href="#">
+              <p>Instructors</p>
+            </a>
+          </div>
+        </div>
+      </a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <a href="http://thecompellingimage.com/blog">
+        <div class="box">
+          <%= image_tag(tci_blog_grid_section) %>
+          <div class="over">
+            <a href="#">
+              <p>TCI Blog</p>
+            </a>
+          </div>
+        </div>
+      </a>
+      </div>
+      <div class="col-lg-12">
+        <h2>Our most popular online photography classes<span>Today’s gold standard of photography education online</span></h2>
+      </div>
+    </div>
+  </div>
+</div><!-- Container -->
+
+
+
+<div class="container">
+  <div class="row clearfix">
+      
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="row clearfix">
+        <% @homecourse.each do |course|%>
+        <%
+          description = course.description
+        %>
+          <div class="col-lg-12">
+            <a href="#">
+              <div class="hover ehover4">
+                <%= link_to course_path(course) do%><%= image_tag course_photo_path(id: course.id, style: :w660xh390), alt: course.title, style: 'height:340px;' %> <% end %>
+                <div class="overlay">
+                  <h2><%= link_to course.title, course_path(course) %></h2>
+                  <p class="info"><%=sanitize(truncate_html(description,25,''))%></p>
+                </div>        
+              </div>
+            </a>
+          </div>
+        <% end -%>
+
+        <% @homecourse1.each do |course|%>
+        <%
+          description = course.description
+        %>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <a href="#">
+              <div class="hover ehover4">
+                <%= link_to course_path(course) do%><%= image_tag course_photo_path(id: course.id, style: :w660xh390), alt: course.title %> <% end %>
+                <div class="overlay">
+                  <h2><%= link_to course.title, course_path(course) %></h2>
+                  <p class="info"><%=sanitize(truncate_html(description,25,''))%></p>
+                </div>        
+              </div>
+            </a>
+          </div>
+        <%end%>         
+        </div>
+    </div>
+    <% @homecourse2.each do |course|%>
+    <%
+      description = course.description
+    %>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="row clearfix">
+          
+          <div class="col-lg-12">
+            <a href="#">
+              <div class="hover ehover4">
+                <%= link_to course_path(course) do%><%= image_tag course_photo_path(id: course.id, style: :w660xh390), alt: course.title %> <% end %>
+                <div class="overlay">
+                  <h2><%= link_to course.title, course_path(course) %></h2>
+                  <p class="info"><%=sanitize(truncate_html(description,25,''))%></p>
+                </div>        
+              </div>
+            </a>
+          </div>
+          
+        </div>
+    </div>
+    <%end%> 
+   
+  </div>
+</div>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div class="content-space-one">
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-12">
+        <div class="text-center">a virtual classroom / social-interactive experience...
+        As a TCI student, you’ll receive valuable critiques and advice from your instructor, timely answers to your questions and be able to discuss all that is happening on your course with fellow classmates.
+        <span><%= link_to content_tag(:span, 'Get started today - Try a sample lesson for FREE!'), free_course %></span>
+          Sign up for a no-strings-attached account, enroll on the FREE sample lesson and you're set to begin!<br>
+        <center><%= link_to 'Sign up for a course', new_user_path,  class: 'btn btn-transparent btn-lg' %></center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @setting.blank? %>
+    <table summary="List of courses" class="pretty">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @setting.key.try(:titleize) -%></td>
+          <td><%= @setting.value -%></td>
+          <td align="right">
+            <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Setting"), edit_administrator_setting_path(@setting), :rel => "Edit Setting", title: "Edit") -%>
+            &nbsp;
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+  <% unless @testimonials.blank? %>
+    <table summary="List of testimonials" class="pretty">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @testimonials.each do |testimonial| %>
+          <tr>
+            <td valign="top" style="vertical-align: top;"><%= image_tag(testimonial.logo_url(:thumb), :alt => testimonial.title) if testimonial.logo? -%></td>
+
+            <td valign="top" style="vertical-align: top;"><%= link_to(h(testimonial.title), edit_administrator_testimonial_path(testimonial), title: "Edit") -%></td>
+
+            <td><%= testimonial.content.html_safe %></td>
+                <td valign="top" style="vertical-align: top;" align="right">
+                  <%= link_to(image_tag("icons/pencil.png", :alt => "Edit partner"), edit_administrator_testimonial_path(testimonial), :rel => "Edit Testimonial", title: "Edit") -%>
+                  &nbsp;
+                  <%= link_to(image_tag("icons/delete.png", :alt => "Delete Testimonial"), delete_administrator_testimonial_path(testimonial), :rel => "Delete this Testimonial", title: "Delete") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%#= will_paginate(@testimonials) %>
+  <% else %>
+    <p>No testimonials exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new testimonial", new_administrator_testimonial_path, {:icon_path => "icons/add.png"} %>
+  </p>
+</div>
+<div class="clear">&nbsp;</div>

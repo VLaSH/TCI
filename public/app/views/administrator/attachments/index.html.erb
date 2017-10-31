@@ -1,0 +1,50 @@
+<%=javascript_include_tag "image_ordering" %>
+<div class="grid_11 margin_top_20 alpha">
+  <h6>Attachments</h6>
+  <% unless @attachments.empty? %>
+    <div id="attachment_thumbnail_container">
+      <ol id="attachment_thumbnails">
+        <% @attachments.each do |attachment| %>
+          <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.meta_data, :class => "draggable", size: '60x60') -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview", :rel => "View the image fullsize") -%><%= link_to(image_tag("icons/pencil.png"), edit_administrator_attachment_path(attachment), :rel => "Edit this attachment") -%><%= link_to(image_tag("icons/delete.png"), delete_administrator_attachment_path(attachment), :rel => "Delete this attachment") -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+        <% end %>
+      </ol>
+    </div>
+    <% sortable_element_js("attachment_thumbnails", :url => { :action => "order" }, :handle => "draggable", :constraint => "horizontal", :overlap => "horizontal") %>
+    <%#= sortable_element("attachment_thumbnails", :url => { :action => "order" }, :handle => "draggable", :constraint => "horizontal", :overlap => "horizontal") %>
+  <% else %>
+    <div id="attachment_thumbnail_container">
+      <p>No attachments exist.</p>
+    </div>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <div id="degraded_container">
+    <%if @attachments.size >= 15 && @attachments.first.attachable_type == 'Rearrangement'%>
+    <% else %>
+      <p class="buttons">
+        <%= pretty_button_link "Create new attachment", polymorphic_attachments_path(@attachable, :singular => true, :action => :new), {:icon_path => "icons/add.png"} %>
+      </p>
+      <div class="clear">&nbsp;</div><br />
+      <p>You may also wish to ensure Javascript is enabled and Flash installed for a better upload experience.</p>
+    <% end%>
+  </div>
+  <div id="swfupload_container">
+  	<form>
+  		<div id="swf_upload_UI">
+  			<p><span id="swf_button_holder"></span></p>
+  			<div id="swf_fs_upload_progress">
+  				<span class="legend"></span>
+  				<p id="divStatus"></p>
+  			</div>
+  		</div>
+  	</form>
+  </div>
+  <% unless @attachments.blank?%>
+    <%= form_tag administrator_change_image_order_path, method: :get, remote: true do %>
+      <%= hidden_field_tag :attachment_thumbnails %>
+      <%= submit_tag 'save position' %>
+    <% end %>
+    <%= render :partial => 'attachments/flash_upload_javascript', :locals => { :path => polymorphic_attachments_path(@attachable), :ajax_path => polymorphic_attachments_path(@attachable, :format => 'ajax') } %>
+  <% end %>
+</div>
+<div class="clear">&nbsp;</div>

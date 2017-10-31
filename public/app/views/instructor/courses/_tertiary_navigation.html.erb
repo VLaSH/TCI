@@ -1,0 +1,4 @@
+<ul class="sections">
+  <%= tertiary_navigation_link_to('Lesson Plan', :lesson_plan, instructor_scheduled_course_path(@course), :id => "section_lesson_plan") -%>
+  <%= tertiary_navigation_link_to('Enrollments', :enrolments, instructor_scheduled_course_enrolments_path(@course.scheduled_course), :id => "section_enrolments") -%>
+</ul>

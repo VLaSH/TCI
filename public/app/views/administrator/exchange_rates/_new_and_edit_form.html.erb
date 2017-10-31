@@ -1,0 +1,22 @@
+<%= form_for(exchange_rate, :url => polymorphic_path([ :administrator, exchange_rate ])) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%= error_messages_for(:exchange_rate, :object => exchange_rate) %>
+  <fieldset>
+    <legend>Exchange rate details</legend>
+    <div>
+      <%= f.label(:base_currency, "Base currency #{form_required_field}") %>
+      <%= f.text_field(:base_currency, :size => '3') %>
+    </div>
+    <div>
+      <%= f.label(:counter_currency, "Counter currency #{form_required_field}") %>
+      <%= f.text_field(:counter_currency, :size => '3') %>
+    </div>
+    <div>
+      <%= f.label(:rate, "Exchange rate #{form_required_field}") %>
+      <%= f.text_field(:rate, :size => '10') %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit(exchange_rate.new_record? ? 'Create' : 'Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

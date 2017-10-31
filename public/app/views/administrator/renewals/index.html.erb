@@ -1,0 +1,42 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h6>Renewal for <%= h(@course.title) -%></h6>
+  <% unless renewals.blank? %>
+    <table summary="List of Renewals" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Duration</th>
+          <th class="centred">Amount</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% renewals.each do |renewal| %>
+          <tr>
+            <td class="centred"><%=renewal.duration %></td>
+            <td class="centred"><%=renewal.price.amount %></td>
+            <td align="right">
+              <%= form_tag [ :administrator, renewal ], method: :delete  do %>
+                <%= hidden_field_tag 'course_id', @course.id%>
+                <%= image_submit_tag("icons/delete.png", title: "Delete") %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No Renewal exist.</p>
+  <% end %>
+</div>
+<div class="grid_11 margin_top_20 omega">
+   <p>Add Renewal</p>
+    <%= form_for [ :administrator, renewal ] do |f| %>
+      <%= hidden_field_tag 'course_id', @course.id %>
+      <%= f.label :duration%>
+      <%= f.select :duration, [15, 30, 45, 60] %>
+      <%= f.text_field(:price, :size => 5, :label => "Price (€)", :required => true, :style => "width: 75px;") -%>
+      <%= f.submit'Add Renewal'%>
+    <% end %>
+  <div class="clear">&nbsp;</div><br />
+</div>
+<div class="clear">&nbsp;</div>

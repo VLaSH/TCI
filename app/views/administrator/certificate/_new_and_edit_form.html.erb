@@ -1,0 +1,50 @@
+<div class="grid_16 margin_top_20 alpha omega">
+<form  action="/administrator/certificate/generate" class="uniForm" method="post" onsubmit="return check()">
+	<div style="display:none">		
+		<input name="authenticity_token" type="hidden" value="EVtwlkoGkXO0c5blJdPiAoF43iO/kznC4gYcRl5J1gw=">
+</div>
+<fieldset class="blockLabels"><legend>Generate Certificate</legend>      
+      <div class="ctrlHolder">
+      <label><em>*</em> Student Name</label>
+      <input class="" id="student_name" name="student_name" size="30" style="width: 99%;" type="text">
+      </div>
+       <div class="ctrlHolder">
+		  <label><em>*</em> Corse Name</label>
+		  <input class="" id="course_name" name="course_name" size="30" style="width: 99%;" type="text">
+      </div>
+       <div class="ctrlHolder">
+		  <label><em>*</em> Date</label>
+		  <input class="" id="date" name="date" size="30" style="width: 99%;" type="text">
+      </div>
+     
+</fieldset>    <div class="clear">&nbsp;</div><br>
+    <p class="buttons"><button class="button" type="submit"><img alt="Tick" src="/assets/icons/tick.png">Generate Certificate</button>
+</p></form>
+</div>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<script>
+ function check(){
+	if($('#student_name').val() == '')
+	{
+		alert('Please enter the user name !');
+		return false;
+	}
+	else if($('#course_name').val() == '')
+	{
+		alert('Please enter the course name !');
+		return false;
+	}
+	else if($('#date').val() == '')
+	{
+		alert('Please enter the certificate date !');
+		return false;
+	}
+	setTimeout(function(){
+		$('#course_name, #student_name, #date').val('');
+		
+	},2200)
+	
+}
+</script>

@@ -1,0 +1,18 @@
+body.sales {background: url(/assets/body-bg.gif) repeat-x;}
+body div#navigation ul#navigation li:hover {background: url(/assets/navigation-bg.gif) no-repeat 0 -20px;}
+body div#navigation ul#navigation li:hover a {background: url(/assets/navigation-bg.gif) no-repeat 100% -20px;}
+body div#navigation ul#navigation li.current {background: url(/assets/navigation-bg.gif) no-repeat 0 0;}
+body div#navigation ul#navigation li.current a {background: url(/assets/navigation-bg.gif) no-repeat 100% 0;}
+body div#navigation ul#login li:hover {background: url(/assets/navigation-bg.gif) no-repeat 0 -20px;}
+body div#navigation ul#login li:hover a {background: url(/assets/navigation-bg.gif) no-repeat 100% -20px;}
+body div#navigation ul#login li.current {background: url(/assets/navigation-bg.gif) no-repeat 0 0;}
+body div#navigation ul#login li.current a {background: url(/assets/navigation-bg.gif) no-repeat 100% 0;}
+body div#header h1 a {float: left; margin: 0; padding: 0; display:block; width:272px; height:37px; background: url(/assets/tci-logo.gif) no-repeat; text-indent:-9999px; padding-bottom: 10px;}
+body div#secondary-navigation ul#secondary-navigation li.current {background: #fff url(/assets/tab-bg.gif) repeat-x; color: #000;}
+body div#secondary-navigation ul#secondary-navigation li:hover {background: #fff url(/assets/tab-bg.gif) repeat-x; color: #000;}
+body div#secondary-navigation ul#account li.current {background: #fff url(/assets/tab-bg.gif) repeat-x; color: #000;}
+body div#secondary-navigation ul#account li:hover {background: #fff url(/assets/tab-bg.gif) repeat-x; color: #000;}
+body#home div#home_hero div#details a {font-weight: bold; color: #fff; text-decoration: none; background: url(/assets/internal-link-red.gif) no-repeat 1px; padding-left: 15px;}
+body#home div#home_hero div#more a {font-weight: bold; color: #fff; text-decoration: none; background: url(/assets/internal-link-grey.gif) no-repeat 1px; padding-left: 15px;}
+body div.callout_box {background: url(/assets/callout-box-bg.gif) repeat-y; min-height: 200px; height: 200px; overflow: hidden; border-bottom: 2px solid #ccc;}
+body div.callout_box h4 a {font-weight: bold; color: #fff; text-decoration: none; background: url(/assets/internal-link-grey.gif) no-repeat 1px; padding-left: 15px; float: right; display: block;}

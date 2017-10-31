@@ -1,0 +1,17 @@
+<dl>
+  <dt>Assignment</dt>
+  <dd><%= h(@assignment_submission.assignment.title) -%></dd>
+  <dt>Lesson</dt>
+  <dd><%= h(@assignment_submission.assignment.lesson.title) -%></dd>
+  <dt>Student</dt>
+  <dd><%= h(@assignment_submission.student.full_name) -%></dd>
+  <dt>Title</dt>
+  <dd><%= h(@assignment_submission.title) -%></dd>
+  <dt>Summary</dt>
+  <dd><%= h(@assignment_submission.summary) -%></dd>
+  <dt>Complete</dt>
+  <dd><%= @assignment_submission.completed? ? 'Yes' : 'No' -%></dd>
+</dl>
+<%= form_for([ :administrator, @assignment_submission ], :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

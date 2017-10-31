@@ -1,0 +1,15 @@
+<%= javascript_include_tag 'prototype', 'uni-form.prototype', 'scriptaculous', 'effects','dragdrop', 'lightview' %>
+<%= stylesheet_link_tag 'lightview' %>
+<div class="container content_bg margin-t-70">
+  <div class="grid-scetion">
+    <div class="row clearfix">
+      <% @images.each_with_index do |image, index|%>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    	  <div class="st-picture">
+            <%= student_galleries(image, :style => :gallery, :lightview => true, :id => "sample#{index + 1}") -%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div><!-- Grid Section -->
+</div>

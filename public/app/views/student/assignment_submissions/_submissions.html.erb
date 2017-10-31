@@ -1,0 +1,14 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+  <h4>Your Submission</h4>
+  <div class="body padding_5 instructor">
+    <% if @submissions.count == 0 %>
+      <p>You haven't made a submission for this assignment.</p>
+      <p><%= link_to("Create your assignment submission", new_student_assignment_submission_path(scheduled_assignment)) -%></p>
+    <% else %>
+      <% @submissions.each do |submission| %>
+        <p><%= link_to(submission.title, student_submission_path(submission), :style => "font-weight: bold;") -%></p>
+        <p>Created <%= time_ago_in_words(submission.created_at) -%> ago</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<%# r43 %>
+<%# TODO: get a proper icon for generic downloads %>
+<%# image_tag('iconPDF.gif', :alt => '', :class => 'docIcon') %>
+<h3 class="fauxh5"><%= link_to(attachment.title, attachment.s3_url) -%></h3>
+<ul class="docMeta">
+  <li><%= attachment.created_at.to_date.to_formatted_s(:short_date_month_year) -%></li>
+  <li><%= number_to_human_size(attachment.asset_file_size).downcase -%></li>
+</ul>
+<p class="btns"><%= link_to(content_tag(:span, 'Download', :class => 'cnr'), attachment.s3_url, :class => 'btn') -%></p>
+<br class="clear"/>

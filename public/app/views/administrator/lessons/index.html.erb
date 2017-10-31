@@ -1,0 +1,43 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h6>Lessons for <%= h(@course.title) -%></h6>
+  <% unless @lessons.empty? %>
+    <table summary="List of students lessons" class="pretty">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="centred">Title</th>
+          <th class="centred">Assignments</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lessons.each do |lesson| %>
+          <tr>
+            <td><%= lesson.position -%></td>
+            <td class="centred"><%= link_to(h(lesson.title), edit_administrator_lesson_path(lesson)) -%></td>
+            <td class="centred"><%= link_to(lesson.assignments.size, administrator_lesson_assignments_path(lesson), :rel => "There #{lesson.assignments.size == 1 ? 'is' : 'are'} #{pluralize(lesson.assignments.size, "assignment")} for this lesson") -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit lesson"), edit_administrator_lesson_path(lesson), :rel => "Edit lesson") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/page_white_picture.png", :alt => "Assignments"), administrator_lesson_assignments_path(lesson), :rel => "Create, View or Edit Assignments") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/picture.png", :alt => "Attachments"), polymorphic_attachments_path(lesson), :rel => "Create, View or Edit Attachments") %>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete lesson"), delete_administrator_lesson_path(lesson)) -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@lessons) %>
+  <% else %>
+    <p>No lessons exist for this course.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new lesson", new_administrator_course_lesson_path(@course), {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+</div>
+<div class="clear">&nbsp;</div>
+

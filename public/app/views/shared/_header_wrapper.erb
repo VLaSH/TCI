@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="header_container">
+    <h1 class="logo">
+      <%= link_to (image_tag "tci-logo.png", alt: 'The Compelling Image'), root_path, title: 'The Compelling Image' %>
+    </h1><!-- Logo -->
+
+    <ul class="account_container">
+      <% unless logged_in? %>
+        <li><%= link_to 'Sign Up', new_user_path %></li>
+        <li><%= link_to 'Login', new_session_path %></li>
+      <% else%>
+        <li><%= link_to 'Logout', logout_path %></li>
+        <li>
+          <strong>
+            <%= link_to "#{current_user.role} Area", user_role_root_path %>
+          </strong>
+        </li>
+      <%end%>
+      <li class="last"><%= link_to 'Contact', new_enquiry_path%></li>
+    </ul><!-- Account Container -->
+
+    <div class="toggle_menu">
+      <%= link_to 'Menu', "javascript:void(0)" %>
+    </div><!-- Toggle Menu -->
+
+    <!-- Navigation -->
+    <ul class="nav">
+      <li><%= link_to 'HOME', root_path %></li>
+      <li><%= link_to 'HOW IT WORKS', page_path(names: 'about') %></li>
+      <li>
+        <a href="javascript:void(0);" class='dropdown'>COURSES</a>
+        <ul class="show_dropdown">
+          <li><%= link_to 'All', courses_path%></li>
+          <li><%= link_to 'Beginner', courses_path(cat: 1)%></li>
+          <li><%= link_to 'Intermediate ', courses_path(cat:2)%></li>
+          <li><%= link_to 'Advanced', courses_path(cat: 5) %></li>
+        </ul>
+        <span class="drop-button">
+          <a href="javascript:void(0)">
+            <%= image_tag 'dopdown.png', alt: "plus-sign" %>
+          </a>
+        </span>
+
+      </li>
+      <li><%= link_to 'INSTRUCTORS', instructors_path %></li>
+      <li><%= link_to 'MENTORSHIP', courses_path(cat: 4) %></li>
+      <li><%= link_to 'PORTFOLIO REVIEW', courses_path(cat: 3) %></li>
+      <li class="border_bottom_0"><%= link_to 'WORKSHOPS', workshops_path %></li>
+      <li class="border_bottom_0"><%= link_to 'STUDENT GALLERY', student_galleries_path %></li>
+      <li class="last"><%= link_to 'BLOG', 'http://blog.thecompellingimage.com' %></li>
+    </ul>
+    <ul class="social_media">
+      <li class='st_facebook' displayText=''></li>
+      <li class='st_twitter' displayText=''></li>
+      <li class='st_linkedin' displayText=''></li>
+      <li class='st_googleplus' displayText=''></li>
+    </ul><!-- Social Medida -->
+    <div class='clear'></div>
+  </div><!-- Header Container -->
+</div><!-- Container -->

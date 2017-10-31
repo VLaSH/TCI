@@ -1,0 +1,8 @@
+<div id="attachments" class="attachments">
+  <h3>Examples</h3>
+  <ul>
+    <%- attachments.each_with_index do |attachment, index| -%>
+      <li><%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, :id => "sample#{index + 1}", size: '60x60') -%></li>
+    <%- end -%>
+  </ul>
+</div>

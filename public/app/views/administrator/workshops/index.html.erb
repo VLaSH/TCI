@@ -1,0 +1,44 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @workshops.empty? %>
+    <table summary="List of workshops" class="pretty">
+      <thead>
+        <tr>
+          <th>Workshops</th>
+          <th>Visible</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @workshops.each do |workshop| %>
+          <tr>
+            <td><%= link_to(h(workshop.title), edit_administrator_workshop_path(workshop)) -%></td>
+            <td><%= workshop.visible? ? 'Visible' : 'Not visible' -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Workshop"), edit_administrator_workshop_path(workshop), :rel => "Edit Workshop") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete Workshop"), delete_administrator_workshop_path(workshop), :rel => "Delete this workshop") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@workshops) %>
+  <% else %>
+    <p>No workshops exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new workshop", new_administrator_workshop_path, {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+  <form class="pretty">
+    <fieldset>
+      <legend>Search</legend>
+      <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+    </fieldset>
+    <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?search=" %></p>
+    <div class="clear">&nbsp;</div>
+  </form>
+</div>
+<div class="clear">&nbsp;</div>

@@ -1,0 +1,25 @@
+<div class="grid_11">
+  <h4>Enroll on <%= h(@package.title) -%></h4>
+  <%= uni_form_for(@purchase, :url => package_purchase_path(@package)) do |f| %>
+    <%= hidden_field_tag :package_id, @package.id %>
+    <% f.fieldset(:legend => "Payment Method") do %>
+      <% if @package.free? %>
+        <div class="ctrlHolder">
+          Free
+        </div>
+      <% else %>
+        <div class="ctrlHolder">
+          <%= f.hidden_field :package_id, :value => @package.id %>
+          <%= f.hidden_field :student_user_id, :value => current_user.id %>
+          <%= f.purchase_gateway_radio_buttons(:gateway) %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= f.submit('Enroll', :name => nil, :style => "float: left; margin-top: 10px;") %>
+  <% end %>
+</div>
+<div class="grid_5">
+  <%#= render(:partial => "package_purchases/help", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "package_purchases/payments") -%>
+</div>
+<div class="clear">&nbsp;</div>

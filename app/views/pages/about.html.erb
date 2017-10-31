@@ -1,0 +1,59 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'about' }
+    page.primary_navigation_section = :about
+    page.title.unshift('About')
+  end
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="The Compelling Image Learn Photography Online Video Production Course" />
+  <meta name="description" content="Take an online course in photography or video production with The Compelling Image. Our industry established experts take you from strength to strength." />
+<% end %>
+
+<div class="container content_bg margin-t-70"><!-- Container -->
+  <!-- <div class="banner">
+    <%= image_tag how_it_work_banner_image, alt: "" %>
+    <span>
+      How It Works
+    </span>
+  </div> -->
+  <!-- Banner -->
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div class="page_title">How It Works</div>
+        <!-- Page Title -->
+        <p><span class="bigtext" style="color: #E30613;">Timely personal interaction and inspiring feedback are hugely important to the learning process - and this is just what you’ll get at The Compelling Image.</span></p><br />
+        <p>With courses ranging from beginner through aspiring professional levels, The Compelling Image (TCI) School of Photography and Visual Storytelling is the affordable and convenient way to learn photography - interactively, right from your own home and in tune with your busy schedule. All you need is a computer or mobile device and connection to the internet.</p>
+        <p><span class="bigtext" style="color: #E30613;">Your TCI enrollment includes :</span></p>
+        <ul class="how-works clearfix">
+          <li>Clear, enjoyable to read and richly illustrated course lessons, downloadable  for your convenience.</li>
+          <li>Lesson assignments to practice your new skills - using subjects and situations accessible to you, wherever you live.</li>
+          <li>Friendly and constructive critiques of your work by our award-winning, international instructors, delivered to your Student Area within 24 hours.</li>
+          <li>Answers to your photography questions within 12 hours.</li>
+          <li>Valuable tips and advice on ways to improve your photography.</li>
+          <li>A “Virtual Classroom” where you’ll be able to discuss lessons and assignments - interactively - with your instructor and others on your course.</li>
+          <li>No assignment deadlines. Submit your work anytime during your 60-day enrollment period.</li>
+          <li>"Certificate of Course Completion"</li>
+        </ul>
+        <p><span class="bigtext" style="color: #E30613;">Getting started is fast and easy, simply :</span></p>
+        <ul class="how-works1 clearfix">
+          <li>Sign up for a free TCI account.</li>
+          <li>Choose from our list of inspiring courses.</li>
+          <li>Make your secure payment using Pay Pal or major credit card.</li>
+          <li>Receive quick confirmation of your payment, log into your Student Area and you’re ready to begin!</li>
+        </ul>
+        <p><span class="bigtext" style="color: #E30613;">Still not sure?</span></p>
+        <p>Enroll on our <%= link_to 'FREE SAMPLE LESSON', free_course %> and you'll be presented with a shortened version of an actual TCI lesson and assignment. Once you’ve completed your assignment, upload it to the TCI website and you’ll receive a professional critique of your work - <span class="bigtext">all for FREE!</span></p>
+        <p><span class="bigtext" style="color: #E30613;">Our Guarantee</span></p>
+        <p>We’re certain you’ll enjoy and greatly benefit from your online-interactive learning experience at TCI. However, if you are not satisfied for any reason, TCI will immediately refund 75 percent of your paid tuition, if notified at <a href="mailto:support@thecompellingimage.com">support@thecompellingimage.com</a> within the first week of your enrollment.</p>
+        <%= link_to 'ENROLL NOW', new_user_path, class: 'enroll'%>
+    </div>
+    <!-- Left Content -->
+
+    <div class="inner_content_right">
+      <%= render(:partial => "common/testimonials",:locals=>{:testimonials=>@testimonials}) -%>
+      <%= render(:partial => "common/sample", :locals => {:classes => "margin_bottom_20"}) -%>
+    </div><!-- Sidebar -->
+  </div><!-- Inner Content Container -->
+</div><!-- Container -->

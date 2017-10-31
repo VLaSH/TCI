@@ -1,0 +1,1 @@
+<%= render(:partial => 'critiques/new_and_edit_form', :locals => { :critique => @critique, :path => polymorphic_path([ :administrator, @critique.critiqueable, :critiques ]) }) -%>

@@ -1,0 +1,5 @@
+<ol id="attachment_thumbnails">
+  <% @attachments.each do |attachment| %>
+    <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><%= link_to(image_tag("icons/pencil.png"), administrator_attachment_path(attachment)) -%><%= link_to(image_tag("icons/delete.png"), delete_administrator_attachment_path(attachment)) -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+  <% end %>
+</ol>

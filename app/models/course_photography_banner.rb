@@ -1,0 +1,2 @@
+class CoursePhotographyBanner < BannerImage
+end

@@ -1,0 +1,17 @@
+<% if !local_assigns[:protocol].nil? && protocol == :https %>
+  <!--[if lt IE 8]>
+    <%#= javascript_include_tag "IE8.js") %>
+  <![endif]-->
+  <%= javascript_include_tag "prototype", "uni-form.prototype" %>
+<% else %>
+  <!--[if lt IE 8]>
+    <%#= javascript_include_tag("IE8") %>
+  <![endif]-->
+  <%= javascript_include_tag("prototype", "scriptaculous", "dragdrop", "lightview", "prototip", "tiny_mce/tiny_mce", "swfupload") -%>
+  <%= render(:partial => "common/instructor/tiny_mce") -%>
+  <%= render(:partial => "common/instructor/prototip") -%>
+  <%= javascript_include_tag("swfobject") %>
+  <%= javascript_include_tag("jwplayer") %>
+
+  <%= yield :additional_footer_js %>
+<% end %>

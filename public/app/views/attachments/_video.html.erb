@@ -1,0 +1,15 @@
+<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='480' height='360' id='movie_<%= attachment_index -%>' name='movie_<%= attachment_index -%>'>
+   <param name='movie' value='/flash/player.swf'>
+   <param name='allowfullscreen' value='true'>
+   <param name='allowscriptaccess' value='always'>
+   <param name='flashvars' value='file=<%= CGI::escape(attachment.s3_url(:transcoded)) -%>&amp;image=<%= CGI::escape(attachment.s3_url(:w480xh360)) -%>'>
+   <embed id='movie_<%= attachment_index -%>'
+          name='movie_<%= attachment_index -%>'
+          src='/flash/player.swf'
+          width='480'
+          height='360'
+          allowscriptaccess='always'
+          allowfullscreen='true'
+          flashvars='file=<%= CGI::escape(attachment.s3_url(:transcoded)) -%>&amp;image=<%= CGI::escape(attachment.s3_url(:w480xh360)) -%>'
+   />
+</object>

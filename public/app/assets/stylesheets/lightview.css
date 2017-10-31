@@ -1,0 +1,75 @@
+#lightview{height:150px;left:50%;margin:-75px 0 0 -75px;padding:0;position:absolute;text-align:left;top:50%;width:150px;}
+.lv_Container{background:none;height:100%;margin:0;padding:0;position:relative;width:100%;}
+.lv_Button{background:none;border:none;cursor:pointer;margin:0;padding:0;text-decoration:none;}
+.lv_Sides{clear:both;left:0;margin:0;padding:0;position:absolute;top:50%;width:100%;}
+.lv_Sides li{list-style-type:none;position:relative;}
+.lv_Sides .lv_Wrapper{cursor:pointer;height:100%;width:100%;}
+.lv_Sides .lv_Button{background:none;float:left;}
+.lv_Frames{height:100%;margin:0;padding:0;position:relative;width:100%;}
+.lv_Frames li{list-style-type:none;margin:0;padding:0;}
+.lv_Frame{display:block;width:100%;}
+.lv_FrameTop{display:block;left:0;position:absolute;width:100%;}
+.lv_FrameBottom{clear:both;float:left;position:relative;}
+.lv_Liquid{clear:both;float:left;overflow:hidden;position:relative;width:100%;}
+.lv_Liquid .lv_Filler{height:100%;left:50%;position:absolute;top:0;width:2px;}
+.lv_Half{clear:both;display:block;height:100%;line-height:0;}
+.lv_Half li{list-style-type:none;}
+.lv_Corner{float:left;position:relative;}
+.lv_Fill{height:100%;position:absolute;top:0;width:100%;}
+.lv_Half .lv_CornerWrapper{float:left;height:100%;overflow:hidden;position:relative;width:50%;}
+.lv_Corner canvas{position:relative;}
+.lv_HalfRight .lv_Corner{float:right;position:relative;}
+.lv_Center{background:none;clear:both;height:100%;margin:0;overflow:hidden;padding:0;position:relative;}
+.lv_WrapUp{height:100%;left:0;margin:0;overflow:hidden;padding:0;position:absolute;width:100%;}
+.lv_WrapDown{height:100%;margin:0;overflow:hidden;padding:0;position:relative;width:100%;}
+.lv_WrapCenter{margin:0;padding:0;position:relative;}
+.lv_Loading{left:50%;position:absolute;top:50%;}
+.lv_Loading .lv_Button{float:left;height:100%;width:100%;}
+.lv_MediaWrapper{clear:both;display:block;margin:0;overflow:hidden;padding:0;position:relative;width:100%;}
+.lv_MediaWrapper img{float:left;margin:0;padding:0;position:relative;}
+.lv_PrevNext{height:100%;left:0;margin:0;padding:0;position:absolute;top:0;width:100%;}
+.lv_PrevNext .lv_Button{height:100%;position:relative;}
+.lv_MenuBar{clear:both;color:#7a7a7a;font:11px Arial, Helvetica, sans-serif;margin:0;padding:0;position:relative;text-align:left;width:100%;}
+.lv_Close{float:right;height:100%;overflow:hidden;position:relative;width:100%;}
+.lv_Data{float:left;line-height:13px;overflow:hidden;padding-bottom:3px;position:relative;}
+.lv_Data li{float:left;list-style-type:none;margin-top:3px;}
+.lv_DataText .lv_Title{font-weight:bold;margin-bottom:2px;}
+.lv_DataText .lv_Caption{clear:both;}
+.lv_Data .lv_ImgNumber{color:#a7a7a7;margin-right:5px;margin-top:5px;}
+.lv_Data .lv_innerPrevNext,.lv_Data .lv_Slideshow{border-left:1px solid #d7d7d7;margin-top:5px;padding:0 5px;position:relative;vertical-align:middle;}
+.lv_Data .lv_Slideshow{padding-right:0;}
+.lv_Data .lv_innerPrevNext .lv_Button,.lv_Data .lv_Slideshow .lv_Button{background-position:center left;background-repeat:no-repeat;float:left;}
+.lv_contentTop,.lv_contentBottom{clear:both;float:left;margin:0;padding:0;position:relative;}
+#lightview iframe{background:none;border:0;clear:both;float:left;margin:0;padding:0;}
+.lv_topButtons{left:0;margin:0;overflow:hidden;padding:0;position:absolute;width:100%;}
+.lv_topcloseButtonImage{cursor:pointer;}
+#lightviewError p{margin-left:0;padding:0;}
+#lightviewError div{font:11px Arial, Helvetica, sans-serif;padding:6px;}
+#lightviewError .message{background:#fcb5b5;color:#dd1f1f;margin-bottom:3px;}
+#lightviewError .type{font-weight:bold;}
+#lightviewError .pluginspage{background:#b5fcbd;color:#21be30;}
+#lightviewError a,#lightviewError a:hover,#lightviewError a:visited{background:none;border-bottom:1px solid #7de689;color:#21be30;font-weight:bold;text-decoration:none;}
+#lv_overlay{height:100%;left:0;position:absolute;top:0;width:100%;}
+#lightviewController{bottom:0;color:#d2d2d2;font:11px Arial, Helvetica, sans-serif;left:50%;margin:0;padding:0;position:fixed;top:0;}
+* html body #lightviewController{margin-top:expression( (-1 * this.offsetHeight / 2 + (document.documentElement ? document.documentElement.scrollTop : 0) 0 (Lightview.controllerOffset || 0)) 0 'px');position:absolute;top:auto;}
+#lightviewController ul{display:block;float:left;height:100%;margin:0;padding:0;position:relative;}
+.lv_controllerTop,.lv_controllerMiddle,.lv_controllerBottom{clear:both;display:block;float:left;list-style-type:none;margin:0;overflow:hidden;padding:0;position:relative;}
+.lv_controllerCenter{float:left;width:auto;}
+.lv_controllerCornerWrapper{height:100%;margin:0;padding:0;position:absolute;width:100%;}
+.lv_controllerCornerWrapperTopLeft,.lv_controllerCornerWrapperBottomLeft{left:-100%;top:0;}
+.lv_controllerCornerWrapperTopRight,.lv_controllerCornerWrapperBottomRight{left:100%;top:0;}
+#lightviewController .lv_Corner{float:right;position:relative;}
+.lv_controllerBetweenCorners{height:100%;overflow:hidden;position:relative;}
+.lv_controllerMiddle{float:left;height:100%;position:relative;}
+.lv_controllerCenter li{clear:none;display:inline;float:left;list-style-type:none;position:relative;}
+.lv_controllerSetNumber{float:left;height:100%;padding-right:3px;position:relative;text-align:center;}
+#lightviewController .lv_Button{clear:none;float:left;height:100%;position:relative;}
+.lv_controllerPrev,.lv_controllerNext,.lv_controllerSlideshow,.lv_controllerClose{float:left;height:100%;padding-left:3px;position:relative;}
+.lv_controllerPrev{border-left:1px solid #3c3c3c;}
+#lightviewController .lv_controllerNext{border-right:1px solid #3c3c3c;padding-right:3px;}
+* html #lightview{margin-left:expression( -1 * this.offsetWidth / 2 + (document.documentElement ? document.documentElement.scrollLeft : 0) 0 'px');margin-top:expression( (-1 * this.offsetHeight / 2 + (document.documentElement ? document.documentElement.scrollTop : 0) 0 (Lightview.controllerHeight || 0)) 0 'px');position:absolute;}
+html #lv_overlay{height:expression(((window.Enumerable && window.Enumerable.max) ? [document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight].max() : document.documentElement.scrollHeight) 0 'px' );position:absolute;width:expression(((window.Enumerable && window.Enumerable.max) ? [document.body.scrollWidth, document.documentElement.scrollWidth, document.body.offsetWidth, document.documentElement.clientHeight].max() : document.documentElement.scrollWidth) 0 'px' );}
+.lv_Sides *,.lv_Frame *,.lv_PrevNext *,.lv_MenuBar *{margin:0;padding:0;}
+.lv_PrevSide,.lv_HalfLeft .lv_Corner,.lv_PrevButton,#lightviewController .lv_CornerTr,#lightviewController .lv_CornerBr{float:left;}
+.lv_NextSide,.lv_CornerTr,.lv_CornerBr,.lv_HalfRight .lv_CornerWrapper,.lv_NextButton{float:right;}
+.lv_DataText,#lightviewController .lv_CornerWrapper{width:100%;}

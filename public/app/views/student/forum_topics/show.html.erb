@@ -1,0 +1,11 @@
+<div class="grid_11 margin_top_20 alpha">
+  <%= render(:partial => 'student/forum_topics/show', :locals => { :forum_topic => @forum_topic }) -%>
+  <h5>Responses to this Discussion</h5>
+  <%= render(:partial => "student/forum_posts/forum_posts", :locals => {:forum_topic => @forum_topic})%>
+  <%= render(:partial => 'student/forum_posts/new_forum_post', :locals => {:redirect => student_forum_topic_path(@forum_topic)}) unless @forum_topic.nil? -%>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/forum_topics/latest", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/forum_topics/latest_from_courses", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

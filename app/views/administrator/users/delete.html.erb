@@ -1,0 +1,24 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete user <%= h(@user.full_name) -%></h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th class="centred">Email</th>
+        <th class="centred">Given Name</th>
+        <th class="centred">Family Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= h(@user.email) %></td>
+        <td><%= h(@user.given_name) %></td>
+        <td><%= h(@user.family_name) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @user ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+  <% end %>
+</div>

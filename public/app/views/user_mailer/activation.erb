@@ -1,0 +1,12 @@
+Hi,
+<br><br>
+You have just created a new account. Now you need to activate it.
+<br>
+Go to the activation page and follow the instructions, For Activation :
+<%= link_to 'Click Here',create_user_activation_url(@user.id, @user.activation_code) %>
+<br>
+Your activation code is:
+<%= @user.activation_code %>
+<br><br>
+Regards,<br>
+The Compelling Image

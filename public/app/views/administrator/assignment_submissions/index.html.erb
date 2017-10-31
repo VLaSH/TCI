@@ -1,0 +1,28 @@
+<h3>Submissions for <%= h(@scheduled_assignment.assignment.title) -%></h3>
+<% unless @assignment_submissions.empty? %>
+  <table summary="List of assignment submissions">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Student</th>
+        <th class="centred">Updated</th>
+        <th class="centred">Complete</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @assignment_submissions.each do |assignment_submission| %>
+        <tr>
+          <td><%= link_to(h(assignment_submission.title), administrator_assignment_submission_path(assignment_submission)) -%></td>
+          <td><%= h(assignment_submission.student.full_name) -%></td>
+          <td class="centred"><%= assignment_submission.updated_at.to_formatted_s(:long) -%></td>
+          <td class="centred"><%= assignment_submission.completed? ? 'Yes' : 'No' -%></td>
+          <td class="centred"><%= link_to('Edit', edit_administrator_assignment_submission_path(assignment_submission)) -%>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to('Delete', delete_administrator_assignment_submission_path(assignment_submission)) -%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate(@assignment_submissions) %>
+<% else %>
+  <p>No submissions exist.</p>
+<% end %>

@@ -1,0 +1,35 @@
+<h3>Name and contact details</h3>
+<dl>
+  <dt>Email</dt>
+  <dd><%= h(@user.email) %></dd>
+  <dt>Given name</dt>
+  <dd><%= h(@user.given_name) %></dd>
+  <dt>Family name</dt>
+  <dd><%= h(@user.family_name) %></dd>
+  <dt>Telephone (voice)</dt>
+  <dd><%= h(@user.phone_voice) -%></dd>
+  <dt>Telephone (mobile)</dt>
+  <dd><%= h(@user.phone_mobile) -%></dd>
+</dl>
+<h3>Address</h3>
+<dl>
+  <dt>Street</dt>
+  <dd><%= h(@user.address_street) %></dd>
+  <dt>Locality</dt>
+  <dd><%= h(@user.address_locality) %></dd>
+  <dt>Region</dt>
+  <dd><%= h(@user.address_region) %></dd>
+  <dt>Country</dt>
+  <dd><%= h(user_address_country_name(@user)) %></dd>
+</dl>
+<h3>Role and status</h3>
+<dl>
+  <dt>Role</dt>
+  <dd><%= @user.role.to_s.titleize -%></dd>
+  <dt>Status</dt>
+  <dd><%= h(@user.status.to_s.titleize) %></dd>
+  <dt>Registered</dt>
+  <dd><%= @user.created_at.to_s(:long) %></dd>
+</dl>
+<p><%= link_to('Edit this user', edit_administrator_user_path(@user)) %></p>
+<p><%= link_to('View attachments', administrator_user_attachments_path(@user)) -%></p>

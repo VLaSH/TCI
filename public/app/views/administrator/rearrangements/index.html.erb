@@ -1,0 +1,33 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @rearrangements.empty? %>
+    <table summary="List of rearrangements" class="pretty">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rearrangements.each do |rearrangement| %>
+          <tr>
+            <td><%= link_to(h(rearrangement.title), edit_administrator_rearrangement_path(rearrangement)) -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/picture.png", :alt => "Attachments"), polymorphic_attachments_path(rearrangement), :rel => "Create, View or Edit Attachments") %>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete Assignment"), delete_administrator_rearrangement_path(rearrangement), :rel => "Delete this rearrangement") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@rearrangements) %>
+  <% else %>
+    <p>No rearrangements exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new rearrangement", new_administrator_assignment_rearrangement_path(@assignment), {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+</div>
+<div class="clear">&nbsp;</div>

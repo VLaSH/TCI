@@ -1,0 +1,237 @@
+<% if params.has_key?('submitted')%><p><strong>Critique submitted!</strong></p><% end %>
+<div class="grid_16 margin_top_20 alpha">
+  <h3><%= @assignment_submission.title %></h3>
+  <p><strong>Created by <%= @assignment_submission.enrolment.student.nil? ? 'Deleted User' : @assignment_submission.enrolment.student.full_name -%> on <%= @assignment_submission.created_at.to_formatted_s(:long) -%><%- if @assignment_submission.completed? -%> - Marked as complete<%- else -%> - <span style="color: #f00;">Not yet marked as complete</span><%- end -%> - <%= pluralize(@assignment_submission.attachments.size, "attachment")%></strong></p>
+  <%= @assignment_submission.description.html_safe -%>
+</div>
+
+<% if @assignment_submission.assignment.rearrangements.size > 0 %>
+  <% @assignment_submission.assignment.rearrangements.each do |rearrangement| %>
+    <div class="grid_16 margin_top_20 alpha whitebg">
+      <div class="margin_top_20">
+        <p><strong>Original Sequence</strong></p>
+        <div class="attachment_thumbnail_container">
+          <ol class="attachment_thumbnails">
+            <% rearrangement.attachments.each do |attachment| %>
+              <li id="attachment_thumbnail_li_<%= attachment.id -%>" class="photo_frame">
+                <span><%= attachment.position -%></span>
+                <%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, size: '60x60') -%>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+        <br clear="both" /><br />
+        <p><strong>Sequence by <%= @assignment_submission.enrolment.student.nil? ? 'Deleted User' : @assignment_submission.enrolment.student.full_name -%></strong></p> <%#= link_to 'Edit',  instructor_submission_attachments_path(@assignment_submission)%>
+        <div class="attachment_thumbnail_container">
+          <ol class="attachment_thumbnails">
+            <% unless @assignment_submission.rearrangement.blank?%>
+              <% @assignment_submission.rearrangement.split(',').each_with_index do |attachment_id, i| %>
+                <% attachment = Attachment.find_by_id(attachment_id) %>
+                <% unless attachment.nil? %>
+                  <li id="rearrangement_thumbnailer_<%= attachment.id -%>" rel="<%= attachment.id -%>" class="photo_frame">
+                    <span><%= attachment.position -%></span><span class="yours"><%= i + 1 -%></span>
+                    <%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, size: '60x60') -%>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+        <% unless @assignment_submission.rearrangement.blank?%>
+        <br clear="both" /><br />
+        <p><strong>Suggested Sequence By Instructor</strong></p> <%#= link_to 'Edit',  instructor_submission_attachments_path(@assignment_submission)%>
+        <p><a href="#" id="rearrangement_reset">Reset</a> | <a href="#" id="rearrangement_save">Save</a></p>
+        <div class="attachment_thumbnail_container rearrangement_attachment_thumbnail_container">
+          <ol class="attachment_thumbnails" id="rearrangement_thumbnails">
+              <% yoursArrangment =  @assignment_submission.rearrangement.split(',')%>
+            <% unless @assignment_submission.instructor_rearrangement.blank?%>
+              <% @assignment_submission.instructor_rearrangement.split(',').each_with_index do |attachment_id, i| %>
+                <% attachment = Attachment.find_by_id(attachment_id) %>
+                <% unless attachment.nil? %>
+                  <li id="rearrangement_thumbnailer2_<%= attachment.id -%>" rel="<%= attachment.id -%>">
+                      <div class="photo_frame_header">&nbsp;</div>
+                      <div class="photo_frame">
+                          <span><%= attachment.position -%></span>
+                          <% unless yoursArrangment.index(attachment.id.to_s).blank? %>
+                          <span class="yours"><%= yoursArrangment.index(attachment.id.to_s) + 1 unless yoursArrangment.index(attachment.id.to_s).blank? -%></span>
+                          <% end %>
+                  <%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "rearrangement_thumbnail_#{attachment.id}") -%>
+                          <div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><a href="#" onclick="removeFromRearrangement(<%= attachment.id -%>); return false;" id="rearrange_delete" rel="<%= attachment.id -%>"><img src="/assets/icons/delete.png"></a></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+                <% end %>
+              <% end %>
+            <% else %>
+                  <%#=yoursArrangment%>
+                  <%=yoursArrangment.index(1384)%>
+                <% rearrangement.attachments.each do |attachment| %>
+                <% attachment = Attachment.find_by_id(attachment.id) %>
+                <% unless attachment.nil? %>
+                  <li id="rearrangement_thumbnailer2_<%= attachment.id -%>" rel="<%= attachment.id -%>">
+                      <div class="photo_frame_header">&nbsp;</div>
+                      <div class="photo_frame">
+                          <span><%= attachment.position -%></span>
+                          <% unless yoursArrangment.index(attachment.id.to_s).blank? %>
+                          <span class="yours"><%= yoursArrangment.index(attachment.id.to_s) + 1 unless yoursArrangment.index(attachment.id.to_s).blank? -%></span>
+                          <% end %>
+                        <%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "rearrangement_thumbnail_#{attachment.id}") -%>
+                        <div class="controls">
+                          <%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%>
+                            <a href="#" onclick="removeFromRearrangement(<%= attachment.id -%>); return false;" id="rearrange_delete" rel="<%= attachment.id -%>">
+                                <img src="/assets/icons/delete.png">
+                            </a>
+                        </div>
+                      </div>
+                      <div class="photo_frame_footer">&nbsp;</div>
+                  </li>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ol>
+            <%= hidden_field_tag(:original, rearrangement.attachments.map{|a| a.id}.join(','))%>
+          <%= hidden_field_tag(:rearrangement, rearrangement.attachments.map{|a| a.id}.join(','), :id => "rearrangement")%>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<script type="text/javascript">
+        document.observe('dom:loaded', function() {
+          Sortable.create('rearrangement_thumbnails',{tag:'li', onUpdate: function() { $('rearrangement').value = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});}});
+          $('rearrangement_reset').observe('click', resetRearrangement);
+          $('rearrangement_save').observe('click', saveRearrangement);
+          $('rearrange_delete').observe('click', removeFromRearrangement);
+        });
+
+        function resetRearrangement(event) {
+          document.location = '<%= instructor_instructor_sequence_path(@assignment_submission) -%>?sequence=';
+          return false;
+        }
+
+        function saveRearrangement(event) {
+          sequence = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});
+          document.location = '<%= instructor_instructor_sequence_path(@assignment_submission) -%>?sequence=' + sequence;
+          return false;
+        }
+        function removeFromRearrangement(id) {
+          $("rearrangement_thumbnailer2_" + id).remove();
+          return false;
+        }
+</script>
+<% end %>
+
+<%= form_tag(instructor_submission_critiques_path(@assignment_submission), :method => :post, :class => "nobg", :autocomplete => 'off', :multipart => true) do -%>
+  <%- @assignment_submission.attachments.each_with_index do |attachment, i| -%>
+    <div class="grid_16 margin_top_20 alpha whitebg">
+      <div class="margin_top_20">
+        <h4>Attachment <%= i + 1 %> of <%= @assignment_submission.attachments.size %></h4>
+        <div class="grid_8 alpha"><%= attachment_thumbnail(attachment, :style => :w360xh270, :lightview => true, height: 270, width: 360) -%></div>
+        <br>
+        <% if !attachment.title.blank? || !attachment.description.blank? %>
+          <div class="grid_8 alpha" style="background: #ddd; padding: 10px; clear: both;">
+            <h3>Description by <%= @assignment_submission.enrolment.student.nil? ? 'Deleted User' : @assignment_submission.enrolment.student.full_name -%>:</h3><strong><%= attachment.title -%></strong><br><%= attachment.description.html_safe -%>
+          </div>
+          <br />
+        <% end %>
+        <div class="grid_8 omega">
+          <% attachment.critiques.each_with_index do |critique, i| %>
+            <div class="show_critique" style="margin-top: 15px; margin-left: <%= i > 0 ? '30px' : '15px'-%>;">
+              <strong><%= i > 0 ? 'Comment ' : 'Critique '-%> by <%= critique.user.full_name %> on <%= critique.created_at.to_date.to_s(:long) %></strong><br />
+              <p><%= attachment_thumbnail(critique.attachments.first, :style => :w360xh270, :lightview => true, height: 270, width: 360) if critique.attachments.size > 0 -%></p>
+              <%= critique.comment.html_safe -%>
+            </div>
+          <% end %>
+          <div class="post_critique" style="background: #E5F3FF; padding: 10px; margin-top: 20px;">
+            <strong>Critique</strong>
+            <p>Upload an image:</p>
+            <%= file_field_tag("critique[attachment][#{attachment.id}][attachment]") -%>
+            <p>Content</p>
+            <%= text_area_tag("critique[attachment][#{attachment.id}][content]", "", :rows => 15, :style => "width: 100%", :class => 'widgEditor') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%- end -%>
+  <div class="grid_16 margin_top_20 alpha whitebg">
+    <% @assignment_submission.critiques.each_with_index do |critique, i| %>
+      <div class="show_critique" style="margin-top: 15px; margin-left: <%= i > 0 ? '30px' : '15px'-%>;">
+        <strong><%= i > 0 ? 'Comment ' : 'Critique Summary '-%> by <%= critique.user.full_name %> on <%= critique.created_at.to_date.to_s(:long) %></strong><br />
+        <p><%= attachment_thumbnail(critique.attachments.first, :style => :w360xh270, :lightview => true, height: 270, width: 360) if critique.attachments.size > 0 -%></p>
+        <%= critique.comment == 'Rearrangement' ? '' : critique.comment.html_safe -%>
+        <% if critique.original_sequence != critique.rearrangement_sequence %>
+          <p><strong>Suggested sequence</strong></p>
+          <div class="attachment_thumbnail_container">
+            <ol class="attachment_thumbnails">
+              <% original = critique.original_sequence.split(',') %>
+              <% critique.rearrangement_sequence.split(',').each_with_index do |attachment_id, i| %>
+                <% attachment = Attachment.find_by_id(attachment_id) %>
+                <% unless attachment.nil? %>
+                  <li id="<%= critique.id -%>_rearrangement_thumbnailer_<%= attachment.id -%>" rel="<%= attachment.id -%>" class="photo_frame">
+                    <span><%= begin original.index(attachment.id.to_s) + 1 rescue '-' end -%></span><span class="yours"><%= i + 1 -%></span>
+                      <%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, size: '60x60') -%>
+                  </li>
+                <% end %>
+              <% end %>
+            </ol>
+          </div>
+        <% end %>
+      </div><br clear="both" /><br />
+    <% end %>
+    <div class="post_critique" style="background: #E5F3FF; padding: 10px; margin-top: 20px;">
+      <% unless @assignment_submission.attachments.empty? %>
+        <script type="text/javascript">
+        document.observe('dom:loaded', function() {
+          Sortable.create('rearrangement_thumbnails',{tag:'li', onUpdate: function() { $('rearrangement').value = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});}});
+        });
+
+        function removeFromRearrangement(id) {
+          $("rearrangement_thumbnailer_" + id).remove();
+          $('rearrangement').value = Sortable.sequence("rearrangement_thumbnails", {tag:"li"});
+          return false;
+        }
+
+        function toggleRearrangement() {
+          $('suggest_alternative_arrangement').toggle();
+        }
+
+        </script>
+
+        <strong><a href="javascript:toggleRearrangement();" id="show_hide_rearrangement">Suggest an alternative arrangement</a></strong>
+        <div style="display:none;" id="suggest_alternative_arrangement">
+          <div class="rearrangement_attachment_thumbnail_container" id="rearranger"><form>
+            <ol id="rearrangement_thumbnails">
+              <% @assignment_submission.attachments.each_with_index do |attachment, i| %>
+                <li id="rearrangement_thumbnailer_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><span><%= i + 1 -%></span><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "rearrangement_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><a href="#" onclick="removeFromRearrangement(<%= attachment.id -%>); return false;" class="rearrange_delete" rel="<%= attachment.id -%>"><img src="/assets/icons/delete.png"></a></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+              <% end %>
+            </ol>
+            <%= hidden_field_tag("critique[assignment][#{@assignment_submission.id}][original]", @assignment_submission.attachments.map{|a| a.id}.join(','))%>
+            <%= hidden_field_tag("critique[assignment][#{@assignment_submission.id}][rearrangement]", @assignment_submission.attachments.map{|a| a.id}.join(','), :id => "rearrangement")%>
+          </div>
+        </div><br clear="both" /><br />
+      <% end %>
+      <strong><%= @assignment_submission.critiques.empty? ? 'Critique Summary' : 'Comment' -%></strong>
+      <p>Upload an image:</p>
+      <%= file_field_tag("critique[assignment][#{@assignment_submission.id}][attachment]") -%>
+
+      <p>Upload Video:</p>
+      <%= file_field_tag("critique[assignment][#{@assignment_submission.id}][video]") -%>
+
+      <p>Content</p>
+      <%= text_area_tag("critique[assignment][#{@assignment_submission.id}][content]", "", :rows => 15, :style => "width: 100%", :class => 'widgEditor')%>
+    </div>
+    <br /><br />
+    <div class="margin_top_20">
+      <%= submit_tag %>
+    </div>
+  </div>
+<%- end -%>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script>
+	jQuery(function($){	
+		$(".lightview").each(function( i,j ) {
+			str = $(this).attr('href');
+			if (str.toLowerCase().indexOf("https://player.vimeo.com") >= 0){
+				var filename = $(this).find('img').attr('src').replace( /^.*?([^\/]+)\..+?$/, '$1' );
+				$(this).find('img').attr('src','/images/'+filename+'.png');
+			}
+		});
+	})
+</script>

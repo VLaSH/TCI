@@ -1,0 +1,14 @@
+Hi,
+
+A new course starts today!
+
+Course:
+<%= @scheduled_course.course.title %>
+
+Students:
+<%- @scheduled_course.students.each do |student| -%>
+* <%= student.full_name %>
+<%- end -%>
+
+Regards,
+The Compelling Image

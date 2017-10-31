@@ -1,0 +1,1 @@
+<%= render(:partial => 'attachments/delete_form', :locals => { :attachment => @attachment, :destroy_path => student_attachment_path(@attachment), :redirect => @redirect.nil? ? local_assigns[:redirect] ? redirect : nil : @redirect }) -%>

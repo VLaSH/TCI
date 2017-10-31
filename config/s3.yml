@@ -1,0 +1,8 @@
+production:
+  bucket: tci-production
+  access_key_id: blah
+  secret_access_key: blah
+development:
+  bucket: tci-production
+  access_key_id: blah123
+  secret_access_key: blah123

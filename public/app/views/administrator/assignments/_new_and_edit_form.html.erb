@@ -1,0 +1,31 @@
+<h3>Assignment for <%= h(assignment.lesson.title) -%></h3>
+<%= form_for(assignment, :url => path) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%#= error_messages_for(:assignment, :object => assignment) %>
+  <% if assignment.errors.any? %>
+    <ul>
+      <% assignment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <fieldset>
+    <legend>Assignment details</legend>
+    <div>
+      <%= f.label(:title) %>*
+      <%= f.text_field(:title, :size => '30') %>
+    </div>
+    <div>
+      <%= f.label(:summary) -%>
+      <%= f.text_area(:summary, :size => '60x3', :class => 'widgEditor') -%>
+    </div>
+    <div>
+      <%= f.label(:description) -%>
+      <%= f.text_area(:description, :size => '60x5', :class => 'widgEditor') -%>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit(assignment.new_record? ? 'Create' : 'Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

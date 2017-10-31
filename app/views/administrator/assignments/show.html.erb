@@ -1,0 +1,14 @@
+<h3>Assignment details</h3>
+<dl>
+  <dt>Lesson</dt>
+  <dd><%= h(@assignment.lesson.title) %></dd>
+  <dt>Title</dt>
+  <dd><%= h(@assignment.title) %></dd>
+  <dt>Summary</dt>
+  <dd><%= h(@assignment.summary) %></dd>
+  <dt>Description</dt>
+  <dd><%= h(@assignment.description) %></dd>
+  <dt>Duration</dt>
+  <dd><%= pluralize(@assignment.duration, 'day') -%></dd>
+</dl>
+<p><%= link_to('Edit this assignment', edit_administrator_assignment_path(@assignment)) %></p>

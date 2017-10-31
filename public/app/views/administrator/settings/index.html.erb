@@ -1,0 +1,39 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @settings.blank? %>
+    <table summary="List of courses" class="pretty">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @settings.each do |setting| %>
+          <tr>
+            <% if setting.key == 'sample course'%>
+              <td><%= setting.key.try(:titleize) -%></td>
+              <td><%= setting.value ? Course.find_by_id(setting.value).try(:title) : 'Edit free course' -%></td>
+            <% else%>
+              <td><%= setting.key.try(:titleize) -%></td>
+              <td><%= setting.value -%></td>
+            <% end %>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Setting"), edit_administrator_setting_path(setting), :rel => "Edit Setting", title: "Edit") -%>
+              &nbsp;
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>There are no settings defined yet</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%#= pretty_button_link " Create new course", new_administrator_course_path, {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+</div>
+<div class="clear">&nbsp;</div>

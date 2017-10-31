@@ -1,0 +1,21 @@
+<h3>Enrollment for <%= h(@enrolment.course.title) -%></h3>
+<%= form_for([ :administrator, @enrolment ]) do |f| %>
+    <% if @enrolment.errors.any? %>
+      <ul>
+        <% @enrolment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <fieldset>
+    <legend>Enrollment details</legend>
+    <div>
+      <%= f.label(:scheduled_course_id) %>*
+      <%= f.scheduled_course_select(:scheduled_course_id) -%>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit('Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

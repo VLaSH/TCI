@@ -1,0 +1,7 @@
+<dl>
+  <dt>Symbol</dt>
+  <dd><%= h(@exchange_rate.symbol) %></dd>
+</dl>
+<%= form_for([ :administrator, @exchange_rate ], :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

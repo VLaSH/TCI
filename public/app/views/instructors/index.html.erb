@@ -1,0 +1,61 @@
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography Training, Photography Teacher, Photography Instructor" />
+  <meta name="description" content="Get hands-on photography training from the best in the industry with professional teachers and instructors at The Compelling Image. Sign up today for your free lesson." />
+<% end %>
+
+<div class="content_wrapper"><!-- Main -->
+  <div class="container content_bg"><!-- Container -->
+    <div class="banner_with_instructor">
+      <div class="banner_image">
+        <%= instructor_image %>
+      </div>
+      <div class="instructor_title">
+        <span>Instructor Directory</span>
+      </div>
+      <%unless @instructor.blank?%>
+        <div class="instuctor_block">
+          <%= link_to(image_tag(user_photo_path(:id => @instructor.id, :style => :w240xh230), :width => 240, :height => 230, :alt => @instructor.full_name), instructor_path(@instructor)) -%>
+          <div class="description">
+            <p>Instructor : <%= link_to(@instructor.full_name, instructor_path(@instructor)) -%></p>
+            <% if @instructor.courses.size > 0 %>
+              <p>Teaching:</p>
+              <% @instructor.courses.visible.available.limit(3).each do |course| -%>
+                <p><%= link_to(course.title, course_path(course)) -%></p>
+              <% end -%>
+            <% end %>
+          </div><!-- description -->
+        </div>
+      <%end%>
+    </div><!-- Banner -->
+
+    <div class="inner_content_container">
+      <div class='instructor_inner_container'>
+        <div class="inner_content_left" style='width:100%'>
+          <ul class="our_isntructors">
+            <% if @instructors.size == 0 -%>
+              <p>There are no instructors at this time.</p>
+            <% else -%>
+              <% @instructors.each_with_index do |instructor, i| -%>
+                <li class="instructor">
+                  <h5>
+                    <%= link_to(instructor.full_name, instructor_path(instructor)) %>
+                  </h5>
+                  <%= link_to(image_tag(user_photo_path(:id => instructor.id, :style => :w145xh145), :width => 145, :height => 145, :alt => "Picture of #{instructor.full_name}"), instructor_path(instructor)) -%>
+                    <p>
+                      <%= link_to('Read Profile..', instructor_path(instructor)) -%>
+                    </p>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+        </div><!-- Left Content -->
+      </div><!-- instructor_inner_container-->
+
+      <!-- <div class="inner_content_right">
+        <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+      </div> --><!-- Sidebar -->
+    </div>
+
+  </div><!-- Container -->
+</div><!-- Main Content -->

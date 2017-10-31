@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>TCI Certificate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta charset='utf-8' />
+<%= wicked_pdf_stylesheet_link_tag "pdf" %>
+
+
+</head>
+<body>
+<!-- Save for Web Slices (TCI Certificate) -->
+
+<div class="TCICertificate">
+<div class="txtName"><%=@data['student_name']%></div>
+<div class="des">Has successfully completed the six-week course:<br/>
+	<%=@data['course_name']%>
+	<br/> at The Compelling Image-Online School of Photography and Multimedia Storytelling</div>
+<div class="date"><%=@data['date']%></div>
+<%= wicked_pdf_image_tag('TCI-Certificate.jpg') %>
+</div>
+<!-- End Save for Web Slices -->
+</body>
+</html>
+

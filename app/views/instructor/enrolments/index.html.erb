@@ -1,0 +1,29 @@
+<h1><%= h(@course.title) -%></h1>
+<%= render(:partial => 'instructor/courses/tertiary_navigation') -%>
+<div id="enrolments">
+  <h2>Enrollments</h2>
+  <% unless @enrolments.empty? %>
+    <table summary="List of students enrolled on the course" class="pretty">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @enrolments.each do |enrolment| %>
+          <tr>
+            <td><%= enrolment.student.full_name -%></td>
+            <td><%= link_to(h(enrolment.student.email), '#', :rel => "Copy this email address to the clipboard, open a new browser<br />window and go to the login page. Paste the email address and use<br />the password <strong>blah</strong> to see the user's eye view of the site") -%></td>
+            <td align="right">
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@enrolments) %>
+  <% else %>
+    <p>No students exist on this course.</p>
+  <% end %>
+</div>

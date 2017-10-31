@@ -1,0 +1,2 @@
+class HowItWorkBanner < BannerImage
+end

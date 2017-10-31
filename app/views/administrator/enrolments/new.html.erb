@@ -1,0 +1,22 @@
+<h3>Enrollment for <%= h(@scheduled_course.course.title) -%></h3>
+<%= form_for(@enrolment, :url => administrator_scheduled_course_enrolments_path(@scheduled_course)) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%#= error_messages_for(:enrolment) %>
+  <% if @enrolment.errors.any? %>
+    <ul>
+      <% @enrolment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <fieldset>
+    <legend>Enrollment details</legend>
+    <div>
+      <%= f.label(:student_user_id, "Student") %><%= form_required_field %>
+      <%= f.collection_select(:student_user_id, User.student.activated.order('given_name ASC, family_name ASC'), :id, :full_name_with_email) -%>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit('Create', :name => nil) %></div>
+  </fieldset>
+<% end %>

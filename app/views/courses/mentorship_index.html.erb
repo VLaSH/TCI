@@ -1,0 +1,40 @@
+
+<div class="container content_bg"><!-- Container -->
+  <div class="banner">
+    <%= image_tag mentorship_banner_image, alt: "Mentorship" %>
+    <span>
+      mentorship
+    </span>
+  </div><!-- Banner -->
+
+  <div class="inner_content_container">
+    <div class="inner_content_left" >
+      <div class="page_title">What is a Mentor?</div>
+      <p>Someone who champions your work and possesses the experience, expertise and empathy to guide you in a supportive and confident manner. A mentor is a working professional who has "been down that road" and is willing to lend one-on-one assistance to move you toward your desired goal in the field of photography. Let these online photography classes bring you as a photographer - to the next level.</p>
+
+      <h6 class='red'>Who is a TCI Mentorship meant for? </h6>
+      <p>TCI's Mentorship Program is designed for keen amateurs and aspiring professionals who are passionate about their image-making and want to hone their craft and expand their vision. Whether the aim is publication, preparation for an exhibition, establishing that long-dreamed-of career or building a stronger, more impressive portfolio of work or simply seeing and making better photographs, a mentorship with one of TCI's award-winning instructors can be an invaluable experience.</p>
+
+      <h6 class='red'>What can I expect to gain from mentorship? </h6>
+      <p>Through this interactive online photography course and scheduled Skype consultations, you can anticipate much quicker progress in your development - shorter time in reaching your goals. Expect confidence-building too, for along with progressive success comes the awareness of one's own talent and the ability to apply it creativity on a consistent basis.</p>
+
+      <h6 class='red'>What you will need:</h6>
+      <ul>
+        <li>A portfolio or collection of work (quantity is not important)</li>
+        <li>A photographic aim or goal to work toward</li>
+      </ul>
+
+      <div class= "courses_container">
+        <%= render 'courses/course_list', course_list: @courses %>
+      </div>
+      <% if @courses.nil? || @courses.empty? %>
+        <div class="course margin_top_20"><p>There are no courses that match your selected criteria.</p></div>
+      <% end %>
+      <%= will_paginate @courses %>
+    </div><!-- Left Content -->
+
+    <div class="inner_content_right">
+      <%= render 'filter' %>
+    </div><!-- Sidebar -->
+  </div>
+</div><!-- Container

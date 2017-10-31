@@ -1,0 +1,37 @@
+<div class="inner_content_container">
+  <div class="inner_content_left">
+
+    <h1><%= h(@lesson.course.title) -%></h1>
+    <!-- <p><%#= @scheduled_lesson.starts_on.to_formatted_s(:long) -%> - <%#= @scheduled_lesson.ends_on.to_formatted_s(:long) -%></p> -->
+    <%= render(:partial => 'instructor/courses/tertiary_navigation') -%>
+    <div id="lesson">
+      <h2>Lesson: <%= h(@lesson.title) -%></h2>
+      <%= instructor_interpolate_attachments(@lesson.description, @lesson.attachments, 620, 440).html_safe -%>
+    </div>
+    <div id="discussion">
+      <h2>Discuss this lesson</h2>
+      <p>Discuss this lesson with your fellow students and instructor - ask questions, share feedback, and more!</p>
+      <%= render(:partial => "instructor/forum_posts/forum_posts", :locals => {:forum_topics => @forum_topics})%>
+    </div>
+    <div class="clear"></div>
+    <div id="discussion_form">
+      <h2>Join the Discussion</h2>
+      <%= render(:partial => 'instructor/forum_posts/new_forum_post', :locals => {:discussable => @lesson, :redirect => instructor_lesson_path(@lesson)}) unless @forum_topic.nil? -%>
+    </div>
+  </div>
+  <div class="inner_content_right">
+    <div id="content_secondary">
+      <% if @lesson.assignments.size > 0 %>
+        <div id="Assignments">
+          <h3>Assignments</h3>
+          <% @lesson.assignments.each do |assignment| %>
+            <p><%= link_to(assignment.title, instructor_assignment_path(assignment)) -%></p>
+          <% end %>
+        </div>
+      <% end %>
+      <% if @lesson.attachments.size > 0 %>
+        <%= render(:partial => "common/instructor/lesson_attachments", :locals => {:title => 'Examples', :attachments => @lesson.attachments}) -%>
+      <% end %>
+    </div>
+  </div>
+</div>

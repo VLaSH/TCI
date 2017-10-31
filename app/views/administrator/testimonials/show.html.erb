@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @administrator_testimonial.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @administrator_testimonial.content %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @administrator_testimonial.logo %>
+</p>
+
+<%= link_to 'Edit', edit_administrator_testimonial_path(@administrator_testimonial) %> |
+<%= link_to 'Back', administrator_testimonials_path %>

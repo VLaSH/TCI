@@ -1,0 +1,17 @@
+<% if assignment_submission.enrolment.student == current_user %>
+  <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+    <h4>Submit Your Assignment</h4>
+    <div class="body padding_5 instructor">
+      <%- unless assignment_submission.completed? -%>
+        <%#*<p>Once you are happy with your assignment submission then click the button below to submit it to your instructor for critique1.</p>%>
+      <p>Once you've finished uploading your assignment, be sure to click the "submit" button below. <span style="color:red;">IMPORTANT: Failure to click “submit” will result in your instructor's inability to view your work.</span></p>
+        <%= uni_form_for(assignment_submission, :url => student_submission_path) do |f| -%>
+          <%= f.hidden_field(:completed, :value => true) -%>
+          <%= f.submit('submit', :style => "margin-top: 20px;") -%>
+        <%- end -%>
+      <%- else -%>  
+        <p>You have submitted your assignment to your instructor to critique.</p>
+      <%- end -%>
+    </div>
+  </div>
+<% end %>

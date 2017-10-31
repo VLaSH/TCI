@@ -1,0 +1,30 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(package, :url => polymorphic_path([ :administrator, package ]), :html => { :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Package Details") do %>
+      <%# error_messages_for(:package, :object => package) %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 99%;") %>
+      <%= f.text_field(:page_title, :size => '30', :label => "Page Title", :required => false, :style => "width: 99%;") %>
+      <%= f.text_area(:summary, :size => '60x3', :class => 'widgEditor', :label => "Summary", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_area(:description, :size => '60x5', :class => 'widgEditor', :label => "Description", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_field(:price, :size => 5, :label => "Price ($)", :required => true, :style => "width: 75px;") -%>
+      <%= f.file_field(:photo, :label => "Photo") -%>
+      <%- if package.photo? && !package.photo.dirty? -%>
+        <%= f.check_box(:delete_photo, :label => "Delete photo") %>
+        <%= image_tag(package_photo_path(:id => package.id, :style => :medium), :alt => 'Photo', :title => 'Current photo', :style => "padding: 10px;") %>
+      <%- end -%>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <table cellpadding="0" cellspacing="5" border="0">
+      <% f.fieldset(:type => "block", :legend => "Courses") do %>
+        <% Course.all.each do |course| -%>
+          <tr>
+            <td><%= check_box_tag :course_ids, course.id, @package.courses.include?(course), :name => 'package[course_ids][]' -%></td>
+            <td><%= label_tag :course_ids, course.title -%></td>
+          </tr>
+        <% end -%>
+      <% end %>
+    </table>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (package.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

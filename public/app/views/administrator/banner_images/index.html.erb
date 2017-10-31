@@ -1,0 +1,341 @@
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Home Banner Image</h3>
+    <span>minimum size 947x469</span>
+    <ul class="remove_bullet">
+      <% @home.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+      <%= form.hidden_field :type, value: 'HomeBanner'%>
+      <%= form.file_field :image %><br>
+    <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>How It Work Banner Image</h3>
+    <% if @how_it_work.blank? %>
+      <span>minimum size 947x469</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @how_it_work.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @how_it_work.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'HowItWorkBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Mentorship Banner Image</h3>
+    <% if @mentorship.blank? %>
+      <span>minimum size 947x469</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @mentorship.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @mentorship.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'MentorshipBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Workshops Banner Image</h3>
+    <% if @workshop.blank? %>
+      <span>minimum size 947x469</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @workshop.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @workshop.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'WorkshopBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Course Banner Image (Photography)</h3>
+    <% if @photography.blank? %>
+      <span>minimum size 480x466</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @photography.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @photography.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'CoursePhotographyBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Course Banner Image(Multimedia)</h3>
+    <% if @multimedia.blank? %>
+      <span>minimum size 480x466</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @multimedia.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @multimedia.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'CourseMultimediaBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Portfolio Banner Image</h3>
+    <% if @portfolio.blank? %>
+      <span>minimum size 480x466</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @portfolio.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @portfolio.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= form.hidden_field :type, value: 'PortfolioBanner'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Grid section Images</h3>
+    <h5>Course Grid section Images</h5>
+    <% if @course_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @course_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @course_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'CourseGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h5>Portfolio review Grid section Images</h5>
+    <% if @portfolio_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @portfolio_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @portfolio_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'PortfolioGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h5>Mentorship Grid section Images</h5>
+    <% if @mentorship_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @mentorship_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @mentorship_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'MentorshipGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h5>Student Gallery Grid section Images</h5>
+    <% if @gallery_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @gallery_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @gallery_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'StudentGalleryGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h5>Whats New Grid section Images</h5>
+    <% if @whats_new_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @whats_new_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @whats_new_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'WhatsNewGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h5>Course Grid section Images</h5>
+    <% if @tci_blog_grid.blank? %>
+      <span>minimum size 315x178</span>
+    <% end %>
+    <ul class="remove_bullet">
+      <% @tci_blog_grid.each do | banner | %>
+      <li>
+        <%= image_tag( banner.image.url(:thumb), alt: banner.image_file_name, title: banner.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_banner_image_path(banner), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @tci_blog_grid.blank? %>
+      <%= form_for ([:administrator, @banner_image]), :html => { :multipart => true } do |form| %>
+        <%= %>
+        <%= form.hidden_field :type, value: 'TciBlogGridSection'%>
+        <%= form.file_field :image %><br>
+      <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

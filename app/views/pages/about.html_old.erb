@@ -1,0 +1,47 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'about' }
+    page.primary_navigation_section = :about
+    page.title.unshift('About')
+  end
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="The Compelling Image Learn Photography Online Video Production Course" />
+  <meta name="description" content="Take an online course in photography or video production with The Compelling Image. Our industry established experts take you from strength to strength." />
+<% end %>
+
+<div class="container content_bg"><!-- Container -->
+  <div class="banner">
+    <%= image_tag how_it_work_banner_image, alt: "how It works" %>
+    <span>
+      How It Works
+    </span>
+  </div><!-- Banner -->
+
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div class="page_title">How It Works</div><!-- Page Title -->
+      <p> The Compelling Image is an online school of photography and multimedia storytelling for beginners through advanced photographers – all with an eye to visual expression in the digital age.</p>
+      <p>At TCI you won’t need to schedule vacation time and travel  long and expensive distances to enjoy and benefit from high-quality, interactive, professional photography, multimedia and video instruction. All you need is a computer and a connection to the internet. Getting started with one of our online-interactive courses is  simple. Here’s  <strong>how it works…</strong><br><br>
+      <%= image_tag "how_it_work/tci_process.jpeg", class: "tciprocess res_image"%>
+      <%= image_tag "how_it_work/tci_process_responsive.png", class: "responsive_tciprocess" %>
+      </p>
+      <ul class="how-works">
+      <li>  From your Student Area Dashboard, you will be able to view analysis and constructive critiques of the assignment work you've submitted, as well as receive timely answers to questions posed to your instructor. Plus, you'll be able to carry on lively discussions within your "virtual Classroom" - exchanging feedback and comments with others on your course. You will even be able to schedule a Skype consultation with your instructor to discuss your progress.</li><br/>
+      <li>  In clear, enjoyable to read text - richly illustrated with photos and / or video clips - you'll be introduced to new and valuable sets of image-making skills.</li><br/>
+      <li>  Each lesson - downloadable in PDF form - is accompanied by a hands-on and directly-related assignment. You can complete your assignments wherever you live, using subjects conveniently accessible to you. And except for the end-date of your enrollment, you'll have no deadlines to meet in submitting your assignments. Simply upload them when you're ready.</li><br/>
+      <li>  Timely feedback is a key component of the TCI e-learning process. This means you'll receive answers to your questions within 24 hours and critiques of your work within 48 hours of their submission - along with valuable suggestions, tips and advice for improving your future work.</li><br/>
+      </ul>
+      <p><span class="bigtext">Need more time on your enrollment?</span> Not a problem. Two weeks before your enrollment has reached its end, you'll receive email and on-site notification of this, along with the opportunity to extend your course interaction with instructor and students - all at a reduced monthly rate.</p>
+      <p><span class="bigtext">Still not sure?</span> Sign up for a no-strings-attached TCI account, enroll on our <%= link_to 'FREE SAMPLE LESSON', free_course %> and you'll be presented with a shortened version of an actual TCI lesson and assignment, that you'll be able to complete wherever you live. When you’ve finished, upload your work and you’ll receive a professional critique of your photos - all for <span class="bigtext">FREE!</span></p>
+      <p> We are certain you will enjoy and greatly benefit from your online-interactive learning experience at TCI. However if you are not satisfied for any reason, TCI will refund 75 percent of your paid tuition, if notified at <span class= 'red'>support@thecompellingimage.com</span> within the first week of your enrollment.</p>
+      <%= link_to 'ENROLL NOW', new_user_path, class: 'enroll'%>
+    </div><!-- Left Content -->
+
+    <div class="inner_content_right">
+      <%= render(:partial => "common/testimonials",:locals=>{:testimonials=>@testimonials}) -%>
+      <%= render(:partial => "common/sample", :locals => {:classes => "margin_bottom_20"}) -%>
+    </div><!-- Sidebar -->
+  </div><!-- Inner Content Container -->
+</div><!-- Container -->

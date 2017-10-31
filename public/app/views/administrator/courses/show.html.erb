@@ -1,0 +1,36 @@
+<h3>Course details</h3>
+<dl>
+  <dt>Title</dt>
+  <dd><%= h(@course.title) %></dd>
+  <dt>Summary</dt>
+  <dd><%= @course.summary.try :html_safe %></dd>
+  <dt>Description</dt>
+  <dd><%= @course.description.try :html_safe %></dd>
+  <dt>Tags</dt>
+  <dd><%= h(@course.tag_list) %></dd>
+  <dt>Price</dt>
+  <dd><%= number_to_currency(@course.price.to_s, :unit => '€') -%></dd>
+</dl>
+<h3>Scheduling details</h3>
+<dl>
+  <dt>Starts at</dt>
+  <dd><%= @course.created_at.try(:to_formatted_s, :long) -%></dd>
+  <dt>Frequency</dt>
+  <dd><%= pluralize(@course.frequency, 'day') -%></dd>
+  <dt>Duration</dt>
+  <dd><%= pluralize(@course.duration, 'day') -%> (<%= pluralize(@course.lessons.count, 'lesson') -%>)</dd>
+</dl>
+<h3>Instructors</h3>
+<%- unless @course.instructors.size.zero? -%>
+  <ul>
+    <%- @course.instructors.each do |instructor| -%>
+      <li><%= h(instructor.full_name) -%></li>
+    <%- end -%>
+  </ul>
+<%- else -%>
+  <p>There are currently no instructors assigned to this course.</p>
+<%- end -%>
+<p><%= link_to('Edit this course', edit_administrator_course_path(@course)) %></p>
+<p><%= link_to('View lessons', administrator_course_lessons_path(@course)) -%></p>
+<p><%= link_to('View scheduled courses', administrator_course_scheduled_courses_path(@course)) -%></p>
+<p><%= link_to('View forum topics', administrator_course_forum_topics_path(@course)) -%></p>

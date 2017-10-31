@@ -1,0 +1,34 @@
+<h1>Scheduled Courses</h1>
+<div id="all_courses">
+  <h2>Courses</h2>
+  <% if @all %>
+    <ul class="extras"><li><%= link_to("With Enrollments", "?all=0") -%></li><li>All</li></ul>
+  <% else %>
+    <ul class="extras"><li>With Enrollments</li><li><%= link_to("All", "?all=1") -%></li></ul>
+  <% end %>
+  <% unless @scheduled_courses.empty? %>
+    <table summary="List of scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Course</th>
+          <th class="centred">Enrollments</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @scheduled_courses.each do |scheduled_course| %>
+          <tr>
+            <td class="centred"><%= link_to(scheduled_course.course.title, instructor_scheduled_course_path(scheduled_course.course)) -%></td>
+            <td class="centred"><%= link_to(scheduled_course.enrolments.size, instructor_scheduled_course_enrolments_path(scheduled_course), :rel => "There #{scheduled_course.enrolments.size == 1 ? 'is' : 'are'} #{pluralize(scheduled_course.enrolments.size, "student")} enroled on this course session") -%></td>
+            <td>
+              <%= !scheduled_course.blank? ? image_tag('icons/bullet_green.png') : '' -%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@scheduled_courses) %>
+  <% else %>
+    <p>No scheduled courses exist.</p>
+  <% end %>
+</div>

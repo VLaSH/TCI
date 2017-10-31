@@ -1,0 +1,17 @@
+<div class="block block_filter callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <div class="block_heading1">
+    <span>Filter</span>
+  </div>
+  <div class="block_content">
+    <p>Find the course for you - select the type of course you are looking for:</p>
+    <ul>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].blank?, "All Courses", courses_path(local_assigns.has_key?(:external) ? {:cat => ''} : params.merge(:cat => '')))%></li>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 1, 'Beginner', (courses_path(local_assigns.has_key?(:external) ? {:cat => 1} : params.merge(:cat => 1))))%></li>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 2,'Intermediate ', (courses_path(local_assigns.has_key?(:external) ? {:cat => 2} : params.merge(:cat => 2))))%></li>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 5,'Advanced', (courses_path(local_assigns.has_key?(:external) ? {:cat => 5} : params.merge(:cat => 5))))%></li>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 3,'Portfolio Reviews', (courses_path(local_assigns.has_key?(:external) ? {:cat => 3} : params.merge(:cat => 3))))%></li>
+      <li><%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 4,'One-on-One Mentorship', (courses_path(local_assigns.has_key?(:external) ? {:cat => 4} : params.merge(:cat => 4))))%></li>
+      <li><%= link_to 'Free Sample Course', free_course%></li>
+    </ul>
+  </div>
+</div>

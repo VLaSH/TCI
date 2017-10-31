@@ -1,0 +1,27 @@
+<div class="line">
+  <div class="unit size5of6">
+    <h1 class="h2">Whats new</h1>
+    <br>
+      <%= form_tag '/administrator/special', :action=>'attachment', :multipart => true, :method => :put  do |f| %>
+        <div class="form">
+          <%= text_area_tag :body, whats_new_text, :class => "widgEditor", :style => "width: 99%; height: 300px;" %>
+          <br /><br >
+          <h3>Image</h3>
+          <p><strong>Please note</strong> this image MUST be a PNG image - and it will not be processed in any way - so the PNG file you upload will be used as-is in the 'what's new' box</p>
+          <p>
+            <%= file_field_tag :file %><br />
+
+            <% unless whats_new_image.blank? %>
+              <br />Current Image<br />
+              <%= image_tag whats_new_image %><br />
+              <%= check_box_tag :remove %> remove image
+            <% end %>
+          </p>
+        </div>
+        <div class="clear">&nbsp;</div><br />
+
+        <p class="buttons"><%= pretty_button ("Update"), {:icon_path => "icons/tick.png"} %>
+
+      <% end %>
+  </div>
+</div>

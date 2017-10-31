@@ -1,0 +1,4 @@
+<%= uni_form_for(critiquable.critiques.new, :url => student_submission_critique_critiques_path) do |f| %>
+  <%= f.text_area(:comment, :style => "width: 95%;", :class => "widgEditor").html_safe%>
+  <%= f.submit('create', :style => "margin-top: 20px;") -%>
+<% end %>

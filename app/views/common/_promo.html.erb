@@ -1,0 +1,21 @@
+<div class="block callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <div class="block_heading1">
+    <span>Free trial</span>
+    <%= link_to course_path(:id => 50) do %>
+      <i class="star"></i>
+        More
+    <% end %>
+  </div>
+  <div class="block_content">
+    <p>Sign up for a free account and we'll send you
+      <%= link_to("a sample lesson", course_path(:id => 50))%> -
+      complete with related assignment to go out and try -
+      wherever you live. When you've finished, upload your work to the TCI
+      website and you'll receive a timely critique of your photos - all for free!
+    </p>
+    <br />
+    <a href="<%= course_path(:id => 50) -%>" style="margin:-7px;">
+      <%= image_tag 'free-button.png', style: "margin: 0; padding: 0; float: none;", alt: "Get Your Free Lesson Today!" %>
+    </a>
+  </div>
+</div>

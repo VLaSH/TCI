@@ -1,0 +1,30 @@
+<%= uni_form_for(forum_post, :url => path) do |f| %>
+  <% f.fieldset(:type => "block") do %>
+    <%= f.text_area(:content, :size => '60x5', :label => "Comment", :style => "width: 99%;", :class => "widgEditor") -%>
+  <% end %>
+ 
+  <%- unless !defined?(redirect) || redirect.nil? -%><%= f.hidden_field(:redirect, :value => redirect) -%><%- end -%>
+   <% if controller.controller_name == 'submissions' %>
+  <%= f.file_field(:file, :label => "Upload Photo") -%>
+  
+ <% if @check_login == '/instructor'  
+      if  controller.controller_name =='lessons' %>
+        <fieldset class="blockLabels"><legend>Upload Video</legend> 
+          <a href="/instructor/lessons/<%= @lesson.id %>/attachments/new"><button type="button" style="" name="video_upload" class="button">Browse...</button></a>
+        </fieldset>
+       <% else %>
+        <fieldset class="blockLabels"><legend>Upload Video</legend> 
+          <a href="/instructor/lessons/<%= @assg_id %>/upload"><button type="button" style="" name="video_upload" class="button">Browse...</button></a>
+        </fieldset>
+        <% end %>
+   <% else if @check_login == '/student'  %>
+      
+        <fieldset class="blockLabels"><legend>Upload Video</legend> 
+          <a href="/student/lessons/<%= @assing_id %>/assignments/<%= @lession_id %>/attachments/new"><button type="button" style="" name="video_upload" class="button">Browse...</button></a>
+        </fieldset>
+     
+    <% end %>  
+   <% end %><br />  
+    <% end %>        
+  <%= f.submit(forum_post.new_record? ? 'create' : 'update', :style => "") -%>
+<% end %>

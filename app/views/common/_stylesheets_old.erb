@@ -1,0 +1,16 @@
+<!-- Google Font -->
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<% if !local_assigns[:protocol].nil? && protocol == :https %>
+  <% if admins_section %>
+    <%= stylesheet_link_tag 'reset', 'text' , '960', 'tci-https'%>
+  <% else %>
+    <%= stylesheet_link_tag 'reset', 'style', 'ie_all', 'responsive', 'tci-https'%>
+  <% end %>
+  <%= stylesheet_link_tag 'https' %>
+<% else %>
+  <% if admins_section %>
+    <%= stylesheet_link_tag 'reset', 'text' , '960', 'tci-https', 'tci', 'uni-form', 'lightview', 'pretty_buttons', 'prototip', 'astreik_color', 'footer' %>
+  <% else %>
+    <%= stylesheet_link_tag 'reset', 'style', 'ie_all', 'responsive', 'flash', 'astreik_color', 'lightview' %>
+  <% end %>
+<% end %>

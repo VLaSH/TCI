@@ -1,0 +1,18 @@
+<h3 class='color_black'> Reviews </h3>
+<% if @course.reviews.blank? %>
+  <blockquote>
+    <p><i style='color:#ccc'> No reviews present.</i></p>
+  </blockquote>
+<% else %>
+  <% @course.reviews.each do |review| %>
+    <blockquote>
+      <%= delete_review(review) %>
+      <p>
+        <%= review.content.html_safe %>
+      </p>
+      <span class='auther'>
+        - By <%= review.by %>
+      </span>
+    </blockquote>
+  <% end %>
+<% end %>

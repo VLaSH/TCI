@@ -1,0 +1,24 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete scheduled course for <%= h(@scheduled_course.course.title) -%></h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <!-- <th class="centred">Starts</th>
+        <th class="centred">Ends</th> -->
+        <th class="centred">Enrollments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%#= @scheduled_course.starts_on.to_formatted_s(:long) -%></td>
+        <td><%#= @scheduled_course.ends_on.to_formatted_s(:long) -%></td>
+        <td><%= @scheduled_course.enrolments.size -%></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @scheduled_course ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+  <% end %>
+</div>

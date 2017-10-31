@@ -1,0 +1,10 @@
+
+<dl>
+  <dt>Title</dt>
+  <dd><%= h(@rearrangement.title) %></dd>
+  <dt>Summary</dt>
+  <dd><%= h(@rearrangement.summary) %></dd>
+</dl>
+<%= form_for([ :administrator, @rearrangement ], :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

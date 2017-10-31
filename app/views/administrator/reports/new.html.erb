@@ -1,0 +1,15 @@
+<div class="text-center">
+  <%= form_tag(administrator_reports_path(format: :xlsx)) do %>
+    <div class="line-h-50">
+      <%= label_tag 'Select Month' %>
+      <%= select_tag 'date[month]', options_for_select(month_list), prompt: '---Select Month---', required: true%>
+      <%= select_tag 'date[year]', options_for_select((2000..Date.today.year).to_a.reverse), prompt: '---Select Year---', required: true %>
+
+    </div>
+    <div>
+      <%= label_tag 'Select Instructer' %>
+      <%= select_tag 'instructor_id', options_for_select(@instructors.collect{ |u| [u.given_name, u.id] }),prompt: 'Select Instructor', required: true %><br><br>
+    </div>
+    <%= submit_tag 'Generate Report', title: 'Generate Reports for Instructor.'%>
+  <% end %>
+</div>

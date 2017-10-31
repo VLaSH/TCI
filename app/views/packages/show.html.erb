@@ -1,0 +1,92 @@
+<div class="container content_bg"><!-- Container -->
+  <div class="inner_content_container show_package_description">
+    <div class="inner_content_left">
+      <% if @package.photo? %>
+        <div id="package_image">
+          <%= image_tag(package_photo_path(:id => @package.id, :style => :w660xh440), :width => 675, :height => 425, :alt => @package.title)  -%>
+        </div>
+      <% end %>
+      <h4 class='page_title color_black'>
+        <%= @package.title.titleize %>
+        <span class='float_right'>$<%= @package.price.to_s %></span>
+      </h4>
+      <div style="margin-bottom: 16px;">
+        <span class='st_sharethis_hcount' displayText='ShareThis'></span>
+        <span class='st_facebook_hcount' displayText='Facebook'></span>
+        <span class='st_twitter_hcount' displayText='Tweet'></span>
+        <span class='st_linkedin_hcount' displayText='LinkedIn'></span>
+        <span class='st_email_hcount' displayText='Email'></span>
+      </div>
+
+      <%= @package.description.html_safe %>
+      <div class="clear">&nbsp;</div>
+      <% if @package.available? -%>
+        <h6>What's in this Package:</h6>
+        <ul>
+          <% @package.schedule.each do |scheduled_course| %>
+            <% unless scheduled_course.nil? %>
+              <li><%= link_to(scheduled_course.course.title, course_path(scheduled_course.course)) %></li>
+            <% else %>
+              <li>Schedule to be Arranged</li>
+            <% end %>
+          <% end %>
+        </ul>
+        <div class="clear">&nbsp;</div>
+      <% end %>
+      <h6>Enroll on this Package:</h6>
+      <% if @package.available? -%>
+        <div class="sessions">
+          <% if @package.free? %>
+            <p>You can enroll on this package of courses and get started right away - <%= link_to("enroll today!", new_package_purchase_path(@package)) -%></p>
+          <% else %>
+            <p>
+              When you enroll onto this package you will be enrolled in the next available session of each course/component of the package. You will be able to access the content straight away.
+            </p>
+            <ul>
+              <li><%= link_to("Enroll", new_package_purchase_path(@package)) -%></li>
+            </ul>
+          <% end %>
+        </div>
+          <div class="clear">&nbsp;</div>
+      <% else -%>
+        <p>
+          There are no sessions of this package currently scheduled - <%= link_to("contact us", new_enquiry_path) -%> to find out more about signing up for this package.
+        </p>
+      <% end -%>
+      <% if @package.attachments.size > 0 %>
+        <div class="gallery">
+          <h5>Gallery <span>Click on a thumbnail to enlarge</span></h5>
+          <ul>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li class="last"><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+            <li class="last"><%= image_tag("samples/53x53.gif", :width => 53, :height => 53) -%></li>
+          </ul>
+        </div>
+        <div class="clear">&nbsp;</div>
+      <% end %>
+    </div><!-- Left Content -->
+    <div class="inner_content_right">
+      <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+      <br/>
+      <%#= render(:partial => "blogs/blogroll") -%>
+    </div><!-- Right Content -->
+  </div>
+</div>
+<div class="clear">&nbsp;</div>

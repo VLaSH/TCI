@@ -1,0 +1,21 @@
+Hi,
+
+An assignment has been updated by Student.
+
+Course:
+<%= @assignment_submission.enrolment.course.title %>
+
+Date:
+<%= @assignment_submission.enrolment.scheduled_course.created_at.to_formatted_s(:long) %>
+
+Lesson:
+<%= @assignment_submission.scheduled_assignment.lesson.title %>
+
+Assignment:
+<%= @assignment_submission.scheduled_assignment.assignment.title %>
+
+Student
+<%= @assignment_submission.enrolment.student.full_name %>
+
+Regards,
+The Compelling Image

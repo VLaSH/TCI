@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'style', 'responsive', 'bold_astrcik_sign'%>
+<div class="container">
+  <div class="inner_content_container">
+  <div class="inner_content_left">
+    <div class="page_title">
+      <h4 class="page_title color_black">Activate Your Account</h4>
+      <p>Enter the activation code you received in your email, along with your email address and password to activate your account.</p>
+    </div>
+    <div class='account_activation'>
+      <%= form_tag(activation_path, :class => "uniForm") do %>
+        <% unless flash[:error].blank? %>
+          <div id="errorMsg">
+            <%= content_tag "p", flash[:error], :class => "flash error" if flash[:error] %>
+          </div>
+        <% end %>
+        <fieldset class="blockLabels">
+          <div class="ctrlHolder">
+            <%= content_tag :label, (content_tag(:em, '*') + 'Email') %>
+            <%= text_field_tag(:email, @user.email, :size => 35, :class => "textInput") %>
+          </div>
+          <div class="ctrlHolder">
+            <%= content_tag :label, (content_tag(:em, '*') + 'Password') %>
+            <%= password_field_tag(:password, nil, :size => 35, :class => "textInput") %>
+          </div>
+          <div class="ctrlHolder">
+            <%= content_tag :label, (content_tag(:em, '*') + 'Activation Code') %>
+            <%= text_field_tag(:activation_code_confirmation, @user.activation_code_confirmation, :size => User::ACTIVATION_CODE_LENGTH, :class => "textInput") %>
+          </div>
+          <div class=" btn-active"><%= submit_tag 'Activate'%></div>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="inner_content_right">
+    <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+    <%= render(:partial => "blogs/blogroll") -%>
+  </div>
+</div> <!-- inner_content_container ends -->
+  <div class="clear">&nbsp;</div>
+</div>

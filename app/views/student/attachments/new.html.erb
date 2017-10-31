@@ -1,0 +1,1 @@
+<%= render(:partial => 'attachments/new_and_edit_form', :locals => { :attachment => @attachment, :path => polymorphic_attachments_path(@attachment.attachable), :redirect => @redirect.nil? ? local_assigns[:redirect] ? redirect : nil : @redirect }) -%>

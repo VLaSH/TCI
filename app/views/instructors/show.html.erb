@@ -1,0 +1,49 @@
+<% content_for :meta do %>
+  <% unless @instructor.meta_description.nil? %>
+    <meta name="description" content="<%= @instructor.meta_description -%>" />
+  <% end %>
+  <% unless @instructor.meta_keywords.nil? %>
+    <meta name="keywords" content="<%= @instructor.meta_keywords -%>" />
+  <% end %>
+<% end %>
+<%= stylesheet_link_tag 'style', 'responsive' %>
+
+<div class="container content_bg"><!-- Container -->
+  <div class="banner_with_instructor">
+    <div class="banner_image">
+      <%= instructor_image %>
+    </div>
+    <div class="instructor_title">
+      <span>Instructor Directory</span>
+    </div>
+    <div class="instuctor_block">
+      <%= image_tag @instructor.photo.url, alt: "#{@instructor.full_name} Photography" %>
+      <div class="description">
+        <p>Instructor:</p>
+        <ul>
+          <li><%= link_to(@instructor.full_name, instructor_path(@instructor)) %></li>
+          <li><%= "Teaching:" if @instructor.courses.size > 0 %></li>
+          <% @instructor.courses.visible.available.limit(2).each do |course| -%>
+            <li><%= link_to(course.title, course_path(course)) -%></li>
+          <% end -%>
+          <% if @instructor.courses.visible.available.size > 3 %>
+            <li>And <%= @instructor.courses.size - 3 -%> <%= link_to 'more courses', courses_path(instructor: @instructor.id)%>..</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div><!-- Banner -->
+
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div class="page_title"><%= @instructor.full_name %></div>
+      <p><%= @instructor.profile.html_safe %>
+    </div><!-- Left Content -->
+
+
+    <div class="inner_content_right">
+      <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+      <%= render(:partial => "instructors/currently_teaching", :locals => {:classes => "margin_bottom_20"}) -%>
+    </div><!-- Sidebar -->
+  </div>
+</div>

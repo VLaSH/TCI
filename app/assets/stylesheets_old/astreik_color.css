@@ -1,0 +1,14 @@
+.uniForm .ctrlHolder label em {color:red;}
+.uniForm .blockLabels #course_course_type_id{ width: 15.5%;}
+.red {color:red !important;}
+.administrator .pagination a {color: black;}
+.pagination .current {color: red; font-weight: bold;}
+.padding-bottom-4{padding-bottom: 4%;}
+.purchase_enroll_btn{float: left; margin-top: 10px; background-color:buttonface;border:2px outset buttonface;cursor:default;}
+.purchase_enroll_btn:hover{ background-color:buttonface !important;border:2px outset buttonface !important; cursor:default !important;}
+.float_right{float: right;}
+.font_weigt_100{font-weight: 100 !important;}
+.in_lesson dt img {max-height: 440px; max-width:620px; }
+.border-none {border: none;}
+.Partners h4 {margin-top: 30px;font-weight:bold;}
+#other_submission { overflow-y: scroll; max-height: 220px;}

@@ -1,0 +1,30 @@
+<h3>Assignment submission details</h3>
+<dl>
+  <dt>Assignment</dt>
+  <dd><%= h(@assignment_submission.assignment.title) -%></dd>
+  <dt>Lesson</dt>
+  <dd><%= h(@assignment_submission.assignment.lesson.title) -%></dd>
+  <dt>Student</dt>
+  <dd><%= h(@assignment_submission.student.full_name) -%></dd>
+  <dt>Title</dt>
+  <dd><%= h(@assignment_submission.title) -%></dd>
+  <dt>Summary</dt>
+  <dd><%= h(@assignment_submission.summary.html_safe) -%></dd>
+  <dt>Description</dt>
+  <dd><%= h(@assignment_submission.description) -%></dd>
+  <dt>Updated</dt>
+  <dd><%= h(@assignment_submission.updated_at.to_formatted_s(:long)) -%></dd>
+  <dt>Complete</dt>
+  <dd><%= @assignment_submission.completed? ? 'Yes' : 'No' -%></dd>
+</dl>
+<h3>Critiques</h3>
+<% unless @assignment_submission.critiques.size.zero? %>
+  <ol>
+    <%= render(:partial => 'critiques/critique', :collection => @assignment_submission.critiques) -%>
+  </ol>
+<% else %>
+  <p>No critiques exist.</p>
+<% end %>
+<p><%= link_to('Edit this submission', edit_administrator_assignment_submission_path(@assignment_submission)) %></p>
+<p><%= link_to('Post critique', new_administrator_assignment_submission_critique_path(@assignment_submission)) %></p>
+<p><%= link_to('View attachments', administrator_assignment_submission_attachments_path(@assignment_submission)) %></p>

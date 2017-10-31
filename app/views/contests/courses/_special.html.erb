@@ -1,0 +1,9 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <h4>What's new?</h4>
+  <div class="body padding_5 tags">
+    <% unless whats_new_image.blank? %>
+      <%= image_tag(whats_new_image, :class => "whats_new_image") -%>
+    <% end %>
+    <%= whats_new_text -%>
+  </div>
+</div>

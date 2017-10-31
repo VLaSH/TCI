@@ -1,0 +1,22 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete enrolment</h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th class="centred">Course</th>
+        <th class="centred">Student</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= h(@enrolment.scheduled_course.course.title) %></td>
+        <td><%= h(@enrolment.student.full_name) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @enrolment ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+  <% end %>
+</div>

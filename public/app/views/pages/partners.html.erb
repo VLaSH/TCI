@@ -1,0 +1,21 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'partners' }
+    page.primary_navigation_section = :partners
+    page.title.unshift('Partners')
+  end
+-%>
+<div class= "container">
+  <div class='Partners'>
+    <h4 class="color_black">Partners</h4>
+    <table cellspacing="10" class='border-none'>
+      <% Partner.all.each do |partner| %>
+        <tr style="vertical-align: top; border-bottom: 1px solid #eee; border-bottom: 1px solid #eee;">
+          <td style="width: 190px; vertical-align: top; border-bottom: 1px solid #eee; margin-right: 20px;" valign="top"><br /><%= link_to(image_tag(partner.logo_url(:thumb), :alt => partner.name, :style => "margin-bottom: 25px;"), partner.url) if partner.logo? -%></td>
+          <td style="vertical-align: top; border-bottom: 1px solid #eee;" valign="top"><br /><%= partner.description.html_safe %><br /><br /></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>

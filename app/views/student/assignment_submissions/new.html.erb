@@ -1,0 +1,10 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>New Assignment Submission</h4>
+  <h3>To submit your assignment work for instructor critique and comments, follow the steps below:</h3>
+  <ol>
+    <li><strong>(Required)</strong> Give your submission a title (ex: Assignment #1; My Project Goal; Story Idea, etc.)</li>
+    <li>(Optional) Here you may describe - brief or at length - the work you are submitting.</li>
+    <li>Now you must "Save and Send" this work.  On the next page, you will be asked to upload your photos or videos.</li>
+  </ol>
+  <%= render(:partial => 'student/assignment_submissions/new_and_edit_form', :locals => { :assignment_submission => @assignment_submission, :path => student_assignment_submissions_path(@scheduled_assignment) }) -%>
+</div>

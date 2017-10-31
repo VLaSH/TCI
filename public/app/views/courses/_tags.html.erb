@@ -1,0 +1,6 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <h4><%= link_to("Cloud", tags_path) -%>Tags</h4>
+  <div class="body padding_5 tags">
+    <%= local_assigns[:short].nil? ? tag_cloud(:limit => 25) : tag_cloud(:limit => 25, :order => 'rand() asc') %>
+  </div>
+</div>

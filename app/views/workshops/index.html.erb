@@ -1,0 +1,78 @@
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography workshops" />
+  <meta name="description" content="Learn photography in workshops with The Compelling Image">
+<% end %>
+
+<div class="content_wrapper margin-t-70">
+  <div class="container content_bg">
+
+    <div class="banner">
+      <%= image_tag workshop_banner_image, alt: 'Workshop' %>
+      <span>workshops</span>
+    </div> <!-- banner ends -->
+
+    <div class="inner_content_container">
+    <!-- <div class="inner_content_left"> -->
+    <div class="row clearfix">
+    <div class="col-lg-12">
+      <%= render 'shared/currency_selector', style: "float:right;width:70px;margin-bottom:10px;" %>
+      <div class= "courses_container">
+        <ul class="courses_list">
+          <% @workshops.each do |workshop| %>
+            <% images = workshop.nil? ? [] : [1, 2, 3, 4, 5, 6].map{|i| i if workshop.send("photo_#{i}?")}.compact %>
+          <% instructors = workshop.nil? ? [] : [1, 2, 3, 4].map{|i| workshop.send("instructor_#{i}")}.compact %>
+            <li>
+              <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                  <div class= 'courses_image_block'>
+                    <%= link_to workshop_path(workshop) do %>
+                      <%= image_tag(workshop_photo_path(:offset => 1, :id => workshop.id, :style => :w160xh120), :alt => workshop.title, :title => workshop.title)%>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                  <div class="description_container">
+                    <h4><%= link_to(workshop.title, workshop_path(workshop))  %></h4>
+                    <ul class= 'course_instructor_info instructors_name'>
+                      <li><span>Instructor :</span>
+                        <span>
+                        <% instructors.each do |instructor| -%>
+                          <% unless instructor.nil? || instructor.full_name.blank? %>
+                          <%= link_to(instructor.full_name, instructor_path(instructor), class: 'color_black') -%>
+                          <% end %>
+                        <% end -%>
+                      </span>
+                      </li>
+                      <!-- need to check skill level -->
+                      <!-- <li><span>Skill level :</span> Anyone</li> -->
+                      <li><span>Start Date :</span><%= workshop.summary %></li>
+                      <li><span>Price :</span>   <strong><%= session[:currency] || "USD" %> <%= Money.new(workshop.full_price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD)%> </strong></li>
+                      <%- unless workshop.deposit_price.zero? %>
+                        <li><span>Deposit :</span><strong> <%= session[:currency] || "USD" %> <%= Money.new(workshop.deposit_price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %></strong></li>
+                      <% end %>
+                    </ul>
+                    <%#= HTML_Truncator.truncate(workshop.description, 50).html_safe %>
+                    <%= link_to workshop_path(workshop) do%>
+                      <i class="star"></i> <span class='find_out_more'>Find out more</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div><!-- Left Content -->
+    </div>
+  </div>
+      <% if @workshops.nil? || @workshops.empty? %>
+        <div class="course margin_top_20"><p>There are no workshops that match your selected criteria.</p></div>
+      <% end %>
+      <%= will_paginate @workshops %>
+    </div> <!-- inner_content_left ends -->
+
+  </div> <!-- inner_content_container ends -->
+  </div> <!-- container ends -->
+</div> <!-- content_wrapper ends -->
+
+<div class="clear">&nbsp;</div>

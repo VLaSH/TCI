@@ -1,0 +1,21 @@
+<h3><%= h(forum_topic.title) -%></h3>
+<p>by <%= h(forum_topic.user.full_name) -%> @ <%= forum_topic.publish_on.to_formatted_s(:long) -%></p>
+<p><%= simple_format(h(forum_topic.content)) -%></p>
+<p>
+  <%= link_to('Reply', new_polymorphic_path([ current_user.role, forum_topic, :post ])) -%>
+  <%# if forum_topic.editable?(current_user) -%>
+    <%# link_to('Edit', edit_polymorphic_path([ current_user.role, forum_topic ])) -%>
+  <%# end -%>
+  <%# if forum_topic.deletable?(current_user) -%>
+    <%# link_to('Delete', polymorphic_path([ current_user.role, forum_topic ], :action => :delete)) -%>
+  <%# end -%>
+</p>
+<h4><%= pluralize(forum_topic.posts.size, 'reply') -%></h4>
+<% unless forum_topic.posts.size.zero? %>
+  <div id='comments'>
+  <ul>
+    <%= render(:partial => 'forum_posts/forum_post', :collection => forum_topic.posts) -%>
+  </ul>
+  <div>
+<% end %>
+

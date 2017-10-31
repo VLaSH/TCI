@@ -1,0 +1,27 @@
+<%- if @attachment.image? -%>
+  <%= image_tag(@attachment.s3_url(:detail), :alt => 'Attachment', :title => @attachment.title) %>
+<%- else -%>
+  <p><%= link_to('Download', @attachment.s3_url(:original)) -%></p>
+<%- end -%>
+<dl>
+  <dt>Title</dt>
+  <dd><%= h(@attachment.title) %></dd>
+  <dt>Given name</dt>
+  <dd><%= h(@attachment.description) %></dd>
+</dl>
+<p><%= link_to('Edit this attachment', edit_student_attachment_path(@attachment)) %></p>
+<p><%= link_to('Delete this attachment', delete_student_attachment_path(@attachment)) %></p>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script>
+	jQuery(function($){	
+		$(".lightview").each(function( i,j ) {
+			str = $(this).attr('href');
+			if (str.toLowerCase().indexOf("https://player.vimeo.com") >= 0){
+				var filename = $(this).find('img').attr('src').replace( /^.*?([^\/]+)\..+?$/, '$1' );
+				$(this).find('img').attr('src','/images/'+filename+'.png');
+			}
+		});
+	})
+</script>

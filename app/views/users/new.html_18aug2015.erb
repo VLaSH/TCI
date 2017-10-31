@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'uni-form', 'select_tag_responsive'%>
+<div class="content_wrapper"><!-- Main -->
+  <div class="container content_bg"><!-- Container -->
+    <div class="sign_up_box">
+      <%= error_messages(@user) %>
+      <h3>Sign Up</h3>
+      <%= uni_form_for(@user, :url => user_path, :html => { :autocomplete => 'off' }) do |f| %>
+        <%= f.text_field :email, placeholder: "Enter Your Email ID", required: true,autofocus: true %>
+        <%= f.password_field :password, placeholder: 'Enter Your Password.', required: true%>
+        <%= f.password_field :password_confirmation, type: :password, placeholder: 'Confirm password', required: true %>
+        <%= f.text_field :given_name, placeholder: 'Enter your Name.', required: true%>
+        <%= f.text_field :family_name, placeholder: 'Enter your Surname.', required: true%>
+        <%= f.text_field :address_street, label: 'Street Address',placeholder: 'Enter your Street Address.', required: true%>
+        <%= f.text_field :address_locality, label: 'Locality', placeholder: 'Enter your Locality.', required: true%>
+        <%= f.text_field :address_postal_code, label: 'Postal Code' ,placeholder: 'Enter your Postal Code.', required: true%>
+        <%= f.text_field :address_region, label: 'Region',placeholder: 'Enter your Region.', required: true%>
+        <div class= "ctrlHolder">
+          <%= label_tag :address_country do %>
+            <em>*</em> Address Country
+          <% end%>
+        </div>
+        <%= f.hidden_field :uid %>
+        <%= f.iso_country_select(:address_country, required: true, :prompt=>"select country", include_blank: false) %>
+
+        <%= f.submit 'Sign Up', class: :submit, title: :sign_up %>
+        <p>Already Have Account? <%= link_to 'LOGIN', new_session_path, title: 'Sign In'  %></p>
+      <% end %>
+    </div>
+  </div><!-- Container -->
+</div><!-- Main Content -->

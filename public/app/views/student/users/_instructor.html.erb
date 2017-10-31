@@ -1,0 +1,7 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+  <h4>Instructor</h4>
+  <div class="body padding_5 instructor">
+    <%= link_to(image_tag(user_photo_path(:id => instructor.id, :style => :w50xh60), :style => "float: left;", :width => 50, :height => 60, :alt => instructor.full_name), instructor_path(instructor)) unless instructor.nil? || instructor.photo.nil? -%>
+    <h6>This course is being taught by <%= link_to(instructor.full_name, instructor_path(instructor)) unless instructor.nil? -%></h6>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class WhatsNewGridSection < BannerImage
+end

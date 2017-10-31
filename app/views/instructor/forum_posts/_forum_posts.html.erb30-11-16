@@ -1,0 +1,48 @@
+<% if forum_topics.blank? || forum_topics.map(&:posts_count).inject(:+) == 0 %>
+  <p>There are currently no responses to this discussion.</p>
+<% else %>
+  <ol id="comments">
+    <%i = 1%>
+    <%- forum_topics.map(&:posts).inject(:+).each do |forum_post| -%>
+	    <% unless forum_post.user.nil? %>
+	      <li id="comment_<%= i %>" class="cl_<%= forum_post.id%>">
+          <cite><%- if forum_post.user.instructor? -%><span class="instructor">instructor</span><br /><%- end -%><%= forum_post.user.full_name -%><br /><span class="date"><%= time_ago_in_words(forum_post.created_at) -%> ago</span></cite>
+          <blockquote class="rounded topHeavy">
+            <span class="tr cnr"></span>
+            <span class="tl cnr"></span>
+            <span class='comment-data' style='display:flex;'>
+              <%= simple_format(forum_post.content) -%>
+              <% if forum_post.attachments.present? %>
+                <%= image_tag forum_post.attachments.first.asset.url(:medium) %>
+              <% end %>
+              <%= link_to(image_tag("icons/delete.png", :class => "del",:id => forum_post.id, :alt => "Delete this enrolment"), delete_instructor_lessons_comment_path(forum_post), :rel => "Remove this student enrolment") -%>
+            </span>
+            <span class="br cnr"></span>
+            <span class="bl cnr"></span>
+          </blockquote>
+        </li>
+          <div class="clear">&nbsp;</div>
+    	<% end %>
+      <%i = i + 1%>
+    <%- end -%>
+	</ol>
+<% end %>
+<script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+
+
+$( "#comments" ).on( "click", ".del", function( event ) {
+    event.preventDefault();
+    id = $(this).attr('id');  
+   // url = 'http://localhost:3000';
+    url = 'https://www.thecompellingimage.com';
+    if(confirm('Are you sure want to delete this comment ?')){
+		$.ajax(url+'/instructor/lessons_comment/'+id+'/delete', function(d){
+				//console.log('.cl_'+id);
+		})
+		$('.cl_'+id).remove();	
+    }
+    event.preventDefault();
+});
+  jQuery(window.location.hash).find('blockquote span.comment-data').css('background-color', '#DFDFDF');
+</script>

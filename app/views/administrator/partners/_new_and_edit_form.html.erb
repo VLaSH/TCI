@@ -1,0 +1,18 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(partner, :url => polymorphic_path([ :administrator, partner ]), :html => { :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Partner Details") do %>
+      <%= f.text_field(:name, :size => '30', :label => "Name", :required => true, :style => "width: 99%;") %>
+      <%= f.text_field(:url, :size => '30', :label => "URL", :required => true, :style => "width: 99%;") %>
+      <%= f.text_area(:description, :size => '60x3', :class => 'widgEditor', :label => "Description", :style => "width: 99%; height: 300px;") -%>
+
+      <% if partner.logo? %>
+        <%= image_tag(partner.logo_url(:thumb), :alt => partner.name) -%>
+        <%= f.check_box :remove_logo, :label => "Remove logo" %>
+      <% end %>
+      <%= f.file_field :logo, :label => "Logo" %>
+      <%= f.hidden_field :logo_cache %>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (partner.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

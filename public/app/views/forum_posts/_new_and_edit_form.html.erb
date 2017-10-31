@@ -1,0 +1,8 @@
+<%= uni_form_for(forum_post, :url => path) do |f| %>
+  <% f.fieldset(:type => "block") do %>
+    <%= f.text_area(:content, :size => '60x5', :label => "Comment", :style => "width: 99%;", :class => "widgEditor") -%>
+  <% end %>
+  <%- unless !defined?(redirect) || redirect.nil? -%><%= f.hidden_field(:redirect, :value => redirect) -%><%- end -%>
+  <%= f.file_field(:file, :label => "Upload Photo") -%>
+  <%= f.submit(forum_post.new_record? ? 'create' : 'update', :style => "margin-top: 20px;") -%>
+<% end %>

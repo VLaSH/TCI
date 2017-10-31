@@ -1,0 +1,14 @@
+<% if !@instructor.nil? && @instructor.courses.visible.available.size > 0 -%>
+  <div class="block block_upcoming_events">
+    <div class="block_heading1">
+      <span>Currently Teaching</span>
+      <%= link_to ((content_tag :i, nil, class: :star) + 'See All'), courses_path(instructor: @instructor.id) %>
+    </div>
+    <div class=" block_content">
+      <% @instructor.courses.visible.available.first(6).each_with_index do |course, i| -%>
+        <h5><%= link_to(course.title, course_path(course), class: 'font_size_13 red') -%></h5></br>
+      <% end -%>
+    </div>
+  </div>
+<% end -%>
+

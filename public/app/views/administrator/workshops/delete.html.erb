@@ -1,0 +1,22 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete workshop</h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th class="centred">Title</th>
+        <th class="centred">Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= h(@workshop.title) %></td>
+        <td><%= @workshop.summary %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @workshop ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+  <% end %>
+</div>

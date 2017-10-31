@@ -1,0 +1,36 @@
+<%= uni_form_for(user, :url => edit_path, :html => { :autocomplete => 'off', :multipart => true }) do |f| %>
+  <div class="grid_11 alpha margin_top_20">
+    <% f.fieldset(:type => "block", :legend => "Login Information") do %>
+      <p>Leave the password and confirmation fields blank if you do not want to change your password.</p>
+      <%= f.text_field(:email, :required => true, :label => "Email") -%>
+      <%= f.password_field(:password, :size => '30', :label => "Password", :hint => "must be at least #{User::PASSWORD_LENGTH.min} letters and numbers") %>
+      <%= f.password_field(:password_confirmation, :size => '30', :label => "Re-enter your password") %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Name") do %>
+      <%= f.text_field(:given_name, :size => '30', :label => "Given name", required: true) %>
+      <%= f.text_field(:family_name, :size => '30', :label => "Family name",required: true) %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Address") do %>
+        <%= f.text_field(:address_street, :size => '30', :label => "Street", required: true) %>
+        <%= f.text_field(:address_locality, :size => '30', :label => "Locality (City/Town)", required: true) %>
+        <%= f.text_field(:address_region, :size => '30', :label => "Region",required: true) %>
+        <%= f.text_field(:address_postal_code, :size => '20', :label => "Postal code(zip code)", required: true) %>
+        <div class= "ctrlHolder">
+          <%= label_tag :address_country do %>
+            <em>*</em> Address Country
+          <% end%>
+        </div>
+        <%= f.iso_country_select(:address_country) %>
+        <%# f.time_zone_select(:time_zone, :label => "Time zone") %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Contact Details") do %>
+      <%= f.text_field(:phone_voice, :size => '30', :label => "Telephone (landline)") %>
+      <%= f.text_field(:phone_mobile, :size => '30', :label => "Telephone (mobile)") %>
+    <% end %>
+    <div class="clear">&nbsp;</div>
+    <%= f.submit "save", :style => "margin-top: 20px;" %>
+  </div>
+  <div class="grid_5 omega">
+    <%= render(:partial => "student/scheduled_courses/enrolments", :locals => {:classes => "margin_bottom_20"}) -%>
+  </div>
+<% end %>

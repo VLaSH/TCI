@@ -1,0 +1,70 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'student', :id => 'home' }
+    page.primary_navigation_section = :student_area
+    page.title.unshift('Student Area')
+    page.title.unshift('Home')
+  end
+-%>
+
+<div class="alpha">
+  <h4>My Courses</h4>
+  <% if current_user.enrolments.where(unsubscribe: false).size == 0 %>
+    <p class="margin_bottom_20">You're not currently enrolled on any courses - check out <%= link_to("our selection of courses", courses_path) -%> and enroll today!</p>
+  <% else %>
+    <ul class="scheduleditems">
+      <% Enrolment.select_uniq_row(current_user.id).each do |enrolment| %>
+        <% unless enrolment.course == nil || enrolment.course.deleted? %>
+          <li>
+            <span class="date">Duration <%= enrolment.duration -%> Days </span>
+            <span class="date">Ends On : <%= enrolment.end_date.to_s(:short_date_month_year) -%> </span>
+            <span class="date">
+              <%= link_to enrolment.course_title, student_courses_path, title: "#{enrolment.course_title}" -%>
+            </span>
+            <span class='date'>
+              <%= ( enrolment.can_unsubscribe? ? ( link_to 'Unsubscribe', unsubscribe_course_path(enrolment.course, enrolment), method: :put, title: "Unsubscribe #{enrolment.course_title}", data: {confirm: 'Are you sure?' } )  : '') -%>
+            </span>
+            <span class='date'>
+              <%= link_to 'Add Review', new_student_course_review_path(enrolment.course), title: "Add Review for #{enrolment.course_title}" %>
+            </span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class='clear'></div>
+  <h4>My Assignments</h4>
+  <% if current_user_scheduleled_assignements.count == 0 %>
+    <p class="margin_bottom_20">You don't currently have any completed assignments or any assignments to complete.'</p>
+  <% else %>
+    <% Enrolment.select_uniq_row(current_user.id).each do |enrolment| %>
+      <% unless enrolment.scheduled_course.course == nil || enrolment.scheduled_course.course.deleted? %>
+        <h6><%#= enrolment.scheduled_course.course.title -%></h6>
+        <ul class="scheduleditems">
+          <% if enrolment.created_at + 7.day > Time.now %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.limit(1).each do |scheduled_lesson| %>
+            <% unless scheduled_lesson.scheduled_assignments.blank?%>
+              <% scheduled_assignment = scheduled_lesson.scheduled_assignments.first %>
+                <li><strong><%= link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></strong></li>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.each do |scheduled_lesson| %>
+              <% unless scheduled_lesson.scheduled_assignments.blank? %>
+                <% scheduled_lesson.scheduled_assignments.each do |scheduled_assignment| %>
+                 <li><strong><%= link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></strong></li>
+                <%end%>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/forum_topics/latest", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/forum_topics/latest_from_courses", :locals => {:classes => "margin_bottom_20"}) -%>
+
+</div>
+<div class="clear">&nbsp;</div>

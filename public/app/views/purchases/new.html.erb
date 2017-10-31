@@ -1,0 +1,62 @@
+<%= stylesheet_link_tag 'tci', 'pretty_buttons', 'uni-form-generic', 'uni-form', 'prototip', 'flash', 'astreik_color'%>
+<div class="container content_bg">
+  <div class="inner_content_container">
+    <%= content_tag "p", flash[:alert], :class => "flash error" if flash[:alert] %>
+    <div class="inner_content_left">
+      <h4 class="page_title color_black">Enroll on <%= link_to(h(@course.title), course_path(@course)) -%></h4>
+      <%= uni_form_for(@purchase, :url => course_purchase_path(@course)) do |f| %>
+        <%= error_messages(@user)%>
+        <% f.fieldset(:legend => "Course Details") do %>
+          <% if @course.free? %>
+            <%= hidden_field_tag :course_id, @course.id %>
+          <% end %>
+          <div class="ctrlHolder">
+            <label>course start date</label>
+            Today
+          </div>
+        <% end %>
+        <% f.fieldset(:legend => "Payment Method") do %>
+          <% if @course.free? %>
+            <div class="ctrlHolder">
+              Free
+            </div>
+          <% else %>
+            <div class="ctrlHolder">
+              <%= f.purchase_gateway_radio_buttons(:gateway).join(' ').html_safe %>
+            </div>
+          <% end %>
+        <% end %>
+        <%= f.submit('Enroll', :name => nil, class: 'btn purchase_enroll_btn') %>
+      <% end %>
+    </div>
+    <div class="inner_content_right">
+      <%#= render(:partial => "purchases/help", :locals => {:classes => "margin_bottom_20"}) -%>
+      <%= render(:partial => "purchases/payments") -%>
+      <div class="clear">&nbsp;</div>
+    </div>
+  </div>
+</div>
+ <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+  <script>
+  jQuery(function ($) {
+    $(document).ready(function(){
+      $( ".purchase_enroll_btn" ).click(function(e) {
+        if ($('#purchase_gateway_stripe').is(':checked')) {
+        var token = function(res){
+        var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+          $('form').append($input).submit();
+        };
+          StripeCheckout.open({
+            key:         '<%= Rails.configuration.stripe[:publishable_key] %>',
+            amount:      '<%= @course.price_in_cents %>',
+            currency:    'usd',
+            panelLabel:  'Checkout',
+            token:       token
+          });
+          e.preventDefault();
+        }
+      });
+       return false;
+    });
+  });
+  </script>

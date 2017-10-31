@@ -1,0 +1,25 @@
+<div>
+  <div class="grid_11 margin_top_20 alpha">
+    <h3>Student Gallery Image</h3>
+    <ul class="remove_bullet">
+      <% @images.each do | image | %>
+      <li>
+        <%= image_tag( image.image.url(:thumb), alt: image.image_file_name, title: image.image_file_name) %>
+        <%= link_to image_tag("icons/delete.png", :alt => "Delete Course", class: "delete_button", title: "Delete image"), administrator_student_gallery_path(image), :method => :delete %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_5 margin_top_20 omega">
+    <% if @images.count < 25 %>
+      <%= form_for ([:administrator, @student_gallery]), :html => { :multipart => true } do |form| %>
+        <%= form.select 'creator', options_for_select(@students.collect{ |s| [s.full_name, s.full_name] }),prompt: 'Select Student', required: true  %><br>
+        <%= form.label :course_name %>
+        <%= form.text_field :course %>
+        <%= form.file_field :image %><br>
+        <p class="buttons image_button"><%= pretty_button ('Upload'), {:icon_path => "icons/tick.png"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

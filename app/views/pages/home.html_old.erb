@@ -1,0 +1,156 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'home' }
+    page.primary_navigation_section = :home
+    page.title.unshift('Online Photography Schools, Photography Schools Online, Online Photography Classes')
+  end
+
+  @course = Course.visible.available.random.first
+  @instructors = @course.instructors if @course
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography Class Online, Online Photography Courses, Photography Course" />
+  <meta name="description" content="The Compelling Image is an online photography schools and visual storytelling that inspires and equips you to be the best photographer you can be.">
+<% end %>
+
+<script async="async" cache="true" src="assets/jquery.cycle.all.js" type="text/javascript"></script>
+
+<%= hidden_field_tag :slide_speed, get_banner_slide_speed, id: 'slide_speed' %>
+<div class="container content_bg" style="margin-bottom:20px"><!-- Container -->
+  <div class="home-slider">
+    <div class="cycle">
+      <% unless home_banner_images.blank? %>
+        <% home_banner_images.each do |banner| %>
+            <%= image_tag banner.image_s3_url(:w947xh469), width: '100%' %>
+        <% end %>
+      <% end %>
+    </div>
+    <% unless home_banner_images.blank? %>
+      <div class="slider-content">
+        <div class='inner_slider_content'>
+          <p>online interactive courses in photography and multimedia storytelling taught by the professionals</p>
+          <p><%= (link_to 'Sign up for a course', new_user_path) unless find_student_enroll_and_logged_in? %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='home_inner_container'>
+    <div class="offer_content">
+      <%= link_to content_tag(:h2, 'Get started today - Try a sample lesson for FREE!'), free_course %>
+
+   <!--  <span>Sign up for a no-strings-attached account, enroll on the <span class="red- font">FREE</span> sample lesson and you're set to begin!</span> -->
+    </div><!-- Offer Content -->
+    <div class="content-text">
+      <p>        
+        <strong>The Compelling Image</strong> is an online photography school offering interactive classes for photographers of all skill levels and interests - an affordable, convenient and inspiring way to learn and encourage your creativity - wherever you live.		
+      </p>
+    </div><!-- Content Text -->
+  </div>
+
+  <div class="grid-scetion">
+    <ul>
+
+      <a href=<%= courses_path %>>
+        <li>
+          <%= image_tag(course_grid_section, :id => 'd1') %>
+          <div class="hoverContent">
+            <span>Course Selection</span>
+          </div>
+        </li>
+      </a>
+
+      <a href=<%= courses_path(cat: 3)%>>
+        <li>
+          <%= image_tag(portfolio_grid_section) %>
+          <div class="hoverContent">
+            <span>Portfolio Review</span>
+          </div>
+        </li>
+      </a>
+
+      <a href='http://www.thecompellingimage.com/workshops'>
+        <li class="last">
+          <%= image_tag(mentorship_grid_section) %>
+          <div class="hoverContent">
+            <span>Workshops</span>
+          </div>
+        </li>
+      </a>
+
+      <a href=<%= student_galleries_path %> >
+        <li>
+          <%= image_tag(student_gallery_grid_section) %>
+          <div class="hoverContent">
+            <span>Student Gallery</span>
+          </div>
+        </li>
+      </a>
+
+      <a href= <%= instructors_path %> >
+        <li>
+          <%= image_tag(whats_new_grid_section) %>
+          <div class="hoverContent">
+            <span>Instructors</span>
+          </div>
+        </li>
+      </a>
+
+      <a href="http://thecompellingimage.com/blog">
+        <li class="last">
+          <%= image_tag(tci_blog_grid_section) %>
+          <div class="hoverContent">
+            <span>TCI Blog</span>
+          </div>
+        </li>
+      </a>
+    </ul>
+  </div><!-- Grid Section -->
+  
+</div><!-- Container -->
+<div class="girdPartHeading">
+<h1>Our most popular online photography classes - today’s gold standard of photography education online</h1>
+</div>
+<% i = 0 %>
+    <% @homecourse.each do |course|%>
+			
+			<%
+			description = course.description
+		
+			if(i == 0 || i ==3 )
+			 %>
+				<div class="grid my-grid">
+			 <% end %>
+				
+				
+			<div class="column">
+				<figure><%= link_to course_path(course) do%><%= image_tag course_photo_path(id: course.id, style: :w660xh390), alt: course.title %> <% end %></figure>
+				<h2><%= link_to course.title, course_path(course) %></h2>
+				<p><%=sanitize(truncate_html(description,25,''))%></p>
+			</div>
+			<% if(i == 2 || i == 5 )
+			 %>
+				</div>
+			 <% end %>
+	   <% i= i+1  %>
+	   <% end %>
+<div class="clear"></div>
+<div class="home_inner_container" style="margin-bottom:20px;padding-bottom:10px">
+    <div class="content-text">
+      
+        <p style=""><h2 style="text-align:center;color:#000">a virtual classroom / social-interactive experience...</h2></p>
+       <p style="padding:10px"> As a TCI student, you’ll receive valuable critiques and advice from your instructor, timely answers to your questions and be able to discuss all that is happening on your course with fellow classmates.
+      </p>
+    </div><!-- Content SText -->
+
+    <div class="offer_content">
+      <%= link_to content_tag(:h2, 'Get started today - Try a sample lesson for FREE!'), free_course %>
+      <span>Sign up for a no-strings-attached account, enroll on the <span class="red-font">FREE</span> sample lesson and you're set to begin!</span>
+    </div><!-- Offer Content -->
+		<div class="signup_btn" style="margin: 0 auto 50px auto; width: 232px;"> <%= link_to 'Sign up for a course', new_user_path %></div>
+  </div>
+   
+  
+  
+  		
+

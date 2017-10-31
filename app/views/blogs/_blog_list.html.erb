@@ -1,0 +1,21 @@
+<ul class="blogs_list">
+  <% blog_list.each do |blog| %>
+    <li>      
+      <div class="description_container desc_blog">
+     
+        <h1 class="headline"><%= link_to blog.title, inner_blog_path(blog) %></h1>      
+		<div class= 'blogs_image_block main_image'>
+        <%= link_to inner_blog_path(blog) do%>
+        <%= image_tag blog_photo_path(id: blog.id, style: :w160xh120), alt: blog.title %>
+        <% end %>         
+      </div>
+       <p><%=sanitize(truncate_html(blog.content,85,''))%>...</p>
+      
+        
+        <!-- <a href="#"><i class="star"></i> Find out more</a> -->
+      </div>
+    </li>
+  <% end %>
+</ul>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script>$(function(){$('.inner_content_left').addClass('blog_page');})</script>

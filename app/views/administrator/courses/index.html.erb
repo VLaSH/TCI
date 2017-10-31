@@ -1,0 +1,53 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @courses.empty? %>
+    <table summary="List of courses" class="pretty">
+      <thead>
+        <tr>
+          <th>Courses</th>
+          <th>Lessons</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= link_to(h(course.title), edit_administrator_course_path(course)) -%></td>
+            <td><%= link_to(h(course.lessons.size), administrator_course_lessons_path(course)) -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Course"), edit_administrator_course_path(course), :rel => "Edit Course", title: 'Course') -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/page_copy.png", :alt => "Lessons"), administrator_course_lessons_path(course), :rel => "Lessons", title: "Lessons") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/calendar.png", :alt => "Course Schedule"),  administrator_scheduled_course_enrolments_path(course.scheduled_course), :rel => "View or Edit the Course Schedule", title: "Enrolments") -%>
+              <%= link_to(image_tag("icons/shape_square.png", :alt => "Course Renewal"), administrator_renewals_path(course_id: course.id), :rel => "add renewal course", title: "Add Renewal") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete Course"), delete_administrator_course_path(course), :rel => "Delete this course", title: "Delete") -%></td>
+          	</tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@courses) %>
+  <% else %>
+    <p>There are no courses that match your selected criteria.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new course", new_administrator_course_path, {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+  <form class="pretty">
+    <fieldset>
+      <legend>Search</legend>
+      <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+    </fieldset>
+    <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?search=" %></p>
+    <div class="clear">&nbsp;</div>
+  </form>
+  <div class="clear">&nbsp;</div><br />
+   <p class="buttons">
+    <%= pretty_button_link " Generate Certificate", administrator_certificate_index_path, {:icon_path => "icons/add.png"} %>
+  </p>
+</div>
+<div class="clear">&nbsp;</div>

@@ -1,0 +1,24 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <h6>Delete package</h6>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th class="centred">Title</th>
+        <th class="centred">Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= h(@package.title) %></td>
+        <td><%= @package.summary.html_safe %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= form_for([ :administrator, @package ], :html => { :method => :delete }) do |f| %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons">
+    	<%= pretty_button "Delete", {:icon_path => "icons/delete.png"} %>
+    </p>
+  <% end %>
+</div>

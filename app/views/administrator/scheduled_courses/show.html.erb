@@ -1,0 +1,28 @@
+<h3>Scheduled course for <%= h(@course.title) -%></h3>
+<!-- <p>Runs from <%#= @scheduled_course.starts_on.to_formatted_s(:long) -%> - <%#= @scheduled_course.ends_on.to_formatted_s(:long) -%></p>
+ --><p><%= link_to("Back to other scheduled sessions for this course", administrator_course_scheduled_courses_path(@course)) -%></p>
+<hr />
+<% unless @scheduled_course.scheduled_lessons.empty? %>
+  <table summary="List of scheduled lessons">
+    <thead>
+      <tr>
+        <th class="centred">Title</th>
+        <th class="centred">Starts</th>
+        <th class="centred">Ends</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scheduled_course.scheduled_lessons.each do |scheduled_lesson| %>
+        <tr>
+          <td class="centred"><%= scheduled_lesson.lesson.title -%></td>
+          <td class="centred"><%= scheduled_lesson.starts_on.to_formatted_s(:long) -%></td>
+          <td class="centred"><%= scheduled_lesson.ends_on.to_formatted_s(:long) -%></td>
+          <td class="centred"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No scheduled courses exist.</p>
+<% end %>

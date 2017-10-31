@@ -1,0 +1,54 @@
+
+<div class="container">
+  <div class="inner_content_container">
+    <div class="sitemap">
+      <h1>Sitemap</h1>
+      <ul>
+		<li><%= link_to 'Home', root_path %></li>
+		<li><%= link_to 'Blog', blog_path %></li>
+        <li><%= link_to 'Contact', new_enquiry_path%></li>
+        <li><%= link_to 'How It Works', page_path(names: 'about') %></li>
+        <li><%= link_to 'Partners', page_path(names: 'partners') %></li>
+        <li><%= link_to 'Privacy Policy', page_path(names: 'privacy') %></li>
+        <li><%= link_to 'Registor or Login', new_session_path %></li>
+        <li><%= link_to 'Mentorship', courses_path %></li>
+        <li><%= link_to 'Student Gallery', student_galleries_path %></li>
+        <li>
+          <%= link_to 'Workshops', workshops_path %>
+          <ul>
+            <%@workshops.each do |workshop|%>
+              <li><%= link_to workshop.title,workshop_path(workshop)%></li>
+            <%end%>
+          </ul>
+        </li>
+        <li>
+          <%= link_to'Emerging Photographers', packages_path %>
+          <ul>
+            <%@emerging_photographers.each do |emerging_photographer|%>
+              <li><%= link_to emerging_photographer.title,package_path(emerging_photographer)%></li>
+            <%end%>
+          </ul>
+        </li>
+        <li>
+          <%= link_to 'Courses', courses_path%>
+          <ul>
+            <%@courses.each do |course|%>
+              <li><%= link_to course.title,course_path(course)%></li>
+            <%end%>
+          </ul>
+        </li>
+        <li>
+          <%= link_to 'Instructors', instructors_path %>
+          <ul>
+            <%@instructors.each do |instructor|%>
+              <li><%= link_to instructor.full_name,instructor_path(instructor)%></li>
+            <%end%>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+

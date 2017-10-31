@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'GothamRndBook';
+  src: url('GothamRndBook.eot');
+  src: url('GothamRndBook.eot') format('embedded-opentype'),
+    url('GothamRndBook.woff2') format('woff2'),
+    url('GothamRndBook.woff') format('woff'),
+    url('GothamRndBook.ttf') format('truetype'),
+    url('GothamRndBook.svg#GothamRndBook') format('svg');
+}
+
+
+@font-face {
+  font-family: 'GothamRndLight';
+  src: url('GothamRndLight.eot');
+  src: url('GothamRndLight.eot') format('embedded-opentype'),
+       url('GothamRndLight.woff2') format('woff2'),
+       url('GothamRndLight.woff') format('woff'),
+       url('GothamRndLight.ttf') format('truetype'),
+       url('GothamRndLight.svg#GothamRndLight') format('svg');
+}
+
+@font-face {
+  font-family: 'GothamRndBold';
+  src: url('GothamRndBold.eot');
+  src: url('GothamRndBold.eot') format('embedded-opentype'),
+       url('GothamRndBold.woff2') format('woff2'),
+       url('GothamRndBold.woff') format('woff'),
+       url('GothamRndBold.ttf') format('truetype'),
+       url('GothamRndBold.svg#GothamRndBold') format('svg');
+}
+
+@font-face {
+  font-family: 'GothamRndMedium';
+  src: url('GothamRndMedium.eot');
+  src: url('GothamRndMedium.eot') format('embedded-opentype'),
+       url('GothamRndMedium.woff2') format('woff2'),
+       url('GothamRndMedium.woff') format('woff'),
+       url('GothamRndMedium.ttf') format('truetype'),
+       url('GothamRndMedium.svg#GothamRndMedium') format('svg');
+}

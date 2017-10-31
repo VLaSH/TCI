@@ -1,0 +1,31 @@
+<div class="block block_upcoming_events">
+  <div class="block_heading1">
+    <!-- <span>Upcoming Events</span> -->
+    <span>Upcoming Courses</span>
+    <%= link_to ((content_tag :i, nil, class: :star) + 'See All'), courses_path %>
+  </div>
+  <div class="block_content">
+    <ul>
+      <%# unless (scheduled_courses = ScheduledCourse.non_deleted.future.includes(:course).limit(4).order(:starts_on)).empty? -%>
+      <% unless (courses = Course.non_deleted.limit(5).order("created_at Desc")).empty? -%>
+        <% courses.each do |course| -%>
+          <% if course.available? %>
+            <li>
+              <%= link_to(course.title, course_path(course)) -%>
+              <span> Added on <%= course.created_at.to_s(:short_date_month_year) -%>
+                <br/>
+                <% if course.duration.zero? %>
+                  (No duration set yet.)
+                <% else %>
+                  (Duration <%= course.duration -%> Days)
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+        <% end -%>
+      <% else -%>
+        <p><span>No upcoming course sessions at this time.</span><p>
+      <% end -%>
+    </ul>
+  </div>
+</div>

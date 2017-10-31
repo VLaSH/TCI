@@ -1,0 +1,70 @@
+<div class="container content_bg"><!-- Container -->
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div>
+        <h5 class= "color_black">Emerging Photographer Program</h5>
+        <p>
+          A new addition to an already great lineup of courses is TCI’s Emerging Photographer program.
+          Geared to amateurs looking to take their work to a higher level and the photographer whose aspirations
+          run to the professional, this exciting program offers photographers the opportunity to develop and refine
+          their vision via a combination of progressive and related courses, Skype consultations and a professional
+          portfolio review by a TCI instructor of their choice.  Upon successful completion of the program,
+          participants will then have the opportunity to exhibit their work at photojournale, a key, high-standards
+          player in the development and future of visual storytelling and photography publication on the internet.
+        </p>
+        <h5 class= "color_black">How the Program Works</h5>
+        <p>
+          Students enrolling in the Emerging Photographer Program will choose among three selected mentorship curricula.  Upon successful completion of these related courses, their portfolio of work will be critiqued and reviewed by a TCI instructor of their choice.  The package - two courses, Skype consultations and portfolio review - will be be offered at a discount off the regular price.
+        </p>
+        <h5 class= "color_black">What are the Benefits?</h5>
+        <p>
+          The biggest value of the Emerging Photographer program lies in the student’s ability to work more closely with instructors.  The goal is to produce high-quality photographic work to be professionally exhibited to a worldwide audience, among which sits a growing number of editors keen to discover new and dynamic work for their publications - on and off the web.  It is an opportunity not to be missed if you are serious about photography - even more so, if turning professional is among your plans.
+        </p>
+      </div>
+      <div class="filters">
+        <span class="float_right">
+          Sort by: <%= @sort == "t" ? "Package Name" : link_to("Package Name", packages_path(@options.merge({:s => 't'}))) -%> | <%= @sort == "p" ? "Price" : link_to("Price", packages_path(@options.merge({:s => 'p'}))) -%>
+        </span>
+        <span class="float_left">
+          <%= (@packages.empty? ? '&nbsp;' : "Packages %d-%d of %d" % [ @packages.offset + 1, @packages.offset + @packages.size, @packages.total_entries ]) -%>
+        </span>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="inner_content_container brief_packages">
+        <div class="inner_content_left">
+          <div class= "courses_container">
+            <ul class="courses_list">
+              <% @packages.each do |package| %>
+                <li>
+                  <div class= 'courses_image_block'>
+                    <%= link_to(image_tag(package_photo_path(:id => package.id, :style => :w160xh120), :width => 160, :height => 120, :alt => package.title), package_path(package)) if package.photo? %>
+                  </div>
+                  <div class="description_container">
+                    <h4>
+                      <%= link_to(package.title.try(:titleize), package_path(package), style: "float: left;") %>
+                      <spam class='price float_right color_black'>$<%= package.price.to_s %></spam>
+                    </h4>
+                    <ul>
+                      <li>
+                        <%= package.summary.html_safe %>
+                      </li>
+                    </ul>
+                    <%= link_to package_path(package) do%>
+                      <i class="star"></i> <span class='find_out_more'>Find out more</span>
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <% if @packages.nil? || @packages.empty? %>
+            <div class="package margin_top_20"><p>There are no packages available.</p></div>
+          <% end %>
+          <%= will_paginate @packages %>
+        </div>
+      </div>
+    </div><!-- Left Content -->
+
+  </div>
+</div>
+<div class="clear">&nbsp;</div>

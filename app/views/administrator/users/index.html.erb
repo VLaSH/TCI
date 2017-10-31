@@ -1,0 +1,69 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @users.empty? %>
+    <table summary="List of registered users" class="pretty">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th class="centred">Role</th>
+          <th class="centred">Status</th>
+          <th class="centred">Enrollments</th>
+          <th class="centred"></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to(h(user_full_name(user)), edit_administrator_user_path(user)) -%></td>
+            <td><%= h(user.email) -%></td>
+            <td class="centred"><%= image_tag("icons/#{user.role == :administrator ? 'user_suit.png' : user.role == :instructor ? 'user.png' : 'user_gray.png'}") -%></td>
+            <td class="centred">
+              <% if user.pending? %>
+                <%= form_tag administrator_user_activation_path(user) do %>
+                  <%= submit_tag 'Activate' %>
+                <% end %>
+              <% else %>
+                <%= h(user.status.titleize) %>
+              <% end %>
+            </td>
+            <td><%= user.enrolments.find_non_deleted_enrollments.size -%></td>
+            <td><%= 'Hidden' if user.hidden? -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png"), edit_administrator_user_path(user), :rel => "Edit User", title: "Edit") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png"), delete_administrator_user_path(user), :rel => "Delete this user", title: "Delete") -%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@users) %>
+  <% else %>
+    <p>No users exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new user", new_administrator_user_path, {:icon_path => "icons/user_add.png"} %>
+    <%= pretty_button_link "Export users", export_administrator_users_path(:format => 'csv') %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+  <form class="pretty">
+    <fieldset>
+      <legend>Search</legend>
+      <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+    </fieldset>
+    <fieldset>
+      <legend>Filter Users</legend>
+      <input type="checkbox" name="administrator" id="administrator" value="1"<%= " checked" if @show_administrators -%>> <label for="administrator">Administrator</label><br />
+      <input type="checkbox" name="instructor" id="instructor" value="1"<%= " checked" if @show_instructors -%>> <label for="instructor">Instructor</label><br />
+      <input type="checkbox" name="student" id="student" value="1"<%= " checked" if @show_students -%>> <label for="student">Student</label><br />
+      <div class="clear">&nbsp;</div>
+    </fieldset>
+    <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?administrator=0&instructor=0&student=0&search=" %></p>
+    <div class="clear">&nbsp;</div>
+  </form>
+</div>
+<div class="clear">&nbsp;</div>

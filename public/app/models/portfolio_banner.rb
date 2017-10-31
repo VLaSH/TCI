@@ -1,0 +1,2 @@
+class PortfolioBanner < BannerImage
+end

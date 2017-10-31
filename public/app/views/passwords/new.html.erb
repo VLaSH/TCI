@@ -1,0 +1,27 @@
+<div class="container ">
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <h4 class="color_black">Reset Password</h4>
+      <p style="color:red">Enter your email address to request a new password.</p>
+      <%= form_tag(password_path, :class => "uniForm") do %>
+        <% unless flash[:error].blank? %>
+          <div id="errorMsg">
+           <p>Ooops! <%= flash[:error] %></p>
+          </div>
+        <% end %>
+        <div class="ctrlHolder">
+          <%= label_tag("Email") do-%>
+            <em>*</em>Email
+          <% end %>
+          <%= text_field_tag(:email, nil, :size => 35, :class => "textInput") %>
+        </div>
+        <div><%= submit_tag('Reset password', :name => nil,:style => "float: left; margin-top: 10px; margin-bottom: 20px; background-color:buttonface;border:2px outset buttonface;cursor:default;") -%></div>
+      <% end %>
+    </div>
+    <div class="inner_content_right">
+      <%#= render(:partial => "courses/upcoming", :locals => {:classes => "margin_bottom_20"}) -%>
+      <%= render(:partial => "blogs/blogroll") -%>
+    </div>
+  </div>
+</div>
+<div class="clear">&nbsp;</div>

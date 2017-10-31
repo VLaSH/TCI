@@ -1,0 +1,5 @@
+.flash,.user_notifications li{background:no-repeat 10px 10px;color:#fff;margin-bottom:10px;padding:9px 15px 9px 30px;position:relative;}
+.notice,.complete li{background-color:#87c873;background-image:url(/assets/icons/accept.png) no-repeat;font-weight:700; text-align: center;}
+.error,.created li{background-color:#ff5d51;background-image:url(/assets/icons/delete.png) no-repeat;}
+/*css use for bold text in  pagination */
+.pagination em {font-weight: bold;}

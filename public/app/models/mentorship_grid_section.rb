@@ -1,0 +1,2 @@
+class MentorshipGridSection < BannerImage
+end

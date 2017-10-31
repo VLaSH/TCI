@@ -1,0 +1,36 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>My Assignments</h4>
+  <% if current_user_scheduleled_assignements.count == 0 %>
+    <p class="margin_bottom_20">You don't currently have any completed assignments or any assignments to complete.'</p>
+  <% else %>
+    <% Enrolment.select_uniq_row(current_user.id).each do |enrolment| %>
+      <% unless enrolment.scheduled_course.course == nil || enrolment.scheduled_course.course.deleted? %>
+        <h6><%#= enrolment.scheduled_course.course.title -%></h6>
+        <ul class="scheduleditems">
+          <% if enrolment.created_at + 7.day > Time.now %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.limit(1).each do |scheduled_lesson| %>
+            <% unless scheduled_lesson.scheduled_assignments.blank?%>
+              <% scheduled_assignment = scheduled_lesson.scheduled_assignments.first %>
+                <li style="border-bottom: 1px solid #ccc;"><strong><%= link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></strong><br><%- if scheduled_assignment.submissions.by_student(current_user).size == 0 -%>Not yet submitted<%- else -%>View your submission: <%= link_to(scheduled_assignment.submissions.by_student(current_user).first.title, student_submission_path(scheduled_assignment.submissions.by_student(current_user).first)) -%><%= ' (submitted for critique)' if scheduled_assignment.submissions.by_student(current_user).first.completed -%><%- end -%> <span class=""><%= link_to 'Generate PDF', student_assignment_path(scheduled_assignment, :pdf),target: :blank, style: "float:right", title: 'Generate pdf of this page' %></span></li>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(current_user.id).select_uniq.each do |scheduled_lesson| %>
+              <% unless scheduled_lesson.scheduled_assignments.blank? %>
+                <% scheduled_lesson.scheduled_assignments.each do |scheduled_assignment| %>
+                 <li style="border-bottom: 1px solid #ccc;">
+                 <strong><%= link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></strong><br><%- if scheduled_assignment.submissions.by_student(current_user).size == 0 -%>Not yet submitted<%- else -%>View your submission: <%= link_to(scheduled_assignment.submissions.by_student(current_user).first.title, student_submission_path(scheduled_assignment.submissions.by_student(current_user).first)) -%><%= ' (submitted for critique)' if scheduled_assignment.submissions.by_student(current_user).first.completed -%><%- end -%><span class=""><%= link_to 'Generate PDF', student_assignment_path(scheduled_assignment, :pdf),target: :blank, style: "float:right", title: 'Generate pdf of this page' %></span></li>
+                <%end%>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/forum_topics/latest", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/forum_topics/latest_from_courses", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

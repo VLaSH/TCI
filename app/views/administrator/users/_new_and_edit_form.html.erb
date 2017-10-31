@@ -1,0 +1,62 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(user, :url => polymorphic_path([ :administrator, user ]), :html => { :autocomplete => 'off', :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Login Details") do %>
+      <%= f.text_field(:email, :size => '30', :label => "Email", :required => true) %>
+      <%- hint = user.new_record? ? "" : "Leave the password and confirmation fields blank if you do not want to change the password." -%>
+      <%= f.password_field(:password, :size => '30', :label => "Password", :hint => hint, :required => user.new_record?)%>
+      <%= f.password_field(:password_confirmation, :size => '30', :label => "Re-enter the password",  :required => user.new_record?)%>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Name and contact details") do %>
+      <%= f.text_field(:given_name, :size => '30', :label => "Given Name", :required => true) %>
+      <%= f.text_field(:family_name, :size => '30', :label => "Family Name", :required => true) %>
+      <%= f.text_field(:phone_voice, :size => '30', :label => "Phone Number") %>
+      <%= f.text_field(:phone_mobile, :size => '30', :label => "Mobile Number") %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Location") do %>
+      <%= f.text_field(:address_street, :size => '30', :label => "Street", :required => true) %>
+      <%= f.text_field(:address_locality, :size => '30', :label => "Locality", :required => true) %>
+      <%= f.text_field(:address_region, :size => '30', :label => "Region", :required => true) %>
+      <%= f.text_field(:address_postal_code, :size => '30', :label => "Postal Code", :required => true) %>
+      <div class= "ctrlHolder">
+        <%= label_tag :address_country do %>
+          <em>*</em> Address Country
+        <% end%>
+      </div>
+      <%= f.iso_country_select(:address_country) %>
+      <%= f.time_zone_select(:time_zone) %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "About the user") do %>
+      <%= f.text_field(:meta_description, :size => '30', :label => "Meta Description", :style => "width: 99%;") %>
+      <%= f.text_field(:meta_keywords, :size => '30', :label => "Meta Keywords",:style => "width: 99%;") %>
+
+      <%= f.text_area(:profile, :size => '60x3', :class => 'widgEditor', :label => "Profile", :style => "width: 99%; height: 300px;") -%>
+      <%= f.file_field(:photo, :label => "Portrait Photo") -%>
+      <%- if user.photo? && !user.photo.dirty? -%>
+        <%= f.check_box(:delete_photo, :label => "Delete photo") %>
+        <%= image_tag(user_photo_path(:id => user.id, :style => :medium), :alt => 'Photo', :title => 'Current photo', :style => "padding: 10px;") %>
+      <%- end -%>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Instructor Photo (Large photo on profile page)") do %>
+      <%= f.file_field(:instructor_photo, :label => "Instructor Photo") -%>
+      <%- if user.instructor_photo? && !user.instructor_photo.dirty? -%>
+        <%= f.check_box(:delete_instructor_photo, :label => "Delete instructor photo") %>
+        <%= image_tag(user_instructor_photo_path(:id => user.id, :style => :medium), :alt => 'Instructor photo', :title => 'Current instructor photo', :style => "padding: 10px;") %>
+      <%- end -%>
+      <%= f.text_field(:vimeo_video_id, :size => '30', :label => "Vimeo Video ID", :style => "width: 99%;") %>
+      <%= f.text_field(:youtube_video_id, :size => '30', :label => "Youtube Video ID", :style => "width: 99%;") %>
+      <%= f.text_area(:custom_video_code, :size => '30', :label => "Other Video ID", :style => "width: 99%;") %>
+    <% end %>
+    <% f.fieldset(:type => "block", :legend => "Role and status") do %>
+      <div class="ctrlHolder"><label for="user_role">Role</label><%= f.user_roles_select(:role) %></div>
+      <%- if user.new_record? -%>
+        <%= f.select(:status, [ [ 'Pending', 'pending' ], [ 'Activated', 'activated' ] ]) %>
+      <%- else -%>
+        <%= f.select(:status, [ [ 'Activated', 'activated' ], [ 'Disabled', 'disabled' ] ]) %>
+      <%- end -%>
+      <%= f.check_box :hidden, :label => "Hidden" %>
+      <%= f.check_box :mentor, :lable => "Mentor" %>
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (user.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

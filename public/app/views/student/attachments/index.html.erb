@@ -1,0 +1,46 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>My Photos &amp; Videos</h4>
+  <% if @attachments.empty? %>
+    <p class="margin_bottom_20">You have no images or videos in your personal gallery. To get started, upload pictures or video to your personal gallery now!</p>
+  <% else %>
+    <p>You currently have <%= pluralize(@attachments.size, "item") -%> in your gallery. You can upload pictures or video to your personal gallery at any time.</p>
+  <% end %>
+  <h5>Upload Files</h5>
+  <div id="degraded_container">
+    <p><%= link_to('Create new attachment', polymorphic_attachments_path(@attachable, :singular => true, :action => :new)) -%></p>
+    <p>You may also wish to ensure Javascript is enabled and Flash installed for a better upload experience.</p>
+  </div>
+  <div id="swfupload_container">
+    <form>
+      <div id="swf_upload_UI">
+        <p><span id="swf_button_holder"></span></p>
+        <div id="swf_fs_upload_progress">
+          <span class="legend"></span>
+          <p id="divStatus"></p>
+        </div>
+      </div>
+    	<noscript class="swf-error-msg"><p><%= link_to('Create new attachment', polymorphic_attachments_path(@attachable, :singular => true, :action => :new)) -%></p></noscript>
+    	<div id="swf_loading_content" class="swf-error-msg" style="display:none;"><%= t('uploader.swf_loading') %></div>
+    	<div id="swf_long_loading" class="swf-error-msg" style="display:none;"><%= t('uploader.swf_taking_to_long') %></div>
+    	<div id="swf_alternate_content" class="swf-error-msg" style="display: none;"><%= t('uploader.swf_not_loading', :url => '<a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">Adobe Website</a>') %></div>
+  	</form>
+  </div>
+
+  <%= render :partial => 'attachments/flash_upload_javascript', :locals => { :path => polymorphic_attachments_path(@attachable), :ajax_path => polymorphic_attachments_path(@attachable, :format => 'ajax') } %>
+  <div id="attachment_thumbnail_container">
+    <h5>Gallery</h5>
+    <% unless @attachments.empty? %>
+      <ol id="attachment_thumbnails">
+        <% @attachments.each do |attachment| %>
+          <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "attachment_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><%= link_to(image_tag("icons/pencil.png"), edit_student_attachment_path(attachment)) -%><%= link_to(image_tag("icons/delete.png"), delete_student_attachment_path(attachment)) -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+  <%#= sortable_element("attachment_thumbnails", :url => { :action => "order" }, :handle => "draggable", :constraint => "horizontal", :overlap => "horizontal") -%>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <%= render(:partial => "student/forum_topics/latest", :locals => {:classes => "margin_bottom_20"}) -%>
+  <%= render(:partial => "student/forum_topics/latest_from_courses", :locals => {:classes => "margin_bottom_20"}) -%>
+</div>
+<div class="clear">&nbsp;</div>

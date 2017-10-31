@@ -1,0 +1,15 @@
+default: &default
+  username: 'O6QQ1G0BEWGY4MBK80ZA'
+  password: 'n1e2o2##soft54321478'
+  mode: test
+  currency: USD
+  merchant_code: TESTCG3011ECOM
+
+development:
+  mode: test
+  <<: *default
+
+production:
+  mode: test # live
+  <<: *default
+

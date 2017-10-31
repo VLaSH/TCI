@@ -1,0 +1,97 @@
+<%= stylesheet_link_tag "style" %>
+<%= stylesheet_link_tag "old-style" %>
+<%= stylesheet_link_tag "effects" %>
+<%= stylesheet_link_tag "bootstrap" %>
+<%= stylesheet_link_tag "font-awesome" %>
+<%= favicon_link_tag 'favicon.ico' %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to (image_tag "tci-logo.png", alt: 'The Compelling Image'), root_path, title: 'The Compelling Image', class: 'navbar-brand hidden-md hidden-sm hidden-xs img-responsive' %>
+        <%= link_to (image_tag "tci-logo-sm.png", alt: 'The Compelling Image'), root_path, title: 'The Compelling Image', class: 'navbar-brand hidden-lg visible-md visible-sm visible-xs img-responsive' %>
+      </div>
+
+      <script type="text/javascript">
+        $( document ).ready(function() {
+        var lastPart = window.location.href.split("/").pop();
+        //alert(lastPart);
+        if(lastPart=='courses?cat=1' || lastPart=='courses?cat=2' || lastPart=='courses?cat=5')
+          $('#courses').addClass('active');
+        else if(lastPart=='')
+          $('#home').addClass('active'); 
+        else if(lastPart=='courses?cat=3')
+          $('#review').addClass('active');           
+        else
+          $('#'+lastPart+'').addClass('active');
+        });
+        //window.alert(this.href.substr(this.href.lastIndexOf('/') + 1));
+      </script>      
+
+
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li id="home"><%= link_to 'HOME', root_path %></li>
+          <li id="about"><%= link_to 'HOW IT WORKS', page_path(names: 'about') %></li>
+          <li class="dropdown" id="courses"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'All', courses_path%></li>
+              <li><%= link_to 'Beginner', courses_path(cat: 1)%></li>
+              <li><%= link_to 'Intermediate ', courses_path(cat:2)%></li>
+              <li><%= link_to 'Advanced', courses_path(cat: 5) %></li>
+            </ul>
+          </li>
+          <li id="instructors"><%= link_to 'INSTRUCTORS', instructors_path %></li>
+          <li id="review"><%= link_to 'REVIEW', courses_path(cat: 3) %></li>
+          <li id="workshops"><%= link_to 'WORKSHOPS', workshops_path %></li>
+          <li id="student_galleries"><%= link_to 'STUDENT GALLERY', student_galleries_path %></li>
+          <li id="blog" ><%= link_to 'BLOG', blog_path%></li>          
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Sign Up</a></li>-->
+          <% unless logged_in? %>
+          <li><%= link_to new_user_path do%><span class="glyphicon glyphicon-edit"></span> Sign Up<%end%></li>
+          <li><%= link_to new_session_path do%><span class="glyphicon glyphicon-user"></span> Log In<%end%></li>
+          <% else%>
+          
+          <li class="dropdown">
+          <%= link_to user_role_root_path, {:class=>"dropdown-toggle"} do%> <%= "#{current_user.role.slice(0,5)}..." %> <span class="glyphicon glyphicon-chevron-down"></span> <%end%>
+            <ul class="dropdown-menu">
+              <li><%= link_to "#{current_user.role}", user_role_root_path, :style=>"text-transform: Uppercase;" %></li>
+              <li><%= link_to 'Logout', logout_path %></li>
+            </ul>
+          </li>
+          <%end%>
+
+        </ul>
+        <!--<ul class="nav navbar-nav navbar-right">
+          <li><a href="https://twitter.com/intent/tweet?text=Online%20photography%20courses%20-%20The%20Compelling%20Image%20photography%20school&source=sharethiscom&related=sharethis&via=sharethis&url=https://shar.es/1tPuUN" target="__blank"><i class="fa fa-twitter color-twitter"></i></a></li>
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fshar.es%2F1tPu8u&t=Online+photography+courses+-+The+Compelling+Image+photography+school" target="__blank"><i class="fa fa-facebook color-facebook"></i></a></li>
+          <li><a href="https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2FpostLogin%3Fsession_rikey%3D91Tt-4HO14H8bnRxZaJNYlrHfGAEGjOU1EClFtDV5y4hS3Cdzgi0ZV1NFyP4-zMP-IQZATQhK3x1ZyRaO6uJZtHFvsYtPtHpZkh%26l%3Dhttps%253A%252F%252Fwww%252Elinkedin%252Ecom%252FshareArticle%253Fsummary%253DThe%252BCompelling%252BImage%252Bis%252Ban%252Bonline%252Bphotography%252Bschool%252Bstaffed%252Bby%252Bprofessional%252Bphotographers%252Boffering%252Bbeginner%252Bthrough%252Badvanced%252Bclasses%2526mini%253Dtrue%2526source%253D%2526title%253DOnline%252Bphotography%252Bcourses%252B-%252BThe%252BCompelling%252BImage%252Bphotography%252Bschool%2526url%253Dhttp%25253A%25252F%25252Flocalhost%25253A3000%25252F%25253Fsthash%25252E5jcQVRrD%25252Emjjo%26id%3D0%26b%3D4816f196-16b9-4da5-8810-e37e305dc796%26h%3DewIp%26m%3DGET" target="__blank"><i class="fa fa-linkedin color-linkedin"></i></a></li>
+          <li><a href="https://accounts.google.com/ServiceLogin?service=oz&passive=1209600&continue=https://plus.google.com/share?url%3Dhttps://instagram.com/the_compelling_image/%2523sthash.5jcQVRrD.hpvt%26hl%3Den-US%26gpsrc%3Dgplp0&btmpl=popup&hl=en-US#identifier" target="__blank"><i class="fa fa-google-plus color-google"></i></a></li>
+          <li><a href="https://instagram.com/the_compelling_image/" target="__blank"><i class="fa fa-instagram color-instagram"></i></a></li>
+        </ul>-->
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div id="startchange"></div>
+    <%#*<ul class="social_media">%>
+       <%#*<li class='st_instagram_custom' displayText='' st_url='https://instagram.com/the_compelling_image/'></li>%>
+      <%#*<li class='st_facebook' displayText=''></li>%>
+      <%#*<li class='st_twitter' displayText=''></li>%>
+      <%#*<li class='st_linkedin' displayText=''></li>%>
+      <%#*<li class='st_googleplus' displayText='' st_url='https://instagram.com/the_compelling_image/'></li>%>
+    <%#*</ul>%>
+     <!-- Social Medida -->

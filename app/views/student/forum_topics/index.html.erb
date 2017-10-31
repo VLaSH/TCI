@@ -1,0 +1,27 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>Discussion on My Courses</h4>
+  <% if @course_discussion.size > 0 %>
+    <div class="forum_topics">
+    	<ul>
+        <%= render(:partial => 'forum_topics/forum_topic', :collection => @course_discussion) -%>
+  	  </ul>
+    </div>
+  <% else %>
+    <p>There are currently no topics on your courses for discussion.</p>
+  <% end %>
+  
+  <h4>General Discussion</h4>
+  <% if @general_discussion.size > 0 %>
+    <div class="forum_topics">
+    	<ul>
+        <%= render(:partial => 'forum_topics/forum_topic', :collection => @general_discussion) -%>
+  	  </ul>
+    </div>
+  <% else %>
+    <p>There are currently no general discussion topics - you can <%= link_to("start a new topic for discussion", new_student_forum_topic_path) -%>.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+
+</div>
+<div class="clear">&nbsp;</div>

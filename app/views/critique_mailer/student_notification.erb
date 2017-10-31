@@ -1,0 +1,8 @@
+Hi,
+
+You've received some feedback from <%= @critique.user.full_name -%>
+
+<%= student_submission_url(@critique.critiqueable.is_a?(AssignmentSubmission) ? @critique.critiqueable : @critique.critiqueable.attachable) %>
+
+Regards,
+The Compelling Image

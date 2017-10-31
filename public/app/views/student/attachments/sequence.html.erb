@@ -1,0 +1,28 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'image_ordering'%>
+<% end %>
+<div class="grid_11 margin_top_20 alpha">
+  <div id="attachment_thumbnail_container">
+    <p>Drag and drop the images then click on ' Save Position ' button to rearrange the sequence</p>
+    <% unless @attachments.empty? %>
+      <ol id="attachment_thumbnails">
+        <% @attachments.each do |attachment| %>
+          <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, :class => "draggable", :id => "attachment_thumbnail_#{attachment.id}") -%><div class="controls"><%= link_to(image_tag("icons/magnifier.png"), get_attachment_url(attachment, style: 'detail'), :class => "lightview") -%><%= link_to(image_tag("icons/pencil.png"), edit_student_attachment_path(attachment, :redirect => sequence_student_submission_attachments_path(@attachable))) -%><%= link_to(image_tag("icons/delete.png"), delete_student_attachment_path(attachment, :redirect => sequence_student_submission_attachments_path(@attachable))) -%></div></div><div class="photo_frame_footer">&nbsp;</div></li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+  <%# sortable_element_js("attachment_thumbnails", :url => { :action => "order" }, :handle => "draggable", :constraint => "horizontal", :overlap => "horizontal") -%>
+</div>
+
+<div class="grid_5 margin_top_20 omega">
+  <%= link_to("Back to assignment", student_submission_path(@attachable)) -%>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <% unless @attachments.blank?%>
+      <%= form_tag order_student_attachments_path, method: :post, remote: true do %>
+        <%= hidden_field_tag :attachment_thumbnails %>
+        <%= submit_tag 'save position' %>
+      <% end %>
+  <% end %>
+</div>

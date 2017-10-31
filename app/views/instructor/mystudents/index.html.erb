@@ -1,0 +1,36 @@
+<h1>My Students</h1>
+<div id="all_courses">
+  <h2>Enrollments</h2>
+  <ul class="extras"><li>Total: <%= @allenrolment.to_a.size -%></li></ul>
+  <% unless @allenrolment.empty? %>
+    <table summary="List of scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          
+          <th class="centred">Student</th>
+          <th class="centred">Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @allenrolment.each do |student| %>
+          <tr>
+            <td class="centred"><%= link_to(student.name, student.id.nil? ? '' :courses_instructor_mystudent_path(student)) -%></td>
+            <td class="centred"><%= student.email -%></td>
+            
+            <td>
+              <% if Time.parse(student.end_date.to_s).to_i >= Time.now.to_i -%>
+              <%= image_tag('icons/bullet_green.png',{:title => "#{student.name} is active"}) -%>
+              <% else %>
+              <%= image_tag('icons/bullet_black.png',{:title => "#{student.name} is inactive"})-%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%#= will_paginate(@assignment) %>
+  <% else %>
+    <p>No assignment updates.</p>
+  <% end %>
+</div>

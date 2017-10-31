@@ -1,0 +1,13 @@
+<% unless !defined?(@submissions) || @submissions.nil? %>
+  <div id="submissions">
+    <h3>Submissions</h3>
+    <% if @submissions.count == 0 %>
+      <p>There are no submissions for this assignment.</p>
+    <% else %>
+      <% @submissions.each do |submission| %>
+        <p><%= link_to_if(submission.completed?, submission.title, instructor_submission_path(submission), :style => "font-weight: bold;") -%> <%= "(Incomplete)" unless submission.completed? -%></p>
+        <p>Created <%= time_ago_in_words(submission.created_at) -%> ago by <%= submission.enrolment.student.nil? ? 'Deleted User' : submission.enrolment.student.full_name -%></p>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

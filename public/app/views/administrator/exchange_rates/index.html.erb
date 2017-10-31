@@ -1,0 +1,24 @@
+<% unless @exchange_rates.empty? %>
+  <table summary="List of exchange rates">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th class="centred">Rate</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @exchange_rates.each do |exchange_rate| %>
+        <tr>
+          <td><%= h(exchange_rate.symbol) -%></td>
+          <td class="centred"><%= number_with_precision(exchange_rate.rate, :precision => 4) %></td>
+          <td class="centred"><%= link_to('Edit', edit_administrator_exchange_rate_path(exchange_rate)) -%>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to('Delete', delete_administrator_exchange_rate_path(exchange_rate)) -%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate(@exchange_rates) %>
+<% else %>
+  <p>No exchange rates exist.</p>
+<% end %>
+<p><%= link_to('Create new exchange rate', new_administrator_exchange_rate_path) -%></p>

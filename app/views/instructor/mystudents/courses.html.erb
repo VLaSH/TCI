@@ -1,0 +1,110 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'student', :id => 'home' }
+    #page.primary_navigation_section = :student_area
+    page.title.unshift('Courses')
+    
+  end
+-%>
+<h1><%=@user.name%> subscribed area</h1>
+<div class="alpha">
+  <h4> Courses</h4>
+  
+    <table summary="List of active scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Course</th>
+          <th class="centred">End on</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% 
+        @allcourses.each do |enrolment|
+      %>
+        <% unless enrolment == nil || enrolment.deleted? %>
+          <tr>
+            <td class="centred">
+              <%= link_to(enrolment.title, instructor_scheduled_course_path(enrolment)) -%>
+            </td>      
+            <td class="centred">
+              <%= enrolment.course_end_on.to_s(:forum) -%>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+    </table>
+  
+  <div class='clear'></div>
+  
+  <h4> Lessons</h4>
+    <% @allcourses.each do |enrolment| %>
+    <% unless enrolment == nil || enrolment.deleted? %>
+    <table summary="List of active scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred"><%=enrolment.title%></th>
+          <th><%= image_tag('icons/comments.png', title: 'comments')%></th>          
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>      
+        <% @course = Course.find_by_id(enrolment.id) %>
+          <% @course.lessons.each do |lesson| %>
+          <tr>
+            <td class="centred">
+              <%= link_to(h(lesson.title), instructor_lesson_path(lesson)) -%>
+            </td>      
+            <% count = lesson.scheduled_lessons.map(&:forum_posts_count).inject(:+) %>
+            <td><%= link_to((count ? count : 0), instructor_lesson_path(lesson, :anchor => "comments")) -%></td>
+            
+            <td><%= lesson.active? ? image_tag('icons/bullet_green.png') : '' -%></td>
+          </tr>
+        <% end %>     
+      </tbody>
+    </table>
+  <% end %>
+   <% end %>
+  
+  <div class='clear'></div>
+  <h4> Assignments</h4>
+  
+    <% Enrolment.select_uniq_row(params[:id]).each do |enrolment| %>
+      <% unless enrolment.scheduled_course.course == nil || enrolment.scheduled_course.course.deleted? %>
+        <h6><%#= enrolment.scheduled_course.course.title -%></h6>
+        <table summary="List of active scheduled courses" class="pretty">
+          <thead>
+            <tr>
+              <th class="centred"><%=enrolment.scheduled_course.course.title%></th>
+              <%#*<th class="centred">subscription end on</th>%>
+            </tr>
+          </thead>
+          <tbody>
+          <% if enrolment.created_at + 7.day > Time.now %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(params[:id]).select_uniq.limit(1).each do |scheduled_lesson| %>
+            <% unless scheduled_lesson.scheduled_assignments.blank?%>
+              <% scheduled_assignment = scheduled_lesson.scheduled_assignments.first %>
+                <tr><td class="centred"><%= link_to(scheduled_assignment.assignment.title, student_assignment_path(scheduled_assignment)) -%></td></tr>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% enrolment.scheduled_course.scheduled_lessons.joins(:lesson).order('position ASC').for_student(params[:id]).select_uniq.each do |scheduled_lesson| %>
+              <% unless scheduled_lesson.scheduled_assignments.blank? %>
+                <% scheduled_lesson.scheduled_assignments.each do |scheduled_assignment|
+                    @submissions = AssignmentSubmission.where(scheduled_assignment_id: scheduled_assignment.id)
+                    @submissions.each do |submitted_assignment|
+                %>
+                
+                 <tr><td class="centred"><%= link_to(submitted_assignment.title, instructor_submission_path(submitted_assignment)) -%></td></tr>
+                 <%  end%>
+                <%  end%>
+              <% end %>
+            <% end %>
+          <% end %>
+          </tbody>
+      </table>
+      <% end %>
+    <% end %>
+ 
+</div>
+<div class="clear">&nbsp;</div>

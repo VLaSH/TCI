@@ -1,0 +1,9 @@
+/* This css use for activation page astrick sign */
+.uniForm label em {
+  font-size: 200%;
+  margin-left: -15px;
+  padding-top: 5px;
+  position: absolute;
+  color: white !important;
+}
+

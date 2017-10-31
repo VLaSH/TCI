@@ -1,0 +1,27 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <h4><%= link_to("More", page_path(:mentorship)) -%>Mentorship</h4>
+  <div class="body padding_5 tags">
+    <p><strong>Sign up for the mentorship program today!</strong></p>
+    <%= form_tag('/simple_signups', :method => :post, :id => "signup_form") do %>
+      <input type="hidden" name="signup_type" value="mentorship" />
+      <table cellpadding=5 cellspacing=0 border=0>
+        <tr>
+          <td style="padding-right: 10px;"><label for="1month"><%= image_tag("1m.gif", :alt => "1 month") %></label></td>
+          <td style="padding-right: 10px;"><label for="3month"><%= image_tag("3m.gif", :alt => "3 months") %></label></td>
+          <td><label for="6month"><%= image_tag("6m.gif", :alt => "6 months") %></label></td>
+        </td>
+        <tr>
+          <td style="padding-top: 10px;"><input type="radio" name="duration" value="1 month" id="1month"> <label for="1month">1 month</label></td>
+          <td style="padding-top: 10px;"><input type="radio" name="duration" value="3 months" id="3month"> <label for="3month">3 months</label></td>
+          <td style="padding-top: 10px;"><input type="radio" name="duration" value="6 months" id="6month"> <label for="6month">6 months</label></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top: 10px;" align="center"><%= select_tag(:mentor, options_for_select(User.mentors.visible.alpha.map(&:full_name).insert(0,"-- select mentor --"))) %></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top: 20px;" align="center"><input type="image" src="/assets/sign-up-today.gif" value="Sign up!"/></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>

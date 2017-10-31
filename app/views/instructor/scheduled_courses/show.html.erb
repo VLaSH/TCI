@@ -1,0 +1,44 @@
+<h1><%= h(@course.title) -%></h1>
+<%= render(:partial => 'instructor/courses/tertiary_navigation') -%>
+<div id="lesson_plan">
+  <h2>Lesson Plan</h2>
+  <% unless current_user.courses.nil? || current_user.courses.joins(:lessons).blank? %>
+    <table summary="Lesson plan" class="pretty">
+      <thead>
+        <tr>
+          <th colspan="2">Lesson/Assignment</th>
+          <th><%= image_tag('icons/comments.png', title: 'comments')%></th>
+          <th><%= image_tag('icons/page_white_picture.png', title: 'submissions')%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @course.lessons.each do |lesson| %>
+          <tr>
+            <td class="lesson_lozenge"><span>Lesson</span></td>
+            <td><%= link_to(h(lesson.title), instructor_lesson_path(lesson)) -%></td>
+            <% count = lesson.scheduled_lessons.map(&:forum_posts_count).inject(:+) %>
+            <td><%= link_to((count ? count : 0), instructor_lesson_path(lesson, :anchor => "comments")) -%></td>
+            <td></td>
+            <td><%= lesson.active? ? image_tag('icons/bullet_green.png') : '' -%></td>
+          </tr>
+          <% lesson.assignments.each do |assignment| %>
+            <%
+              comments = assignment.scheduled_assignments.map(&:forum_posts_count).inject(:+)
+              submission = assignment.scheduled_assignments.map(&:count_submissions).inject(:+)
+            %>
+            <tr>
+              <td class="assignment_lozenge"><span>Assignment</span></td>
+              <td><%= link_to(h(assignment.title), instructor_assignment_path(assignment)) -%></td>
+              <td><%= link_to((comments ? comments : 0), instructor_assignment_path(assignment, :anchor => "comments")) -%></td>
+              <td><%= link_to((submission ? submission : 0), instructor_assignment_path(assignment)) -%></td>
+              <td><%= assignment.active? ? image_tag('icons/bullet_green.png') : '' -%></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No lessons exist.</p>
+  <% end %>
+</div>

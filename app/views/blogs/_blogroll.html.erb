@@ -1,0 +1,13 @@
+<div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%><%= " fixed" unless local_assigns[:short].nil? -%>">
+  <h4 class="clearfix">Blog <span class="btn btn-default btn-xs pull-right"><%= link_to("See All", "http://blog.thecompellingimage.com") -%></span></h4>
+  <div class="body padding_5 blog">
+    <% if blog_posts.empty? -%>
+      <p>No blog posts available.</p>
+    <% else -%>
+      <% blog_posts.each_with_index do |blog_post, i| -%>
+        <p class="date"><%= blog_post.created_at.to_s(:short_date_month_year) -%></p>
+        <h5<%= ' class="last"' if i == 3 -%>><%= link_to(local_assigns[:short].nil? ? blog_post.title : truncate(blog_post.title, :length => 45), blog_post.url, :target => '_blank') -%></h5>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

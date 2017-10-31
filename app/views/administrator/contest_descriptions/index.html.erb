@@ -1,0 +1,10 @@
+<div class="grid_11 margin_top_20 alpha">
+	<h1>Current Content</h1>
+  <p><%= @cd.content.html_safe %></p>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Change Content", new_administrator_contest_description_path, {:icon_path => "icons/add.png"} %>
+  </p>
+</div>
+<div class="clear">&nbsp;</div>

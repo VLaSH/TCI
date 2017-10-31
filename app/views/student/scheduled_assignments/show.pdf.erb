@@ -1,0 +1,37 @@
+<style type="text/css">
+    body{font-size: 14px;}
+  </style>
+<span ><%= wicked_pdf_image_tag ('tci-logo.jpg') %></span>
+<div class="grid_11 margin_top_20 alpha">
+
+  <h4><%= @assignment.lesson.course.title %></h4>
+  <h5><%= @assignment.title -%></h5>
+  <p><strong>Assignment for lesson <span style='color:red;'><%= @assignment.lesson.title%></span></strong></p>
+  <%= interpolate_pdf_attachments(@assignment.description, @assignment.attachments, 620, 440).html_safe -%>
+  <% if @assignment.rearrangements.size > 0 %>
+  <% @assignment.rearrangements.each do |rearrangement| %>
+    <h6><%= rearrangement.title %></h6>
+    <%= rearrangement.summary.html_safe %>
+    <div id="attachment_thumbnail_container">
+      <ol id="attachment_thumbnails">
+        <% rearrangement.attachments.each do |attachment| %>
+          <li id="attachment_thumbnail_li_<%= attachment.id -%>"><div class="photo_frame_header">&nbsp;</div><div class="photo_frame"><%= wicked_pdf_image_tag(attachment.s3_url(:w60xh60), :alt => attachment.title, :title => attachment.title, size: "60x60") -%></div><div class="photo_frame_footer">&nbsp;</div></li>
+        <% end %>
+      </ol>
+    </div>
+    <br clear="both" /><br />
+  <% end %>
+<% end %>
+  <cite>
+    All photos and text copyright <%= @assignment.lesson.course.instructors.map(&:full_name).join(',') -%> - all rights reserved worldwide. No
+    form of reproduction or usage - including copying, altering, or saving of digital image and text files - is permitted without
+    the express written permission of <%= @assignment.lesson.course.instructors.map(&:full_name).join(',') -%> and thecompellingimage.com.
+    <br /><br />
+    &copy; <%= @assignment.lesson.course.instructors.map(&:full_name).join(',') -%>. All rights reserved.
+    <br /><br />
+  </cite>
+</div>
+<div style='margin-left:25%;'>
+  Copyright &copy; <%= Time.now.year -%><span style= 'margin-left: 2px;'>The Compelling Image </span>
+</div>
+

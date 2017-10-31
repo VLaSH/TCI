@@ -1,0 +1,2 @@
+class CourseGridSection < BannerImage
+end

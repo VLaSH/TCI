@@ -1,0 +1,16 @@
+Hi,
+
+A new student has enrolled on your course.
+
+Course:
+<%= @enrolment.course.title %>
+
+Date:
+<%#= @enrolment.scheduled_course.starts_on.to_formatted_s(:long) %>
+<%= @enrolment.scheduled_course.created_at.to_formatted_s(:long) %>
+
+Student
+<%= @enrolment.student.full_name %> (<%= @enrolment.student.email %>)
+
+Regards,
+The Compelling Image

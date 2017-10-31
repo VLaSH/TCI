@@ -1,0 +1,17 @@
+<div class="grid_11 margin_top_20 alpha">
+  <h4>New Critique Response</h4>
+  <% if @critique.critiqueable.is_a?(Attachment) -%>
+    <% attachment = @critique.critiqueable -%>
+    <p><%= attachment_thumbnail(attachment, :style => :w360xh270, :lightview => true, size: '360x270') -%><br><strong><%= attachment.title -%></strong></p>
+    <% attachment.critiques.each do |critique| %>
+      <p><strong>Critique by <%= critique.user.full_name %></strong><br><%= critique.comment.html_safe -%></p>
+    <% end %>
+    <%= render(:partial => "new_form", :locals => {:critiquable => attachment})%>
+  <% end %>
+  <% if @critique.critiqueable.is_a?(AssignmentSubmission) -%>
+    <% @critique.critiqueable.critiques.each do |critique| %>
+      <p><strong>Critique by <%= critique.user.full_name %></strong><br><%= critique.comment.html_safe -%></p>
+    <% end %>
+    <%= render(:partial => "new_form", :locals => {:critiquable => @critique.critiqueable})%>
+  <% end %>
+</div>

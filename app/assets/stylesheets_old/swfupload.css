@@ -1,0 +1,19 @@
+#deliver-uploads #upload-list table{border-collapse:collapse;}
+#deliver-uploads #upload-list td{padding:3px 6px;}
+#deliver-uploads #upload-controls{width:100%;}
+#deliver-uploads #swfupload_container .legend{color:#231F20;font-size:1.1em;font-weight:bold;}
+#swfupload_container .progressWrapper{overflow:hidden;width:100%;}
+#swfupload_container .progressContainer{background-color:#F7F7F7;border:solid 1px #E8E8E8;overflow:hidden;padding:4px;}
+#swfupload_container .message{background-color:#FFC;border:solid 1px #FD9;margin:1em 0;overflow:hidden;padding:10px 20px;}
+#swfupload_container .red{background-color:#FFEBEB;border:solid 1px #B50000;}
+#swfupload_container .green{background-color:#EBFFEB;border:solid 1px #DDF0DD;}
+#swfupload_container .blue{background-color:#F0F5FF;border:solid 1px #CEE2F2;}
+#swfupload_container .progressName{color:#555;font-size:8pt;font-weight:700;height:14px;overflow:hidden;text-align:left;white-space:nowrap;width:100%;}
+#swfupload_container .progressBarInProgress,#swfupload_container .progressBarComplete,#swfupload_container .progressBarError{background-color:blue;font-size:0;height:2px;margin-top:2px;width:0;}
+#swfupload_container .progressBarComplete{background-color:green;visibility:hidden;width:100%;}
+#swfupload_container .progressBarError{background-color:red;visibility:hidden;width:100%;}
+#swfupload_container .progressBarStatus{font-family:Arial;font-size:7pt;margin-top:2px;text-align:left;white-space:nowrap;width:337px;}
+#swfupload_container a.progressCancel{background-image:url(/assets/cancelbutton.gif);background-position:-14px 0;background-repeat:no-repeat;display:block;float:right;font-size:0;height:14px;width:14px;}
+#swfupload_container a.progressCancel:hover{background-position:0 0;}
+#swf_cancel_button{font-size:8pt;height:22px;margin-left:2px;}
+#swf_fs_upload_progress,#deliver-uploads #upload-list{font-size:1.3em;}

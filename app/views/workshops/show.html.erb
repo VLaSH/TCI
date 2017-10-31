@@ -1,0 +1,103 @@
+<%= javascript_include_tag 'jquery.cycle.all' %>
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography workshops" />
+  <meta name="description" content="Learn photography in workshops with The Compelling Image">
+<% end %>
+<div class="content_wrapper"><!-- Main -->
+  <div class="container content_bg"><!-- Container -->
+    <div class="banner_with_instructor">
+      <div class="banner_image">
+        <% if !@workshop.vimeo_video_id.blank? %>
+          <iframe src="http://player.vimeo.com/video/<%= @workshop.vimeo_video_id -%>" width="660" height="440" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <% elsif !@workshop.youtube_video_id.blank? %>
+          <iframe width="660" height="440" src="http://www.youtube.com/embed/<%= @workshop.youtube_video_id -%>" frameborder="0" allowfullscreen></iframe>
+        <% elsif @images.size > 1 %>
+        <%= hidden_field_tag :slide_speed, get_banner_slide_speed, id: 'slide_speed' %>
+         <div class='cycle'>
+            <% @images.each do |i| %>
+              <%= image_tag(workshop_photo_path(:offset => i, :id => @workshop.id, :style => :w660xh440), :alt => @workshop.title, :title => @workshop.title) %>
+            <% end %>
+          </div>
+
+        <% elsif @images.size == 1 %>
+          <%= image_tag(workshop_photo_path(:offset => 1, :id => @workshop.id, :style => :w660xh440), :alt => @workshop.title, :title => @workshop.title) %>
+        <% end %>
+      </div>
+      <div class="workshops_meta">
+        <h6><%= @workshop.title %></h6>
+        <% unless @workshop.summary.blank? %><p><%= @workshop.summary %></p><% end %>
+        <dl>
+          <dt>Workshop Price</dt>
+          <dd><%= session[:currency] || "USD" %> <%= Money.new(@workshop.full_price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD)%> <% unless @workshop.deposit_price.zero? %><br /><br /><% end %></dd>
+          <% unless @workshop.deposit_price.zero? %>
+            <dt>Deposit</dt>
+            <dd> <%= session[:currency] || "USD" %> <%= Money.new(@workshop.deposit_price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %></dd>
+          <% end %>
+        </dl>
+        <div style="padding: 10px;">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="tuition@thecompellingimage.com">
+          <input type="hidden" name="lc" value="US">
+          <input type="hidden" name="currency_code" value="USD">
+          <input type="hidden" name="item_name" value="Workshop - <%= @workshop.title -%><%= " - Deposit" unless @workshop.deposit_price.zero? -%>">
+          <input type="hidden" name="amount" value="<%= @workshop.deposit_price.zero? ? @workshop.full_price : @workshop.deposit_price -%>">
+          <input type="submit" value="Enroll on this workshop<%= " (pay deposit)" unless @workshop.deposit_price.zero? -%>" class="btnCart" style="padding: 10px; border: 0; background: #ccc;" />
+          </form>
+          <br/><br/>
+
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="tuition@thecompellingimage.com">
+          <input type="hidden" name="lc" value="US">
+          <input type="hidden" name="currency_code" value="USD">
+          <input type="hidden" name="item_name" value="Workshop - <%= @workshop.title -%><%= " - Deposit" unless @workshop.balance_price.zero? -%>">
+          <input type="hidden" name="amount" value="<%= @workshop.balance_price.zero? ? @workshop.balance_price : @workshop.balance_price -%>">
+          <input type="submit" value="Enroll on this workshop (pay Balance) <%= " " unless @workshop.balance_price.zero? -%>" class="btnCart" style="padding: 10px; border: 0; background: #ccc;" />
+          </form>
+
+
+          <br/><br/>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="tuition@thecompellingimage.com">
+          <input type="hidden" name="lc" value="US">
+          <input type="hidden" name="currency_code" value="USD">
+          <input type="hidden" name="item_name" value="Workshop - <%= @workshop.title -%><%= " - Deposit" unless @workshop.supplement_price.zero? -%>">
+          <input type="hidden" name="amount" value="<%= @workshop.supplement_price.zero? ? @workshop.supplement_price : @workshop.supplement_price -%>">
+          <input type="submit" value="Enroll on this workshop (pay Supplement)<%= " " unless @workshop.supplement_price.zero? -%>" class="btnCart" style="padding: 10px; border: 0; background: #ccc;" />
+          </form>
+          <%#= link_to "Enroll on this workshop(pay deposit)", '#',class:'btnCart', style:  "padding: 10px; border: 0; background: #ccc;" %>
+        </form>
+      </div> 
+    </div>
+    </div><!-- Banner -->
+
+    <div class="inner_content_container show_workshop_description">
+      <%= @workshop.description.html_safe %>
+      <ul class="our_isntructors">
+        <% if @instructors.size == 0 -%>
+          <p>There are no instructors at this time.</p>
+        <% else -%>
+          <h6><strong>Instructors</strong></h6>
+          <% @instructors.each_with_index do |instructor, i| -%>
+            <li class="instructor">
+              <h5>
+                <%= link_to(instructor.full_name, instructor_path(instructor)) %>
+              </h5>
+              <%= link_to(image_tag(user_photo_path(:id => instructor.id, :style => :w145xh145), :width => 145, :height => 145, :alt => "Picture of #{instructor.full_name}"), instructor_path(instructor)) -%>
+                <p>
+                  <%= link_to('Read Profile..', instructor_path(instructor)) -%>
+                </p>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+      <div class="clear">&nbsp;</div>
+      <% unless @workshop.enrolment.blank? %>
+        <%= @workshop.enrolment.html_safe %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,24 @@
+Hello <%= @user.given_name %>,
+<br><br>
+This mail is to inform you that your account with The compelling images has been suspended.
+<br>
+Please find the details of courses you enrolled for below.
+<br>
+Course Details:
+
+<table>
+  <thead>
+    <tr>
+      <td>Course Name</td>
+      <td>Duration</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @enrolments.each do |enrolment| %>
+      <tr>
+        <td><%= enrolment.course.title %></td>
+        <td><%= enrolment.duration %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

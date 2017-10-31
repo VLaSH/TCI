@@ -1,0 +1,146 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'sales', :id => 'home' }
+    page.primary_navigation_section = :home
+    page.title.unshift('Online Photography Schools, Photography Schools Online, Online Photography Classes')
+  end
+
+  @course = Course.visible.available.random.first
+  @instructors = @course.instructors if @course
+-%>
+
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography Class Online, Online Photography Courses, Photography Course" />
+  <meta name="description" content="The Compelling Image is an online photography school staffed by professional photographers offering beginner through advanced classes Photography Schools Online.">
+<% end %>
+
+<script async="async" cache="true" src="assets/jquery.cycle.all.js" type="text/javascript"></script>
+
+<%= hidden_field_tag :slide_speed, get_banner_slide_speed, id: 'slide_speed' %>
+<div class="container content_bg"><!-- Container -->
+  <div class="home-slider">
+    <div class="cycle">
+      <% unless home_banner_images.blank? %>
+        <% home_banner_images.each do |banner| %>
+            <%= image_tag banner.image_s3_url(:w947xh469), width: '100%' %>
+        <% end %>
+      <% end %>
+    </div>
+    <% unless home_banner_images.blank? %>
+      <div class="slider-content">
+        <div class='inner_slider_content'>
+          <p>online interactive courses in photography and multimedia storytelling taught by the professionals</p>
+          <p><%= (link_to 'Sign up for a course', new_user_path) unless find_student_enroll_and_logged_in? %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='home_inner_container'>
+    <div class="offer_content" style="text-align:center;width:755px !important">
+      <%= link_to content_tag(:h2, 'Get started today - Try a sample lesson for FREE!'), free_course %>
+
+   <!--  <span>Sign up for a no-strings-attached account, enroll on the <span class="red- font">FREE</span> sample lesson and you're set to begin!</span> -->
+    </div><!-- Offer Content -->
+    <div class="content-text">
+      <p>
+        <strong>The Compelling Image</strong> offers online and interactive courses for photographers, video producers and multimedia storytellers of all skill levels and interests. Whether you’re an aspiring professional or just beginning your journey of visual expression, TCI’s international faculity of professionals will mentor your development each step of the way - affordable, convenient, inspiring - wherever you live.
+      </p>
+    </div><!-- Content Text -->
+  </div>
+
+  <div class="grid-scetion">
+    <ul>
+
+      <a href=<%= courses_path %>>
+        <li>
+          <%= image_tag(course_grid_section, :id => 'd1') %>
+          <div class="hoverContent">
+            <span>Course Selection</span>
+          </div>
+        </li>
+      </a>
+
+      <a href=<%= courses_path(cat: 3)%>>
+        <li>
+          <%= image_tag(portfolio_grid_section) %>
+          <div class="hoverContent">
+            <span>Portfolio Review</span>
+          </div>
+        </li>
+      </a>
+
+      <a href='http://www.thecompellingimage.com/workshops'>
+        <li class="last">
+          <%= image_tag(mentorship_grid_section) %>
+          <div class="hoverContent">
+            <span>Workshops</span>
+          </div>
+        </li>
+      </a>
+
+      <a href=<%= student_galleries_path %> >
+        <li>
+          <%= image_tag(student_gallery_grid_section) %>
+          <div class="hoverContent">
+            <span>Student Gallery</span>
+          </div>
+        </li>
+      </a>
+
+      <a href= <%= instructors_path %> >
+        <li>
+          <%= image_tag(whats_new_grid_section) %>
+          <div class="hoverContent">
+            <span>Instructors</span>
+          </div>
+        </li>
+      </a>
+
+      <a href="http://blog.thecompellingimage.com">
+        <li class="last">
+          <%= image_tag(tci_blog_grid_section) %>
+          <div class="hoverContent">
+            <span>TCI Blog</span>
+          </div>
+        </li>
+      </a>
+    </ul>
+  </div><!-- Grid Section -->
+  <div class='home_inner_container'>
+    <div class="content-text">
+      
+        <p style=""><h2 style="text-align:center;color:#000">a vitual classroom / social-interactive experience...</h2></p>
+       <p> As a valued TCI student, you’ll receive ctitiques and commentary on your assignments from your instructor, timely answers to your questions and be able to network and discuss all that is happening on your course with fellow classmates. A synergy of learning is the result - an educational experience shared by a community of imaging enthusiasts - just like you!
+      </p>
+    </div><!-- Content SText -->
+
+    <div class="offer_content" style="text-align:center;width:783px !important">
+      <%= link_to content_tag(:h2, 'Get started today - Try a sample lesson for FREE!'), free_course %>
+      <span>Sign up for a no-strings-attached account, enroll on the <span class="red-font">FREE</span> sample lesson and you're set to begin!</span>
+    </div><!-- Offer Content -->
+
+  </div>
+  <div >
+    <div class='parent_whats_new'>
+      <div class="signup_btn"> <%= link_to 'Sign up for a course', new_user_path %></div><!-- Signn Up Button -->
+      <div class="clients">
+        <ul>
+          <li><img src="assets/client/client-logo-1.jpg" /></li>
+          <li><img src="assets/client/client-logo-2.jpg" /></li>
+          <li><img src="assets/client/client-logo-3.jpg" /></li>
+          <li class="last"><img src="assets/client/client-logo-4.jpg" /></li>
+        </ul>
+      </div><!-- Clients -->
+    </div>
+    <div class='whats_new'>
+      <div><h4>What's new?</h4></div>
+      <div class='whats_new_data'>
+        <%= whats_new_image.blank? ? File.read(File.join(Rails.root, 'config', 'locales', 'whats_new.en.txt')).html_safe : image_tag(whats_new_image) %><br><br>
+        <%=  whats_new_image.blank? ? "" : File.read(File.join(Rails.root, 'config', 'locales', 'whats_new.en.txt')).html_safe  %>
+      </div>
+    </div>
+  </div>
+</div><!-- Container -->
+<style type="text/css">
+ .whats_new_data h1{color: #1d1d1b !important;} 
+</style>

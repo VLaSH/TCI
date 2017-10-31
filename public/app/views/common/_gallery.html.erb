@@ -1,0 +1,6 @@
+<div class="gallery grid_11 omega alpha">
+  <ul>
+    <%- attachments.each do |attachment| -%><li><%= attachment_thumbnail(attachment, :style => (local_assigns[:style].nil? ? :medium : local_assigns[:style]), :lightview => true) -%><% if local_assigns[:actions].nil? || local_assigns[:actions] == true -%><span><%= link_to("Edit", polymorphic_attachments_path(attachment.attachable, :record => attachment, :action => :edit)) -%> | <%= link_to("Delete", polymorphic_attachments_path(attachment.attachable, :record => attachment, :action => :delete)) -%></span><%- end -%></li><%- end -%>
+  </ul>
+</div>
+<div class="clear">&nbsp;</div>

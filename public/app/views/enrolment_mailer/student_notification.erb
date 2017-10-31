@@ -1,0 +1,33 @@
+Hello <%= @student.given_name -%>,
+
+<%- if @enrolment.scheduled_course.course.free? -%>
+Welcome to The Compelling Image and thank you for signing up for a free sample lesson.
+
+To access your lesson and its related assignment, simply log into your account and follow the link to "<%= @enrolment.scheduled_course.course.title -%>".  Read the text and follow the easy-to-understand assignment instructions.
+
+When you have completed the assignment, upload your work to the TCI website for a free critique by one of our faculty members.  Additional interactive comments will be possible regarding both your work and that recently uploaded by others completing this assignment.  The experience is one of a "Virtual Classroom," where learning takes place not only through your instructor, but by way of interaction with fellow photographer classmates, too.
+
+We hope you'll enjoy this first online learning adventure with us and that you'll return to take more of our valuable and exciting photography and multimedia courses in the future.
+
+Thank you once again for coming!
+<%- elsif @enrolment.scheduled_course.course.portfolio_review? -%>
+Thank you for your enrollment in the "<%= @enrolment.scheduled_course.course.title -%>". <%= @enrolment.scheduled_course.course.instructors.first.given_name -%> will be contacting you soon with a personal greeting and review particulars, including a time for your scheduled Skype conversation.
+
+From your Student Area <!-- - at 00:00 hours GMT on --> <%#= @enrolment.scheduled_course.starts_on.to_formatted_s(:long) -%><%#= @enrolment.scheduled_course.created_at.to_formatted_s(:long) -%> you will be able to upload your images for review, as well as include background information about yourself as a photographer.  Simply log in and  follow the links to make your work available to your instructor
+
+<p>And if you do have any questions or difficulties along the way, please don't hesitate to contact either your instructor, TCI Support or both.  We want your experience with us to be every bit as enjoyable, as it is valuable to you as a photographer.</p>
+
+<p>Thanks once again for choosing TCI.</p>
+
+<%- else -%>
+<p>Thank you for your enrollment on <%= @instructors %> course, <%= @enrolment.scheduled_course.course.title -%>. <%= @instructors_first_name %> will be contacting you soon with a personal greeting.  In the meantime, we would like to extend our own warm welcome and to say that we are certain you will enjoy and benefit greatly from your TCI course choice.</p>
+
+ <p>Your first lesson and assignment are already available in your Student
+  Area. Simply log in and follow the links to get started. The remainder of your lessons and assignments will be available from the second week of your enrollment. You may upload your assignments to the TCI website at any time to receive instructor critiques and comments from fellow students on your course. You will have Number days to complete your coursework.</p>
+
+<p>And if you do have any questions or difficulties along the way, please don't hesitate to contact either your instructor, TCI Support or both. We want your experience with us to be every bit as enjoyable, as it is invaluably educational.</p>
+
+<p>Thanks once again for choosing TCI.</p>
+<%- end -%>
+
+<p>Best regards, The TCI Team</p>

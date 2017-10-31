@@ -1,0 +1,12 @@
+<% if students.size > 1 %>
+  <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+    <h4>Students on this Course</h4>
+    <div class="body padding_5 instructor">
+      <ul>
+        <% students.each do |student| %>
+          <li><%= student.full_name -%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

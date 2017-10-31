@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" id="thecompellingimage-com">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+	<%= render(:partial => 'common/javascripts') %>
+	<%= render(:partial => 'common/stylesheets') %>
+        <%= javascript_include_tag("swfobject") %>
+        <%= javascript_include_tag("jwplayer") %>
+        <%= stylesheet_link_tag 'admin_course_dropdown' %>
+	<%= title_tag %>
+  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+  <%= csrf_meta_tag %>
+	<%= yield :head %>
+</head>
+<% body_tag do %>
+  <div class="container_16">
+    <div class="grid_16" id="navigation">
+	    <ul id="navigation">
+	      <%= primary_navigation_link_to('Home', :home, root_path) -%>
+	      <%= primary_navigation_link_to('About', :about, page_path(:about)) %>
+        <li>
+          <%= link_to 'Courses', courses_path, class: :dropdown %>
+          <ul class="drop-menu">
+            <li><%= link_to 'All', courses_path(params.merge(cat: ''))%></li>
+            <li>
+              <%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 1, 'Beginner', (courses_path(local_assigns.has_key?(:external) ? {:cat => 1} : params.merge(:cat => 1))))%>
+            </li>
+            <li>
+              <%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 2,'Intermediate ', (courses_path(local_assigns.has_key?(:external) ? {:cat => 2} : params.merge(:cat => 2))))%>
+            </li>
+            <li>
+              <%= link_to_unless(params.has_key?(:cat) && params[:cat].to_i == 5,'Advanced', (courses_path(local_assigns.has_key?(:external) ? {:cat => 5} : params.merge(:cat => 5))))%>
+            </li>
+          </ul>
+        </li>
+	      <%= primary_navigation_link_to('Instructors', :instructors, instructors_path) -%>
+        <%= primary_navigation_link_to('Contact', :contact, new_enquiry_path) -%>
+        <%= primary_navigation_link_to('Blogs', :blog, administrator_blogs_path) -%>
+        <%= primary_navigation_link_to('Emerging Photographer Program', :packages, packages_path) -%>
+	    </ul>
+	    <ul id="login">
+        <strong><%= primary_navigation_link_to('Logout', :logout, logout_path) -%></strong>
+        <strong><%= primary_navigation_link_to('Administrator Area', :administrator_area, administrator_root_path) -%></strong>
+	    </ul>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_16" id="secondary-navigation">
+      <ul id="secondary-navigation">
+        <%= secondary_navigation_link_to('Dashboard', :dashboard, administrator_root_path, :class => "gap") -%>
+        <%= secondary_navigation_link_to('Courses', :courses, administrator_courses_path) -%>       
+        <%= secondary_navigation_link_to('Packages', :packages, administrator_packages_path) -%>
+        <%= secondary_navigation_link_to('Workshops', :workshops, administrator_workshops_path) -%>
+        <%= secondary_navigation_link_to('Users', :users, administrator_users_path) -%>
+        <%= secondary_navigation_link_to('Partners', :partners, administrator_partners_path) -%>
+        <%= secondary_navigation_link_to('Whats New', :whats_new, administrator_special_path) -%>
+        <%= secondary_navigation_link_to('Reports', :reports, new_administrator_report_path) -%>
+        <%= secondary_navigation_link_to('Banner Image', :banner_images, administrator_banner_images_path) -%>
+        <%= secondary_navigation_link_to('Settings', :settings, administrator_settings_path) -%>
+        <%= secondary_navigation_link_to('Testimonials', :testimonials, administrator_testimonials_path) -%>
+        <%= secondary_navigation_link_to('Gallery', :student_gallries, administrator_student_galleries_path) -%>
+      </ul>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_16" id="header">
+      <span id="fauxh2"><strong>...Online Courses in Photography and Multimedia Storytelling - Taught by the Professionals</strong></span>
+      <span id="fauxh1"><%= link_to("The Compelling Image", administrator_root_path) -%></span>
+	  </div>
+	  <div class="clear">&nbsp;</div>
+    <div class="grid_16 show_flash">
+      <%= content_tag "p", flash[:notice], :class => "flash notice" if flash[:notice] %>
+      <%= content_tag "p", flash[:alert], :class => "flash error" if flash[:alert] %>
+    </div>
+	  <div class="grid_16">
+      <%= yield %>
+    </div>
+  </div>
+  <div class= "container_16">
+    <div class="clear padding-bottom-4">&nbsp;</div>
+    <div class="grid_16 " id="footer">
+      <span id="navigation"><%= link_to("Privacy Policy", page_path('privacy')) -%> | <%= link_to("Contact", new_enquiry_path) -%></span> |
+      <span id="copyright">Copyright &copy; <%= Time.now.year -%> The Compelling Image</span>
+    </div>
+  </div>
+<% end %>
+<%= yield :extra_javascripts %>
+</html>

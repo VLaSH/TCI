@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="header_container">
+    <h1 class="logo">
+      <%= link_to (image_tag "tci-logo.png", alt: 'The Compelling Image'), root_path, title: 'The Compelling Image' %>
+    </h1><!-- Logo -->
+
+    <ul class="account_container">
+      <% unless logged_in? %>
+        <li><%= link_to 'Sign Up', new_user_path %></li>
+        <li><%= link_to 'Login', new_session_path %></li>
+      <% else%>
+        <li><%= link_to 'Logout', logout_path %></li>
+        <li>
+          <strong>
+            <%= link_to "#{current_user.role} Area", user_role_root_path %>
+          </strong>
+        </li>
+      <%end%>
+      <li class="last"><%= link_to 'Contact', new_enquiry_path%></li>
+    </ul><!-- Account Container -->
+
+    <div class="toggle_menu">
+      <%= link_to 'Menu', "javascript:void(0)" %>
+    </div><!-- Toggle Menu -->
+
+    <!-- Navigation -->
+    <ul class="nav">
+      <li><%= link_to 'HOME', root_path %></li>
+      <li><%= link_to 'HOW IT WORKS', page_path(names: 'about') %></li>
+      <li>
+        <a href="javascript:void(0);" class='dropdown'>COURSES</a>
+        <ul class="show_dropdown">
+          <li><%= link_to 'All', courses_path%></li>
+          <li><%= link_to 'Beginner', courses_path(cat: 1)%></li>
+          <li><%= link_to 'Intermediate ', courses_path(cat:2)%></li>
+          <li><%= link_to 'Advanced', courses_path(cat: 5) %></li>
+        </ul>
+        <span class="drop-button">
+          <a href="javascript:void(0)">
+            <%= image_tag 'dopdown.png', alt: "plus-sign" %>
+          </a>
+        </span>
+
+      </li>
+      <li><%= link_to 'INSTRUCTORS', instructors_path %></li>
+      <%#*<li><%= link_to 'MENTORSHIP', courses_path(cat: 4) %>
+      <li><%= link_to 'PORTFOLIO REVIEW', courses_path(cat: 3) %></li>
+      <li class="border_bottom_0"><%= link_to 'WORKSHOPS', workshops_path %></li>
+      <li class="border_bottom_0"><%= link_to 'STUDENT GALLERY', student_galleries_path %></li>
+      <li class="last"><%= link_to 'BLOG', blog_path %></li>
+    </ul>
+     <ul class="social_media">
+      <a href="https://instagram.com/the_compelling_image/" target="__blank"><li  class="st_instagram_custom"></li></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fshar.es%2F1tPu8u&t=Online+photography+courses+-+The+Compelling+Image+photography+school" target="__blank"><li displaytext="" class="st_facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="chicklets facebook"></span></span></li></a>
+      <a href="https://twitter.com/intent/tweet?text=Online%20photography%20courses%20-%20The%20Compelling%20Image%20photography%20school&source=sharethiscom&related=sharethis&via=sharethis&url=https://shar.es/1tPuUN" target="__blank"><li displaytext="" class="st_twitter" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="chicklets twitter"></span></span></li></a>
+      <a href="https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2FpostLogin%3Fsession_rikey%3D91Tt-4HO14H8bnRxZaJNYlrHfGAEGjOU1EClFtDV5y4hS3Cdzgi0ZV1NFyP4-zMP-IQZATQhK3x1ZyRaO6uJZtHFvsYtPtHpZkh%26l%3Dhttps%253A%252F%252Fwww%252Elinkedin%252Ecom%252FshareArticle%253Fsummary%253DThe%252BCompelling%252BImage%252Bis%252Ban%252Bonline%252Bphotography%252Bschool%252Bstaffed%252Bby%252Bprofessional%252Bphotographers%252Boffering%252Bbeginner%252Bthrough%252Badvanced%252Bclasses%2526mini%253Dtrue%2526source%253D%2526title%253DOnline%252Bphotography%252Bcourses%252B-%252BThe%252BCompelling%252BImage%252Bphotography%252Bschool%2526url%253Dhttp%25253A%25252F%25252Flocalhost%25253A3000%25252F%25253Fsthash%25252E5jcQVRrD%25252Emjjo%26id%3D0%26b%3D4816f196-16b9-4da5-8810-e37e305dc796%26h%3DewIp%26m%3DGET" target="__blank"><li displaytext="" class="st_linkedin" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="chicklets linkedin"></span></span></li></a>
+      <a href="https://accounts.google.com/ServiceLogin?service=oz&passive=1209600&continue=https://plus.google.com/share?url%3Dhttps://instagram.com/the_compelling_image/%2523sthash.5jcQVRrD.hpvt%26hl%3Den-US%26gpsrc%3Dgplp0&btmpl=popup&hl=en-US#identifier" target="__blank"><li st_url="https://instagram.com/the_compelling_image/" displaytext="" class="st_googleplus" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="chicklets googleplus"></span></span></li></a>
+    </ul>
+    <%#*<ul class="social_media">%>
+       <%#*<li class='st_instagram_custom' displayText='' st_url='https://instagram.com/the_compelling_image/'></li>%>
+      <%#*<li class='st_facebook' displayText=''></li>%>
+      <%#*<li class='st_twitter' displayText=''></li>%>
+      <%#*<li class='st_linkedin' displayText=''></li>%>
+      <%#*<li class='st_googleplus' displayText='' st_url='https://instagram.com/the_compelling_image/'></li>%>
+    <%#*</ul>%>
+     <!-- Social Medida -->
+    <div class='clear'></div>
+  </div><!-- Header Container -->
+</div><!-- Container -->

@@ -1,0 +1,11 @@
+<dl>
+  <dt>Topic</dt>
+  <dd><%= h(@forum_topic.title) %></dd>
+  <dt>By</dt>
+  <dd><%= h(@forum_topic.user.full_name) %></dd>
+  <dt>Published</dt>
+  <dd><%= h(@forum_topic.publish_on.to_formatted_s(:long)) %></dd>
+</dl>
+<%= form_for(@forum_topic, :url => administrator_forum_topic_path(@forum_topic), :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

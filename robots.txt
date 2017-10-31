@@ -1,0 +1,7 @@
+User-agent: *
+Disallow:
+Disallow: /cgi-bin/
+Disallow: /pdf/
+sitemap: http://www.thecompellingimage.com/sitemap.xml
+
+ 

@@ -1,0 +1,2 @@
+class TciBlogGridSection < BannerImage
+end

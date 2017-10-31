@@ -1,0 +1,8 @@
+<%= uni_form_for(@enquiry, :html => { :autocomplete => 'off' }) do |f| %>
+  <%= f.text_field(:name, :required => true, :label => "name") -%>
+  <%= f.text_field(:email, :required => true, :label => "email") -%>
+  <%= f.text_field(:phone_number, :label => "phone number") -%>
+  <%= f.text_area(:message, :label => "your message", class: "enquiries_text_area") -%>
+  <!-- <%= f.submit("Send Message",class: "enquiries_button", :style => "float: left; margin-top: 10px;") -%> -->
+  <%= f.submit("Send Message",class: "btn btn-success", :style => "margin-top: 10px;") -%>
+<% end %>

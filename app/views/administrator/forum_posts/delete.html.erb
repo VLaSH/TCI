@@ -1,0 +1,13 @@
+<dl>
+  <dt>Topic</dt>
+  <dd><%= h(@forum_post.topic.title) %></dd>
+  <dt>From</dt>
+  <dd><%= h(@forum_post.user.full_name) %></dd>
+  <dt>Created</dt>
+  <dd><%= h(@forum_post.created_at.to_formatted_s(:long)) %></dd>
+  <dt>Content</dt>
+  <dd><%= h(@forum_post.content) %></dd>
+</dl>
+<%= form_for(@forum_post, :url => administrator_forum_post_path(@forum_post), :html => { :method => :delete }) do |f| %>
+  <%= f.submit('Delete', :name => nil) %>
+<% end %>

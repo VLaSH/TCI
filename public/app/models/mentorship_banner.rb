@@ -1,0 +1,2 @@
+class MentorshipBanner < BannerImage
+end

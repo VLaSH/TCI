@@ -1,0 +1,38 @@
+<% if forum_topics.blank? || forum_topics.pluck(:posts_count) == 0 %>
+  <p>There are currently no responses to this discussion.</p>
+<% else %>
+  <div id="comments">
+    <%i = 1%>
+    <ul>
+      <%- ForumPost.where(forum_topic_id: forum_topics.pluck(:id)).each do |forum_post| -%>
+        <% unless forum_post.user.nil? %>
+
+          <li id="comment_<%= i %>">
+            <cite><%- if forum_post.user && forum_post.user.instructor? -%><span class="instructor">instructor</span><br /><%- end -%><%= forum_post.user.full_name -%><br /><span class="date"><%= time_ago_in_words(forum_post.created_at) -%> ago</span></cite>
+            <blockquote class="rounded topHeavy">
+              <span class="tr cnr"></span>
+              <span class="tl cnr"></span>
+              <span class='comment-data'>
+                <%= forum_post.content.html_safe %>
+              </span>
+              <span>
+                <% if forum_post.attachments.present? %>
+                  <%= image_tag forum_post.attachments.first.asset.url(:medium) %>
+                <% end %>
+              </span>
+              <span class="br cnr"></span>
+              <span class="bl cnr"></span>
+            </blockquote>
+          </li>
+          <div class="clear">&nbsp;</div>
+        <% end %>
+        <%i = i + 1%>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="clear">&nbsp;</div>
+<% end %>
+
+<script type="text/javascript">
+  jQuery(window.location.hash).find('blockquote span.comment-data').css('background-color', '#DFDFDF');
+</script>

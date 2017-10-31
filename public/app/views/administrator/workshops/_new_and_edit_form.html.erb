@@ -1,0 +1,39 @@
+<div class="grid_16 margin_top_20 alpha omega">
+  <%= uni_form_for(workshop, :url => polymorphic_path([ :administrator, workshop ]), :html => { :multipart => true }) do |f| %>
+    <% f.fieldset(:type => "block", :legend => "Workshop Details") do %>
+      <% unless @workshop.new_record? %><p>URL for linking: <%= workshop_url(@workshop) %></p><% end %>
+      <%# error_messages_for(:workshop, :object => workshop) %>
+      <%= f.text_field(:title, :size => '30', :label => "Title", :required => true, :style => "width: 99%;") %>
+      <%= f.text_field(:page_title, :size => '30', :label => "Page Title", :required => false, :style => "width: 99%;") %>
+      <%= f.text_field(:summary, :size => '30', :label => "Workshop Dates (Free text)", :required => false, :style => "width: 99%;") %>
+      <%= f.text_area(:description, :size => '60x5', :class => 'widgEditor', :label => "Description", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_area(:enrolment, :size => '60x5', :class => 'widgEditor', :label => "Enrolment details", :style => "width: 99%; height: 300px;") -%>
+      <%= f.text_area(:upcoming, :size => '60x5', :class => 'widgEditor', :label => "Upcoming workshops", :style => "width: 99%; height: 300px;") -%>
+      <% f.text_area(:terms, :size => '60x5', :class => 'widgEditor', :label => "Terms and conditions", :style => "width: 99%; height: 300px;") -%>
+
+      <%= f.text_field(:full_price, :size => 5, :label => "Total Price ($)", :required => true, :style => "width: 75px;") -%>
+      <%= f.text_field(:deposit_price, :size => 5, :label => "Deposit / Pre-payment ($)", :required => true, :style => "width: 75px;") -%>
+
+      <% [1, 2, 3, 4, 5, 6].each do |i| %>
+        <%= f.file_field("photo_#{i}".to_sym, :label => "Photo #{i}") -%>
+        <%- if workshop.send("photo_#{i}?") && !workshop.send("photo_#{i}").dirty? -%>
+          <%= f.check_box("delete_photo_#{i}", :label => "Delete photo #{i}") %>
+          <%= image_tag(workshop_photo_path(:offset => i, :id => workshop.id, :style => :medium), :alt => "Photo #{i}", :title => "Current photo #{i}", :style => "padding: 10px;") %>
+        <%- end -%>
+      <% end %>
+
+      <%= f.text_field(:vimeo_video_id, :size => '30', :label => "Vimeo Video ID", :style => "width: 99%;") %>
+      <%= f.text_field(:youtube_video_id, :size => '30', :label => "Youtube Video ID", :style => "width: 99%;") %>
+
+      <%= f.collection_select(:instructor_1_id, User.instructor.activated.order('given_name ASC, family_name ASC'), :id, :full_name, :include_blank => '')%>
+      <%= f.collection_select(:instructor_2_id, User.instructor.activated.order('given_name ASC, family_name ASC'), :id, :full_name, :include_blank => '')%>
+      <%= f.collection_select(:instructor_3_id, User.instructor.activated.order('given_name ASC, family_name ASC'), :id, :full_name, :include_blank => '')%>
+      <%= f.collection_select(:instructor_4_id, User.instructor.activated.order('given_name ASC, family_name ASC'), :id, :full_name, :include_blank => '')%>
+
+      <%= f.boolean_select(:visible, :label => 'Visible (the workshop page shows the first visible workshop it finds - it is up to you to set only one workshop visible at any one time)', :include_blank => false) %>
+
+    <% end %>
+    <div class="clear">&nbsp;</div><br />
+    <p class="buttons"><%= pretty_button (workshop.new_record? ? "Create" : "Update"), {:icon_path => "icons/tick.png"} %>
+  <% end %>
+</div>

@@ -1,0 +1,50 @@
+<%
+  page_config do |page|
+    page.body_tag_options = { :class => 'administrator', :id => 'home' }
+    page.primary_navigation_section = :administrator_area
+    page.title.unshift('Administrator Area')
+    page.title.unshift('Home')
+  end
+-%>
+
+<%
+  if params.has_key?(:all) && params[:all].to_i == 1
+     @scheduled_courses = ScheduledCourse.joins(:course).active.page(params[:page]).order('created_at ASC')
+  else
+     @scheduled_courses = ScheduledCourse.joins(:course).active.enrolled.page(params[:page]).order('created_at ASC')
+  end
+%>
+
+<div class="grid_16 margin_top_20 alpha">
+  <% if params.has_key?(:all) && params[:all].to_i == 1 %>
+    <div style="float: right;"><%= link_to("Running With Enrollments", "?all=0") -%> | All Running</div>
+  <% else %>
+    <div style="float: right;">Running With Enrollments | <%= link_to("All Running", "?all=1") -%></div>
+  <% end %>
+  <h6>Courses Currently Running</h6>
+  <% unless @scheduled_courses.empty? %>
+    <table summary="List of active scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Course</th>
+          <th class="centred">Enrollments</th>
+          <th class="centred">Instructor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @scheduled_courses.each do |scheduled_course| %>
+          <% unless scheduled_course.course.deleted_at %>
+            <tr>
+              <td class="centred"><%= link_to(scheduled_course.course.title, administrator_scheduled_course_enrolments_path(scheduled_course)) -%></td>
+              <td class="centred"><%= link_to(scheduled_course.enrolments.find_non_deleted_enrollments.size, administrator_scheduled_course_enrolments_path(scheduled_course), :rel => "There #{scheduled_course.enrolments.size == 1 ? 'is' : 'are'} #{pluralize(scheduled_course.enrolments.size, "student")} enroled on this course session") -%></td>
+              <td class="centred"><%= scheduled_course.course.instructors.map{|i| i.full_name}.join(', ') -%></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@scheduled_courses) %>
+  <% else %>
+    <p>No active scheduled courses exist.</p>
+  <% end %>
+</div>

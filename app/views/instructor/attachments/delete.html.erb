@@ -1,0 +1,1 @@
+<%= render(:partial => 'attachments/delete_form', :locals => { :attachment => @attachment, :destroy_path => instructor_attachment_path(@attachment, params.merge(submission_id: params[:submission_id])) }) -%>

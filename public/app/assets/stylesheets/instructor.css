@@ -1,0 +1,96 @@
+@import "common.css";
+@import "forms.css";
+
+html{background:#eee url(/assets/body_instructor_no_top.gif) repeat-x;}
+body{color:#666;font:.75em/1.33 Arial,sans-serif;margin:0;padding:0;}
+div#header h1{position: absolute; top: 25px; margin: 0; padding: 0; display:block; width:224px; height:34px; background: url(/assets/tci-logo-white.gif) no-repeat; text-indent:-9999px;}
+h1{font-size:1.6em; margin: 0 0 15px;}
+h2,h3{color:#33393c;margin:0 0 10px;}
+h2{border-bottom:1px solid #999;font-size:1em;padding-bottom:5px;text-transform:uppercase;}
+h2 span{margin-left:10px;text-transform:none;}
+h3{font-size:1em;}
+h3 span{font-weight:400;}
+div.details{margin-left:50px;}
+p,address{font-style:normal;margin:0 0 10px; line-height: 150%;}
+span.toggle_slide{font-size:.8em;}
+hr{border:solid #e5e5e5;border-width:0 0 1px;margin:0 0 15px;}
+ol.comments{clear:left;list-style:none;margin:0 0 10px;padding:0;}
+ol.comments li{border-bottom:1px solid #e8e8e8;margin:0 0 10px;padding:0 0 1px;}
+li span.more{margin-left:10px;}
+ul{list-style:none;margin:0 0 10px;padding:0;}
+ul li{background:url(/assets/bullet.gif) no-repeat 0 6px;padding-left:10px;}
+.extras {float:right;font-weight:700;list-style:none;margin:-31px 0 0;}
+.extras li{display:inline;margin-left:10px;}
+.extras li,.more li{background:none;padding-left:0;}
+dl,#content .dl{background:#ededed;border-bottom:1px solid #ccc;color:#333;margin:0 0 10px;padding:10px 15px;}
+dt{clear:left;float:left;font-weight:700;margin-bottom:6px;width:130px;}
+dd{margin-bottom:6px;}
+dt:last-of-type,dd:last-of-type{margin-bottom:0;}
+#content_secondary, #content_main {float: left;}
+#content_secondary dl{background:none;border:0;padding:0;}
+#content_secondary dt{float:none;margin:0;width:auto;}
+#content_secondary dd{margin:0 0 8px;}
+a img{border:none;}
+a{color:#d03523;text-decoration:none;}
+a:focus,a:hover{text-decoration:underline;}
+.more a{background:url(/assets/arrow.gif) no-repeat left;padding-left:7px;}
+.add a,.report a{background:url(/assets/bg_add.gif) no-repeat left;font-weight:700;padding-left:15px;}
+.report a{background-image:url(/assets/bg_report.gif);}
+.skip{left:-9999px;position:absolute;}
+.replace{overflow:hidden;position:relative;}
+.replace span{display:block;left:0;position:absolute;top:0;z-index:1;}
+a.replace span{cursor:hand;}
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+.clearfix{display:block;}
+html .clearfix{height:1%;}
+.right{float:right;}
+.left{float:left;}
+.thumb{border:1px solid #999;padding:1px;}
+.thumb.left{margin:0 15px 15px 0;}
+.thumb.right{margin:0 0 15px 15px;}
+.clear{clear:both;}
+.intro{font-weight:700;}
+.flash,.user_notifications li{background:no-repeat 10px 10px;color:#fff;margin-bottom:10px;padding:9px 15px 9px 30px;position:relative;}
+.notice,.complete li{background-color:#87c873;background-image:url(/assets/icons/accept.png);font-weight:700;}
+.error,.created li{background-color:#ff5d51;background-image:url(/assets/icons/delete.png);}
+#content>.flash{margin-right:269px;}
+ul.reminder_list li{background:none;list-style:none;padding-left:0;}
+ol.comments li:after,dl:after,#content .dl:after{clear:left;content:".";display:block;height:0;visibility:hidden;}
+
+div#header span#logout {position: absolute; right: 0; bottom: 11px; font-weight: bold;}
+div#header span#logout a, div#header span#logout a:visited {color: #ddd;}
+div#header {position:relative; height: 113px; padding: 7px 0 0;}
+div#header ul#meta {position: absolute; left: 0px; top: 7px; color: #fff;}
+div#header ul#meta a, div#header ul#meta a:visited {color: #fff;}
+div#header ul#logout, div#header ul#logout a {position: absolute; right: 0px; top: 7px; color: #fff;}
+
+ul.pagination {margin: 0; margin-top: 20px; list-style: none; font-size: 0.9em;}
+ul.pagination li {padding: 6px; display: inline; margin: 0; background: #eee; color: #999; margin-right: 6px;}
+ul.pagination li.disabled {padding: 6px; display: inline; margin: 0; background: #eee; color: #999; margin-right: 6px;}
+ul.pagination li.current {padding: 5px; display: inline; margin: 0; background: #fff; color: #000; border: 1px solid #eee;}
+ul.pagination li.current {padding-left: 10px; padding-right: 10px; margin-right: 6px;}
+ul.pagination li a {padding: 6px; background: #eee; color: #d03523;}
+
+body div#content_main{float:left;width:960px;}
+body.columns div.sections{width:900px;}
+body.columns div#content_main{float:left;width:691px;}
+body.columns div#content_secondary{padding-top:114px;}
+
+div.attachments ul {list-style-type: none;}
+div.attachments ul li {float: left; border: 1px solid #ccc; padding: 0; margin-right: 10px; margin-bottom: 10px; width: 60px; height: 60px;}
+
+#content_main form.nobg {background: none; border: none; padding: 0;}
+#content_main form.nobg div.whitebg {background:#FFF;border:solid #DDD;border-width:0 1px 1px 0;margin:0;padding:15px;margin-top: 10px;}
+
+.attachment_thumbnail_container ol.attachment_thumbnails li{float:left;list-style:none;list-style-type:none;margin:0 10px 10px 0;padding:0;}
+.photo_frame {position: relative;}
+.photo_frame span {position: absolute; left: -6px; top: 0; z-index: 2; text-align: center; background: #666; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+.photo_frame span.yours {position: absolute; left: -6px; top: 24px; z-index: 2; text-align: center; background: #d03523; color: #fff; padding: 3px; width: 12px; height: 12px; font-size: 10px; font-weight: bold;}
+
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li{float:left;list-style:none;list-style-type:none;margin:0 10px 10px 0;padding:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame{background:url(/assets/w60xh60-bg.png) repeat-y;padding-left:8px;padding-right:9px;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame_header{background:url(/assets/w60xh60-bg-top.png) no-repeat;height:8px;line-height:8px;margin:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.photo_frame_footer{background:url(/assets/w60xh60-bg-bot.png) no-repeat;height:8px;line-height:8px;margin:0;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li img.draggable{display:block;height:60px;margin-bottom:5px;overflow:hidden;width:60px;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.controls{clear:both;text-align:center;width:100%;}
+.rearrangement_attachment_thumbnail_container ol#rearrangement_thumbnails li div.controls img{padding:2px;}

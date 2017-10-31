@@ -1,0 +1,14 @@
+<% if attachments.size > 0 %>
+  <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;">
+    <h4><%= title if local_assigns[:classes] -%></h4>
+    <div class="body padding_5 attachments">
+      <%- attachments.each_with_index do |attachment, index| %>
+        <p>
+          <%- if attachment.image? || attachment.video? -%>
+            <span><%= attachment_thumbnail(attachment, :style => :w60xh60, :lightview => true, :id => "sample#{index + 1}", size: '60x60') -%></span>
+          <%- end -%>
+        </p>
+      <%- end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class StudentGalleryGridSection < BannerImage
+end

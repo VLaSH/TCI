@@ -1,0 +1,18 @@
+<div class="line">
+  <div class="unit size5of6">
+    <h1 class="h2">Whats new</h1>
+    <hr>
+      <div class="form">
+        <%= whats_new_text.blank? ? "No 'Whats New' text is defined" : whats_new_text.html_safe %>
+      </div>
+      <hr>
+      <div class="form">
+        <%= whats_new_image.blank? ? "No 'Whats New' image is defined" : image_tag(whats_new_image) %>
+      </div>
+      <hr>
+      <p class="btns">
+        <%= link_to 'Edit', edit_administrator_special_path, class: 'btn btn-l' %>
+        <!-- <a href="<%= edit_administrator_special_path -%>" class="btn btn-l">Edit</a> -->
+      </p>
+  </div>
+</div>

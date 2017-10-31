@@ -1,0 +1,30 @@
+<h1>Recent Updates</h1>
+<div id="all_courses">
+  <h2>Assignments</h2>
+  
+  <% unless @submissions.empty? %>
+    <table summary="List of scheduled courses" class="pretty">
+      <thead>
+        <tr>
+          <th class="centred">Assignments</th>
+          <th class="centred">Student</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @submissions.each do |scheduled_course| %>
+          <tr>
+            <td class="centred"><%= link_to(scheduled_course.title, instructor_submission_path(scheduled_course)) -%></td>
+            <td class="centred"><%= scheduled_course.name -%></td>
+            <td>
+              <%= !scheduled_course.blank? ? image_tag('icons/bullet_green.png') : '' -%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%#= will_paginate(@assignment) %>
+  <% else %>
+    <p>No assignment updates.</p>
+  <% end %>
+</div>

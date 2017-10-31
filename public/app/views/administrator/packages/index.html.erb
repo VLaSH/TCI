@@ -1,0 +1,44 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @packages.empty? %>
+    <table summary="List of packages" class="pretty">
+      <thead>
+        <tr>
+          <th>Packages</th>
+          <th>Courses</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @packages.each do |package| %>
+          <tr>
+            <td><%= link_to(h(package.title), edit_administrator_package_path(package)) -%></td>
+            <td><%= (package.courses.size) -%></td>
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Package"), edit_administrator_package_path(package), :rel => "Edit Package", title: "Edit") -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete Package"), delete_administrator_package_path(package), :rel => "Delete this package", title: "Delete") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@packages) %>
+  <% else %>
+    <p>No packages exist.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link "Create new package", new_administrator_package_path, {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+  <form class="pretty">
+    <fieldset>
+      <legend>Search</legend>
+      <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+    </fieldset>
+    <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?search=" %></p>
+    <div class="clear">&nbsp;</div>
+  </form>
+</div>
+<div class="clear">&nbsp;</div>

@@ -1,0 +1,27 @@
+<h3>Assignment submission for <%= h(@assignment_submission.assignment.title) -%></h3>
+<%= form_for([ :administrator, @assignment_submission ]) do |f| %>
+  <p>Required information is marked with <%= form_required_field %></p>
+  <%= error_messages_for(:assignment_submission) %>
+  <fieldset>
+    <legend>Submission details</legend>
+    <div>
+      <%= f.label(:title, "Title #{form_required_field}") %>
+      <%= f.text_field(:title, :size => '30') %>
+    </div>
+    <div>
+      <%= f.label(:summary) -%>
+      <%= f.text_area(:summary, :size => '60x3') -%>
+    </div>
+    <div>
+      <%= f.label(:description) -%>
+      <%= f.text_area(:description, :size => '60x5') -%>
+    </div>
+    <div>
+      <%= f.label(:completed, 'Completed') %>
+      <%= f.boolean_select(:completed, :include_blank => false) %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div><%= f.submit('Update', :name => nil) %></div>
+  </fieldset>
+<% end %>

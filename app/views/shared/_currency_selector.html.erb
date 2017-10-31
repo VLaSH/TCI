@@ -1,0 +1,11 @@
+<%= form_tag('/set_currency', id: 'currency-form') do %>
+<%= select_tag "currency", options_for_select(["USD", "EUR", "GBP"], (session[:currency] || "USD")), { id: "currency-selector", style: style }  %>
+<% end %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script>
+
+$('#currency-selector').on('change', function(){
+
+  $('#currency-form').submit();
+}) 
+</script>

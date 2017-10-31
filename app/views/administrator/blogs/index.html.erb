@@ -1,0 +1,47 @@
+<div class="grid_11 margin_top_20 alpha">
+  <% unless @blogs.empty? %>
+    <table summary="List of blogs" class="pretty">
+      <thead>
+        <tr>
+          <th>Blogs</th>
+          
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @blogs.each do |blog| %>
+          <tr>
+            <td><%= link_to(h(blog.title), edit_administrator_blog_path(blog)) -%></td>
+       
+            <td align="right">
+              <%= link_to(image_tag("icons/pencil.png", :alt => "Edit Blog"), edit_administrator_blog_path(blog), :rel => "Edit Blog", title: 'Blog') -%>
+              &nbsp;
+              <%= link_to(image_tag("icons/delete.png", :alt => "Delete Blog"), delete_administrator_blog_path(blog), :rel => "Delete this blog", title: "Delete") -%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate(@blogs) %>
+  <% else %>
+    <p>There are no blogs that match your selected criteria.</p>
+  <% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+  <p class="buttons">
+    <%= pretty_button_link " Create new blog", new_administrator_blog_path, {:icon_path => "icons/add.png"} %>
+  </p>
+  <div class="clear">&nbsp;</div><br />
+
+  <form class="pretty">
+    <fieldset>
+      <legend>Search</legend>
+      <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+    </fieldset>
+    <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?search=" %></p>
+    <div class="clear">&nbsp;</div>
+  </form>
+  <div class="clear">&nbsp;</div><br />
+  
+</div>
+
+<div class="clear">&nbsp;</div>

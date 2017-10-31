@@ -1,0 +1,31 @@
+<div class="container content_bg"><!-- Container -->
+  <%= content_tag "p", flash[:error], :class => "flash error" if flash[:error] %>
+  <div class="login-box1">
+    <h3>Login</h3>
+    <%= form_tag(session_path) do %>
+      <ul>
+        <li>
+          <%= label_tag :Email, nil, class: :username -%>
+          <%= email_field_tag :email, nil, placeholder: 'Email', required: true, autofocus: true %>
+        </li>
+        <li>
+          <%= label_tag :password, nil, class: :password %>
+          <%= text_field_tag :password, nil, required: true, placeholder: 'Password', type: :password %>
+        </li>
+      </ul>
+      <div class='login_sign_block'>
+        <%= button_tag :login, class: :submit %>
+        <%#= link_to 'Sign in with Facebook', '/auth/facebook', class: "btn btn-facebook" %>
+        <%#= link_to 'Sign in with Facebook', '/auth/facebook', class: "btn btn-facebook" %>
+	<%= link_to 'Facebook', '/auth/facebook', class: "btn btn-facebook" %>
+        <%= link_to 'Instagram', '/instagram/connect', class: "btn btn-facebook" %>
+     </div>
+      <div class="clear"></div></br>
+      <p> Forget Password? <%= link_to 'Request for new one', new_password_path, title: 'Forget Password.' %></p>
+      <p> Dont have account? <%= link_to 'SIGN UP', new_user_path, title: 'Register' %></p>
+      <br>
+      <p> <%= link_to 'Activate your account', new_activation_path -%>
+    <% end %>
+  </div>
+</div><!-- Container -->
+<div class="clear">&nbsp;</div>

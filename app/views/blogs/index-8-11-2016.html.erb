@@ -1,0 +1,25 @@
+<% content_for :meta do %>
+  <meta name="keywords" content="Photography Course Online, Photography School Online, Photography Classes Online" />
+ <meta name="description" content="Learn photography blogs, photography course online with The Compelling Image covering a range of topics including portraits, landscapes, black & white, digital slr and more." />
+ <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<% end %>
+
+<div class="container content_bg"><!-- Container -->
+  
+  <div class="inner_content_container">
+    <div class="inner_content_left">
+      <div class= "blogs_container">
+        <%= render 'blogs/blog_list', blog_list: @blogs %>
+      </div>
+      <% if @blogs.nil? || @blogs.empty? %>
+        <div class="course margin_top_20"><p>There are no blogs that match your selected criteria.</p></div>
+      <% end %>
+      <%= will_paginate @blogs %>
+    </div><!-- Left Content -->
+
+    <div class="inner_content_right">
+     
+     
+    </div><!-- Sidebar -->
+  </div>
+</div><!-- Container -->
