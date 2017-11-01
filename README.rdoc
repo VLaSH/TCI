@@ -24,5 +24,14 @@ Things you may want to cover:
 * ...
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+=== Deployment
+For those who will work later on this project - to restart server after you add any gems, changed config, added initializer, you need just to restart nginx - `sudo service nginx restart`, because passenger restarting built in nginx conf. I'm not an author of this solution, but I had to find out how to apply my changes. If you have any new gems you need to run `bundle install` manually. Here is the flow
+
+* ssh to server
+* switch to dbathgate `sudo su dbathgate`
+* `cd /home/dbathgate/tci`
+* make sure you using ruby 2.1.2 `rvm use 2.1.2`
+* make sure you use global gemset `rvm gemset use global`
+* run `bundle install`
+
+After these steps restart server(via nginx restart)
