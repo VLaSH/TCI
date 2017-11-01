@@ -1,6 +1,11 @@
 <% unless !defined?(@other_submissions) || @other_submissions.nil? %>
   <div class="callout_box<%= " #{classes}" if local_assigns[:classes] -%>" style="min-height: 100px;" >
-    <h4>Other Submissions</h4>
+    <% if @scheduled_assignment && @scheduled_assignment.scheduled_lesson.enrolment.end_date >= Date.today %>
+      <h4>Other Submissions</h4>
+    <% else %>
+      <h4>My Submissions</h4>
+    <% end %>
+    
     <div class="body padding_5 instructor" id="other_submission">
       <% if @other_submissions.count == 0 %>
         <p>There are no other submissions for this assignment.</p>
