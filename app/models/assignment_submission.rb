@@ -21,6 +21,8 @@ class AssignmentSubmission < ActiveRecord::Base
   #   :conditions => ["#{Enrolment.quoted_table_name}.id = #{AssignmentSubmission.quoted_table_name}.enrolment_id AND #{Enrolment.quoted_table_name}.student_user_id != ?", user.id] } }
   scope :not_by_student, -> (user){ joins(:enrolment).where("#{Enrolment.quoted_table_name}.student_user_id != ?", user.id) }
 
+  scope :current_enrolments, -> { joins(:enrolment).where('enrolments.end_date > ?', Date.today)}
+
   attr_accessible :title, :summary, :description, :completed, :instructor_unread
 
   validates_presence_of :title

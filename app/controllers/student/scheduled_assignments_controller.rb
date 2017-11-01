@@ -18,7 +18,11 @@ class Student::ScheduledAssignmentsController < Student::BaseController
       @forum_post = build_forum_post
     end
     @submissions = @scheduled_assignment.submissions.by_student(current_user)
-    @other_submissions = AssignmentSubmission.where(scheduled_assignment_id: @scheduled_assignment.assignment.scheduled_assignments.pluck(:id)).not_by_student(current_user)
+    if @scheduled_assignment && @scheduled_assignment.scheduled_lesson.enrolment.end_date >= Date.today
+      @other_submissions = AssignmentSubmission.where(scheduled_assignment_id: @scheduled_assignment.assignment.scheduled_assignments.pluck(:id)).not_by_student(current_user).current_enrolments
+    else
+      @other_submissions = AssignmentSubmission.where(scheduled_assignment_id: @scheduled_assignment.assignment.scheduled_assignments.pluck(:id)).by_student(current_user)
+    end
     respond_to do |format|
       format.html
       format.pdf do
