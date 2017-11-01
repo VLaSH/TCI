@@ -13,7 +13,7 @@
     <% end %>
     <%- if attachment.new_record? -%>
       <% f.fieldset(:type => "block", :legend => "Upload a file") do %>
-        <%= f.file_field(:asset, :label => "Photo to Upload", :required => true) -%>
+        <%= f.file_field(:asset, :label => "File to upload", :required => true) -%>
       <% end %>
     <%- elsif attachment.image? -%>
       <% f.fieldset(:type => "block", :legend => "Current Attachment") do %>
