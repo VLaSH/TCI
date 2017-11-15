@@ -15,6 +15,7 @@
             Today
           </div>
         <% end %>
+        <%= f.hidden_field :with_skype, value: params[:with] == 'skype' %>
         <% f.fieldset(:legend => "Payment Method") do %>
           <% if @course.free? %>
             <div class="ctrlHolder">
@@ -48,7 +49,7 @@
         };
           StripeCheckout.open({
             key:         '<%= Rails.configuration.stripe[:publishable_key] %>',
-            amount:      '<%= @course.price_in_cents %>',
+            amount:      '<%= @course.calculate_price_in_cents(params[:with] == 'skype')%>',
             currency:    'usd',
             panelLabel:  'Checkout',
             token:       token

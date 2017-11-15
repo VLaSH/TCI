@@ -19,12 +19,15 @@ module CoursesHelper
     if !(current_user && @course.existing_enrolment(current_user)) && !@course.has_lessons?
       link_to 'Enroll in this Course', courses_path, onclick: "alert('Sorry! This course is not ready for enrollment ');"
     elsif !(current_user && @course.existing_enrolment(current_user))
-      link_to 'Enroll on this Course', new_course_purchase_path(@course)
+      link_to 'Enroll on this Course', new_course_purchase_path(@course), { class: 'buy-course-link', data: { link: new_course_purchase_path(@course) } }
     elsif @course.existing_enrolment(current_user).renewable?(current_user)
       link_to 'Renew on this Course', renew_course_purchase_path(@course)
     end
   end
 
+  def converted_price(price, currency)
+    Money.new(price, 'USD').exchange_to(currency.present? ? currency.to_sym : :USD)
+  end
   # create a instructors block image. if instructors images are not set then added default.
   def instructor_block_image
     unless @course.instructors.size.zero?

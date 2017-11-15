@@ -23,13 +23,16 @@
       <script type="text/javascript">
         $( document ).ready(function() {
         var lastPart = window.location.href.split("/").pop();
+        console.log(lastPart);
         //alert(lastPart);
         if(lastPart=='courses?cat=1' || lastPart=='courses?cat=2' || lastPart=='courses?cat=5')
           $('#courses').addClass('active');
         else if(lastPart=='')
           $('#home').addClass('active'); 
         else if(lastPart=='courses?cat=3')
-          $('#review').addClass('active');           
+          $('#review').addClass('active'); 
+        else if(lastPart=='new?with=skype')
+          true
         else
           $('#'+lastPart+'').addClass('active');
         });

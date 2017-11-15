@@ -37,6 +37,8 @@ class Course < ActiveRecord::Base
 
   money :price, currency: :price_currency, cents: :price_in_cents
 
+  money :fee_price, currency: :price_currency, cents: :fee_price_in_cents
+
   has_attached_file :photo,
                     COURSE_PHOTO.merge({:styles => { :small  => '35x35#',
                                  :medium => '75x75#',
@@ -56,7 +58,7 @@ class Course < ActiveRecord::Base
 
   after_create { |c| c.scheduled_courses.build.save }
 
-  attr_accessible :title, :summary, :description, :starts_on, :frequency, :price_in_cents, :price_currency, :price, :photo, :instructor_ids, :tag_list, :available, :page_title, :instant_access, :hidden, :meta_description, :meta_keywords, :hide_dates, :course_type, :course_type_id, :portfolio_review, :vimeo_video_id, :youtube_video_id, :category_1, :category_2, :category_3, :category_4, :category_5, :duration
+  attr_accessible :title, :summary, :description, :starts_on, :frequency, :fee_price, :fee_price_in_cents, :price_in_cents, :price_currency, :price, :photo, :instructor_ids, :tag_list, :available, :page_title, :instant_access, :hidden, :meta_description, :meta_keywords, :hide_dates, :course_type, :course_type_id, :portfolio_review, :vimeo_video_id, :youtube_video_id, :category_1, :category_2, :category_3, :category_4, :category_5, :duration
 
   validates_presence_of :title, :description, :duration
 
@@ -138,8 +140,16 @@ class Course < ActiveRecord::Base
     end
   end
 
-  def current_price(user_id)
-    new_renewal(user_id).blank? ? self.price : new_renewal(user_id).price
+  def current_price(user_id, with_skype=false)
+    new_renewal(user_id).blank? ? calculate_price(with_skype) : new_renewal(user_id).price
+  end
+
+  def calculate_price(with_skype)
+    with_skype && self.fee_price > 0 ? self.fee_price : self.price
+  end
+
+  def calculate_price_in_cents(with_skype)
+    with_skype && self.fee_price_in_cents && self.fee_price_in_cents > 0 ? self.fee_price_in_cents : self.price_in_cents
   end
 
   def new_renewal(user_id)

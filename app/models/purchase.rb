@@ -3,14 +3,14 @@ class Purchase < ActiveRecord::Base
   GATEWAYS = %w(Paypal WorldPay Stripe)
   acts_as_money
 
-  attr_accessor :return_url, :payment_method, :description, :amount, :state, :redirect_url
+  attr_accessor :return_url, :payment_method, :description, :amount, :state, :redirect_url, :with_skype
 
   belongs_to :scheduled_course
   # TODO - This association needs to be checked for syntax and expected output
   belongs_to :student, -> { where('users.role IN (?)', User::ROLES[:student]) }, class_name: :User, foreign_key: :student_user_id
   has_one :enrolment, dependent: :nullify
 
-  attr_accessible :scheduled_course, :scheduled_course_id, :gateway, :status
+  attr_accessible :scheduled_course, :scheduled_course_id, :gateway, :status, :with_skype
 
   money :price, currency: :price_currency, cents: :price_in_cents
   serialize :raw_params, Hash
@@ -116,7 +116,7 @@ class Purchase < ActiveRecord::Base
 
 
   def set_price
-    self.price = course.current_price(student_user_id).exchange_to(gateway_settings.currency) unless scheduled_course.nil?
+    self.price = course.current_price(student_user_id, with_skype).exchange_to(gateway_settings.currency) unless scheduled_course.nil?
     true
   end
 

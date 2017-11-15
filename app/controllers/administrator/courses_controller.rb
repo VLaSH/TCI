@@ -71,7 +71,7 @@ class Administrator::CoursesController < Administrator::BaseController
     end
 
     def permit_params
-      params.require(:course).permit(:title, :course_type_id, :page_title, :meta_description, :meta_keywords, :available, :hidden, :portfolio_review, :hide_dates, :instant_access, :summary, :description, :price, :photo, :vimeo_video_id, :youtube_video_id, :category_1, :category_2, :category_5, :category_3, :category_4, :duration, 'starts_on(1i)', 'starts_on(2i)', 'starts_on(3i)', 'starts_on(4i)', 'starts_on(5i)', :frequency, :delete_photo, instructor_ids: [])
+      params.require(:course).permit(:title, :course_type_id, :page_title, :meta_description, :meta_keywords, :available, :hidden, :portfolio_review, :hide_dates, :instant_access, :fee_price, :summary, :description, :price, :photo, :vimeo_video_id, :youtube_video_id, :category_1, :category_2, :category_5, :category_3, :category_4, :duration, 'starts_on(1i)', 'starts_on(2i)', 'starts_on(3i)', 'starts_on(4i)', 'starts_on(5i)', :frequency, :delete_photo, instructor_ids: [])
 
     end
 

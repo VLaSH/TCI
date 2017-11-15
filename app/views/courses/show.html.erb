@@ -40,6 +40,15 @@
           <%# end -%>
           <!-- <p>Tags : <span><%#= tags.size > 0 ? tags.join(" ").html_safe : "No tags for this course" -%></span></p> -->
         </div>
+        <% if @course.fee_price > 0 %>
+          <div class="description">
+            <%= select_tag 'price', options_for_select([["Without Skype Call - #{session[:currency].try(:upcase) || 'USD'.upcase} #{converted_price(@course.price, session[:currency])} ", false],
+              ["With Skype Call - #{session[:currency].try(:upcase) || 'USD'.upcase} #{converted_price(@course.fee_price, session[:currency])} ", true]
+            ]), style: 'color: white;', class: 'skype-option-selector' %>
+          
+          <br>
+          </div>
+        <% end %>
         <dt class='slider-btns'>
           <%= course_enrolment_btn %>
         </dt>
@@ -51,7 +60,11 @@
           <%= @course.title %>            
         </div>
         <div style="margin-bottom: 15px;"><span>Course Price:</span> <strong>
- <%= session[:currency] || "USD" %> <%= Money.new(@course.price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %>  </strong></div>
+          <%= session[:currency] || "USD" %> <%= Money.new(@course.price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %>  </strong></div>
+        <% if @course.fee_price > 0 %>  
+          <div style="margin-bottom: 15px;"><span>Course Price With Skype Call:</span> <strong>
+            <%= session[:currency] || "USD" %> <%= converted_price(@course.fee_price, session[:currency]) %>  </strong></div>  
+        <% end %>    
         <div class="page_description">
           <%= @course.description.try :html_safe %>
         </div>
@@ -83,3 +96,18 @@
     </div>
   </div><!-- Container -->
 </div><!-- Main Content -->
+
+
+<% if @course.fee_price > 0 %>
+  <script>
+    $('.skype-option-selector').on('change', function(e){
+      val = e.target.value
+      if (val === 'true') {
+        $('.buy-course-link').attr('href', $('.buy-course-link').data('link') + '?with=skype')
+        href = $('.buy-course-link').data('link')
+      } else {
+        $('.buy-course-link').attr('href', $('.buy-course-link').data('link'))
+      }
+    })
+  </script>
+<% end %>
