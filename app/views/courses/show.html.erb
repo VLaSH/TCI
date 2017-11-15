@@ -44,7 +44,7 @@
           <div class="description">
             <%= select_tag 'price', options_for_select([["Without Skype Call - #{session[:currency].try(:upcase) || 'USD'.upcase} #{converted_price(@course.price, session[:currency])} ", false],
               ["With Skype Call - #{session[:currency].try(:upcase) || 'USD'.upcase} #{converted_price(@course.fee_price, session[:currency])} ", true]
-            ]), style: 'color: white;', class: 'skype-option-selector' %>
+            ]), style: 'background-color: white;', class: 'skype-option-selector' %>
           
           <br>
           </div>
