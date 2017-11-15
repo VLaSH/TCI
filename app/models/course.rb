@@ -145,7 +145,7 @@ class Course < ActiveRecord::Base
   end
 
   def calculate_price(with_skype)
-    with_skype && self.fee_price > 0 ? self.fee_price : self.price
+    with_skype && self.fee_price_in_cents && self.fee_price_in_cents > 0 ? self.fee_price : self.price
   end
 
   def calculate_price_in_cents(with_skype)
