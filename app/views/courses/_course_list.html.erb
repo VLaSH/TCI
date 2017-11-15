@@ -28,7 +28,7 @@
               <li><span>Category :</span> <%= get_course_type(course) %></li>
               <li><span>Duration :</span> <%= duration_for_display(course.duration) %></li>
               <li><span>Cost :</span><strong> <%= session[:currency] || "USD" %> <%= Money.new(course.price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %></strong></li>
-              <% if course.fee_price_in_cents > 0 %>
+              <% if course.fee_price_in_cents && course.fee_price_in_cents > 0 %>
               <li><span>Cost With Skype Call :</span><strong> <%= session[:currency] || "USD" %> <%= Money.new(course.fee_price, "USD").exchange_to(session[:currency].try(:to_sym) || :USD) %></strong></li>
               <% end %>
             </ul>
