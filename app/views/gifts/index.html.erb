@@ -1,0 +1,39 @@
+<%
+page_config do |page|
+  page.body_tag_options = { :class => 'sales', :id => 'gifts' }
+  page.primary_navigation_section = :gifts
+  page.title.unshift('Gifts')
+end
+-%>
+
+<% content_for :meta do %>
+<meta name="keywords" content="The Compelling Image Learn Photography Online Video Production Course" />
+<meta name="description" content="Take an online course in photography or video production with The Compelling Image. Our industry established experts take you from strength to strength." />
+<% end %>
+
+<div class="container content_bg margin-t-70"><!-- Container -->
+<!-- <div class="banner">
+  <%= image_tag how_it_work_banner_image, alt: "" %>
+  <span>
+    How It Works
+  </span>
+</div> -->
+<!-- Banner -->
+<div class="inner_content_container">
+  <div class="inner_content_left">
+    <div class="page_title">Gift a Course</div>
+      <!-- Page Title -->
+      <p>With courses ranging from beginner through aspiring professional levels, The Compelling Image (TCI) School of Photography and Visual Storytelling is the affordable and convenient way to learn photography - interactively, right from your own home and in tune with your busy schedule. All you need is a computer or mobile device and connection to the internet.</p>
+      <% @gifts.each do |gift| %>
+        <p><span class="bigtext" style="color: #E30613;">Buy a <%= gift.title %></span></p>
+        <%= link_to 'BUY NOW', new_gift_path(gift_id: gift.id), class: 'enroll'%>
+      <% end %>
+  </div>
+  <!-- Left Content -->
+
+  <div class="inner_content_right">
+    <%= render(:partial => "common/testimonials",:locals=>{:testimonials=>@testimonials}) -%>
+    <%= render(:partial => "common/sample", :locals => {:classes => "margin_bottom_20"}) -%>
+  </div><!-- Sidebar -->
+</div><!-- Inner Content Container -->
+</div><!-- Container -->

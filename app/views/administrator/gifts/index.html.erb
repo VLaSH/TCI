@@ -1,0 +1,45 @@
+<div class="grid_11 margin_top_20 alpha">
+<% unless @gifts.empty? %>
+  <table summary="List of gifts" class="pretty">
+    <thead>
+      <tr>
+        <th>Gifts</th>
+        <th>Lessons</th>
+        <th>Price $</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @gifts.each do |gift| %>
+        <tr>
+          <td><%= link_to(h(gift.title), edit_administrator_gift_path(gift)) -%></td>
+          <td><%= h(gift.lessons_amount) -%></td>
+          <td><%= h(gift.price) -%></td>
+          <td align="right">
+            <%= link_to(image_tag("icons/pencil.png", :alt => "Edit gift"), edit_administrator_gift_path(gift), :rel => "Edit gift", title: 'gift') -%>
+            &nbsp;
+            <%= link_to(image_tag("icons/delete.png", :alt => "Delete gift"), administrator_gift_path(gift), method: :delete, :rel => "Delete this gift", title: "Delete") -%></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate(@gifts) %>
+<% else %>
+  <p>There are no gifts that match your selected criteria.</p>
+<% end %>
+</div>
+<div class="grid_5 margin_top_20 omega">
+<p class="buttons">
+  <%= pretty_button_link "Create new gift", new_administrator_gift_path, {:icon_path => "icons/add.png"} %>
+</p>
+<div class="clear">&nbsp;</div><br />
+
+<form class="pretty">
+  <fieldset>
+    <legend>Search</legend>
+    <input type="text" name="search" id="search" width="50" style="width: 60%;" value="<%= @search -%>">
+  </fieldset>
+  <p class="buttons"><%= pretty_button "Apply Filter" %> <%= pretty_button_link "Clear Filters", "?search=" %></p>
+  <div class="clear">&nbsp;</div>
+</form>
+<div class="clear">&nbsp;</div>

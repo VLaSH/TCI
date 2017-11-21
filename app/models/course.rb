@@ -29,6 +29,8 @@ class Course < ActiveRecord::Base
     o.has_many :renewals, -> {where(deleted_at: nil)}
   end
 
+  has_one :gift
+
   acts_as_attachable
   acts_as_deletable
   acts_as_discussable

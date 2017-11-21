@@ -32,8 +32,8 @@
         else if(lastPart=='courses?cat=3')
           $('#review').addClass('active'); 
         else if(lastPart=='new?with=skype')
-          true
-        else
+          true         
+        else if(!lastPart.match(/\?/))
           $('#'+lastPart+'').addClass('active');
         });
         //window.alert(this.href.substr(this.href.lastIndexOf('/') + 1));
@@ -46,7 +46,14 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li id="home"><%= link_to 'HOME', root_path %></li>
-          <li id="about"><%= link_to 'HOW IT WORKS', page_path(names: 'about') %></li>
+          <li class="dropdown" id="about">
+            <%= link_to page_path(names: 'about') do %>
+              HOW IT WORKS <b class="caret"></b>
+            <% end %>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Gift a Course', gifts_path%></li>
+            </ul>
+          </li>
           <li class="dropdown" id="courses"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><%= link_to 'All', courses_path%></li>
