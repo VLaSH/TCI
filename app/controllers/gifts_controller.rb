@@ -1,4 +1,5 @@
 class GiftsController < ApplicationController
+  before_action :require_student_user, except: :index
   before_action :verify_params, except: [:index, :execute]
   before_action :gift, except: [:index, :execute]
 
