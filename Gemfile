@@ -82,7 +82,7 @@ gem 'social-share-button'
 
 gem "letter_opener", :group => :development
 gem 'sidekiq'
-gem 'responders', '~> 2.0'
+# gem 'responders', '~> 2.0'
 
 #gem 'shareable'
 
