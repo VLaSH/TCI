@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Gift certificate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<%= wicked_pdf_stylesheet_link_tag("pdf.css") %>
+</head>
+<body>
+
+<div class="TCICertificate">
+<div class="txtName"><%= name %></div>
+<div class="des">Has successfully purchased a <%= lessons_amount %> lessons course</div>
+<div class="date"><%= Date.current.strftime("%B %d, %Y") %></div>
+
+<%= image_tag wicked_pdf_asset_base64('gift_certificate.jpg') %>
+</div>
+</body>
+</html>

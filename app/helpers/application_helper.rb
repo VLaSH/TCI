@@ -1,7 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 include ::ActionView::Helpers::PrototypeHelper
 module ApplicationHelper
-
   def get_banner_slide_speed
     Settings.find_by(key: 'banner_slide_speed').value rescue 1000
   end

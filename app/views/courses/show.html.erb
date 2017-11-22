@@ -52,6 +52,11 @@
         <dt class='slider-btns'>
           <%= course_enrolment_btn %>
         </dt>
+        <% if (@course.category_3 && @course.gift.present?) || !@course.category_3 %>
+          <dt class='slider-btns'>
+            <%= link_to 'Gift this Course', new_gift_path(lessons_amount: @course.lessons.size, course: @course.id) %>
+          </dt>
+        <% end %>
       </div>
     </div><!-- Banner -->
     <div class="inner_content_container">

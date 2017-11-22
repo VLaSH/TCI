@@ -27,6 +27,9 @@
             </div>
           <% end %>
         <% end %>
+        <% f.fieldset(:legend => "Enter your coupon code") do %>
+          <%= text_field_tag :coupon_code, '', maxlength: 6 %>
+        <% end %>
         <%= f.submit('Enroll', :name => nil, class: 'btn purchase_enroll_btn') %>
       <% end %>
     </div>
@@ -41,9 +44,10 @@
   <script>
   jQuery(function ($) {
     $(document).ready(function(){
-      $( ".purchase_enroll_btn" ).click(function(e) {
+      $( "form" ).submit(function(e) {
         if ($('#purchase_gateway_stripe').is(':checked')) {
-        var token = function(res){
+          console.log('here')
+          var token = function(res){
         var $input = $('<input type=hidden name=stripeToken />').val(res.id);
           $('form').append($input).submit();
         };
@@ -53,7 +57,7 @@
             currency:    'usd',
             panelLabel:  'Checkout',
             token:       token
-          });
+          });          
           e.preventDefault();
         }
       });

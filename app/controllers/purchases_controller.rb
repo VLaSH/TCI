@@ -57,22 +57,21 @@ class PurchasesController < ApplicationController
       page.primary_navigation_section = :courses
       page.title.unshift('New Enrollment')
     end
-    if @course.free?
-      if @course.existing_enrolment(current_user).nil?
-        enrolment = Enrolment.new(:student => current_user, scheduled_course: @course.scheduled_course)
-        if enrolment.save
-          redirect_to student_root_path, notice: 'Thank you for signing up - the course will now be available in your student area'
-        else
-          redirect_to student_root_path, alert: 'We were unable to enroll you on the course - please try again later'
+    if params[:coupon_code].present?
+      activate_coupon
+    elsif @course.free?
+      enroll :course do |status, message|
+        if status == :error
+          redirect_to student_root_path, alert: message
+        elsif status == :ok
+          redirect_to student_root_path, notice: message
         end
-      else
-        redirect_to student_root_path, notice: 'You are already enrolled on this course'
       end
     else
       # New Paypal
       if params.has_key?(:purchase)
         if (@purchase = current_user.purchases.create(params[:purchase].merge(scheduled_course_id: @course.scheduled_course.id)))
-          @purchase.return_url =  payment_execute_url(@course, @purchase)
+          @purchase.return_url = payment_execute_url(@course, @purchase)
           params[:purchase][:gateway].include?("Stripe") ? @purchase.create_payment(params) : @purchase.create_payment
           if @purchase.approve_url
             redirect_to @purchase.approve_url
@@ -126,7 +125,7 @@ class PurchasesController < ApplicationController
     else
       # New Paypal
       unless (@purchase = current_user.purchases.create(params[:purchase])).new_record?
-        @purchase.return_url =  payment_execute_url(@course, @purchase)
+        @purchase.return_url = payment_execute_url(@course, @purchase)
         params[:purchase][:gateway].include?("Stripe") ? @purchase.create_payment(params) : @purchase.create_payment
         if @purchase.approve_url
           redirect_to @purchase.approve_url
@@ -142,7 +141,7 @@ class PurchasesController < ApplicationController
   end
 
   def unsubscribe
-    if @enrolment.course_free?
+    if @enrolment.course_free? || @enrolment.gift_course?
       @enrolment.update_column(:unsubscribe, true)
       flash[:notice] = 'You have successfully unsubscribed course.'
     else
@@ -157,46 +156,76 @@ class PurchasesController < ApplicationController
 
   protected
 
-    def can_purchase?
-      if !@course.has_lessons?
-        redirect_to student_root_path, alert: 'Sorry!, This course is not ready for enrolment, There are no lessons created yet.'
-      elsif @course.existing_enrolment(current_user)
-        redirect_to student_root_path, alert: 'Sorry, you have already enroled this Course.'
+  def can_purchase?
+    if !@course.has_lessons?
+      redirect_to student_root_path, alert: 'Sorry!, This course is not ready for enrolment, There are no lessons created yet.'
+    elsif @course.existing_enrolment(current_user)
+      redirect_to student_root_path, alert: 'Sorry, you have already enroled this Course.'
+    end
+  end
+
+  # to restrict the unathorise renewal (can renew before 7 days only.)
+  def can_renewable?
+    if !@course.has_lessons?
+      redirect_to student_root_path, alert: 'Sorry!, This course is not ready for enrolment, There are no lessons created yet.'
+    elsif !@course.existing_enrolment(current_user).renewable?(current_user)
+      redirect_to student_root_path, alert: "You cann't renew course, Please contact to admin."
+    end
+  end
+
+  def find_enrolment
+    @enrolment = Enrolment.joins(:scheduled_course).user_enrolments(current_user).where('scheduled_courses.course_id = ? AND enrolments.id = ?', params[:course_id], params[:id]).first
+    if @enrolment.blank? || !@enrolment.try(:can_unsubscribe?)
+      redirect_to student_root_path, alert: 'You are not authorised.'
+    end
+  end
+
+  def permit_params
+    @params = params.permit(:scheduled_course_id, :course_id)
+  end
+
+  def find_course
+    @course = Course.non_deleted.available.find(params[:course_id])
+  rescue ActiveRecord::RecordNotFound
+    flash_and_redirect_to('The requested course does not exist', :alert, courses_path)
+  end
+
+  def enroll(enrolment_type, &block)
+    if @course.existing_enrolment(current_user).nil?
+      enrolment = Enrolment.new(:student => current_user, scheduled_course: @course.scheduled_course, enrolment_type: Enrolment.enrolment_types[enrolment_type])
+
+      if enrolment.save
+        block.call(:ok, 'Thank you for signing up - the course will now be available in your student area')
+      else
+        block.call(:error, 'We were unable to enroll you on the course - please try again later')
       end
-
+    else
+      block.call(:error, 'You are already enrolled on this course')
     end
+  end
 
-    # to restrict the unathorise renewal (can renew before 7 days only.)
-    def can_renewable?
-      if !@course.has_lessons?
-        redirect_to student_root_path, alert: 'Sorry!, This course is not ready for enrolment, There are no lessons created yet.'
-      elsif !@course.existing_enrolment(current_user).renewable?(current_user)
-        redirect_to student_root_path, alert: "You cann't renew course, Please contact to admin."
+  def activate_coupon
+    result = current_user.user_gifts.check_coupon_code(params[:coupon_code], @course)
+
+    if result[:status] == :error
+      redirect_to :back, alert: result[:message]
+    else
+      enroll :gift_course do |status, message|
+        if status == :error
+          redirect_to :back, alert: message
+        elsif status == :ok
+          UserGift.update_by_coupon_code(params[:coupon_code])
+          redirect_to student_root_path, notice: 'Coupon has been successfully activated. The course will now be available in your student area'
+        end
       end
     end
+  end
 
-    def find_enrolment
-      @enrolment = Enrolment.joins(:scheduled_course).user_enrolments(current_user).where('scheduled_courses.course_id = ? AND enrolments.id = ?', params[:course_id], params[:id]).first
-      if @enrolment.blank? || !@enrolment.try(:can_unsubscribe?)
-        redirect_to student_root_path, alert: 'You are not authorised.'
-      end
-    end
-
-    def permit_params
-      @params = params.permit(:scheduled_course_id, :course_id)
-    end
-
-    def find_course
-      @course = Course.non_deleted.available.find(params[:course_id])
-    rescue ActiveRecord::RecordNotFound
-      flash_and_redirect_to('The requested course does not exist', :alert, courses_path)
-    end
-
-    # def find_scheduled_courses
-    #   # @scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).all(:order => "#{ScheduledCourse.quoted_table_name}.#{ScheduledCourse.quoted_column_name('starts_on')} ASC")
-    #   #@scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).order("scheduled_courses.starts_on ASC")
-    #   @scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).order("scheduled_courses.created_at ASC")
-    #   flash_and_redirect_to('No scheduled courses currently available for this course', :alert, courses_path) if @scheduled_courses.size.zero?
-    # end
+  # def find_scheduled_courses
+  #   # @scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).all(:order => "#{ScheduledCourse.quoted_table_name}.#{ScheduledCourse.quoted_column_name('starts_on')} ASC")
+  #   #@scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).order("scheduled_courses.starts_on ASC")
+  #   @scheduled_courses = @course.scheduled_courses.non_deleted.enrollable(current_user).order("scheduled_courses.created_at ASC")
+  #   flash_and_redirect_to('No scheduled courses currently available for this course', :alert, courses_path) if @scheduled_courses.size.zero?
+  # end
 
 end

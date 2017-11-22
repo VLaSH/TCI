@@ -97,6 +97,9 @@ class User < ActiveRecord::Base
     o.has_many :deleted_critiques, -> { where.not(deleted_at: nil)}, class_name: :Critique
   end
 
+  has_many :user_gifts, primary_key: :email, foreign_key: :recipient_email
+  has_many :gifts, through: :user_gifts
+
   validates_presence_of :email, :given_name, :family_name, :address_street, :address_locality, :address_region, :address_postal_code, :address_country
 
   with_options if: Proc.new { |u| u.email_changed? } do |o|

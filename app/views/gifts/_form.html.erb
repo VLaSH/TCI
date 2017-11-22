@@ -1,0 +1,22 @@
+<h4 class="page_title color_black">Buy a <%= @gift.title -%> gift</h4>
+
+<%= uni_form_for(@user_gift, :url => gifts_path) do |f| %>
+    <%= error_messages(@user)%>
+    <%= hidden_field_tag :gift_id, @gift.id %>
+    <% f.fieldset(:legend => "Gift Details") do %>
+      <div class="ctrlHolder">
+        <%= @gift.description %>
+      </div>
+    <% end %>
+    <% f.fieldset(:legend => "Payment Method") do %>
+      <div class="ctrlHolder">
+        <%= f.purchase_gateway_radio_buttons(:gateway).join(' ').html_safe %>
+      </div>
+    <% end %>
+    <% f.fieldset(:legend => "Recipient details") do %>
+        <%= f.text_field :recipient_name, placeholder: 'Name' %>
+        <%= f.text_field :recipient_email, placeholder: 'Email', type: :email %>
+        <%= f.date_field :notify_on, placeholder: 'mm/dd/yyyy' %>
+    <% end %>
+    <button type=button class='btn purchase_enroll_btn'>Purchase</button>
+<% end %>

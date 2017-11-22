@@ -1,16 +1,19 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq', :constraints => lambda { |request|
+    User.find_by(id: request.session[:user_id]).try(:administrator?)
+  }
 
-  
   namespace :administrator do
-  get 'contest_descriptions/new'
+    get 'contest_descriptions/new'
   end
 
   namespace :administrator do
-  get 'contest_descriptions/index'
+    get 'contest_descriptions/index'
   end
 
   namespace :administrator do
-  get 'contest_descriptions/create'
+    get 'contest_descriptions/create'
   end
 
   namespace :administrator do
@@ -29,46 +32,45 @@ Rails.application.routes.draw do
         get 'export'
       end
       resource :activation, :only => :create
-      resources :attachments, :only => [ :index, :new, :create ] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
-
       end
     end
     get :change_image_order, to: 'attachments#change_image_order'
 
-    resources :attachments, :except => [ :index, :new, :create ] do
+    resources :attachments, :except => [:index, :new, :create] do
       member do
         get 'delete'
       end
-      resources :critiques, :only => [ :new, :create ]
+      resources :critiques, :only => [:new, :create]
     end
 
     resources :courses do
       member do
-        get 'delete'       
-      end     
-     
-      resources :attachments, :only => [:index, :new,:create]
-      resources :forum_topics, :only => [:index, :new,:create]
-      resources :lessons, :only => [:index, :new,:create]
+        get 'delete'
+      end
+
+      resources :attachments, :only => [:index, :new, :create]
+      resources :forum_topics, :only => [:index, :new, :create]
+      resources :lessons, :only => [:index, :new, :create]
       #resources :scheduled_courses, :only => [:index, :new,:create]
       resources :scheduled_courses, only: [:index]
     end
-    
+
     resources :blogs do
       member do
-        get 'delete'       
-      end     
-     
-      resources :attachments, :only => [:index, :new,:create]     
+        get 'delete'
+      end
+
+      resources :attachments, :only => [:index, :new, :create]
     end
 
     resources :certificate, only: [:index, :generate] do
-		collection do
-			post 'generate'
-		end
+      collection do
+        post 'generate'
+      end
     end
     resources :renewals, only: [:index, :create, :destroy]
 
@@ -82,7 +84,7 @@ Rails.application.routes.draw do
       member do
         get 'delete'
       end
-      resources :attachments, :only => [ :index, :new, :create ]
+      resources :attachments, :only => [:index, :new, :create]
     end
 
     resources :banner_images, only: [:index, :create, :destroy]
@@ -96,26 +98,26 @@ Rails.application.routes.draw do
       member do
         get 'delete'
       end
-      resources :posts, :controller => 'forum_posts', :only => [ :new, :create ]
+      resources :posts, :controller => 'forum_posts', :only => [:new, :create]
     end
 
-    resources :lessons, :except => [ :index, :new, :create ] do
+    resources :lessons, :except => [:index, :new, :create] do
       member do
         get 'delete'
       end
-      resources :attachments,:only => [ :index, :new, :create ] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
       end
-      resources :assignments, :only => [ :index, :new, :create ]
+      resources :assignments, :only => [:index, :new, :create]
     end
 
-    resources :assignments, :except => [ :index, :new, :create ] do
+    resources :assignments, :except => [:index, :new, :create] do
       member do
         get 'delete'
       end
-      resources :attachments, :only => [ :index, :new, :create ] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
@@ -123,11 +125,11 @@ Rails.application.routes.draw do
       resources :rearrangements
     end
 
-    resources :rearrangements, :except => [ :index, :new, :create ] do
+    resources :rearrangements, :except => [:index, :new, :create] do
       member do
         get 'delete'
       end
-      resources :attachments, :only => [ :index, :new, :create ] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
@@ -138,35 +140,35 @@ Rails.application.routes.draw do
       resources :submissions, :controller => 'assignment_submissions', :only => :index
     end
 
-    resources :assignment_submissions, :except => [ :index, :new, :create ] do
+    resources :assignment_submissions, :except => [:index, :new, :create] do
       member do
         get 'delete'
       end
-      resources :attachments, :only => [ :index, :new, :create ] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
       end
-      resources :critiques, :only => [ :new, :create ]
+      resources :critiques, :only => [:new, :create]
     end
 
     resources :scheduled_courses, :only => [:show] do
-      resources :enrolments, :only => [ :index, :new, :create ]
+      resources :enrolments, :only => [:index, :new, :create]
     end
 
-    resources :critiques, :only => [ :edit, :update, :destroy ] do
+    resources :critiques, :only => [:edit, :update, :destroy] do
       member do
         get 'delete'
       end
     end
 
-    resources :enrolments, :only => [ :edit, :update, :destroy ] do
+    resources :enrolments, :only => [:edit, :update, :destroy] do
       member do
         get 'delete'
       end
     end
 
-    resources :forum_posts, :only => [ :edit, :update, :destroy ] do
+    resources :forum_posts, :only => [:edit, :update, :destroy] do
       member do
         get 'delete'
       end
@@ -184,16 +186,17 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :gifts
   end
 
   namespace :instructor do
-    resource :account, :controller => 'users', :only => [ :edit, :update ]
+    resource :account, :controller => 'users', :only => [:edit, :update]
     resources :attachments do
       member do
         get 'delete'
       end
     end
-    
+
     resources :lessons_comment, :only => [:delete] do
       member do
         get 'delete'
@@ -214,37 +217,36 @@ Rails.application.routes.draw do
       member do
         get 'delete'
       end
-      resources :enrolments, :only => [ :index, :new, :create ]
+      resources :enrolments, :only => [:index, :new, :create]
     end
     resources :forum_topics, :except => :destroy do
-      resources :posts, :controller => 'forum_posts', :only => [ :new, :create ]
+      resources :posts, :controller => 'forum_posts', :only => [:new, :create]
     end
 
-    resources :submissions, :controller => 'assignments_submissions', :except => [ :new, :create ] do
-      resources :attachments, :only => [ :index, :new, :create ] do
+    resources :submissions, :controller => 'assignments_submissions', :except => [:new, :create] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
         end
       end
-      resources :critiques, :controller => 'assignment_critiques', :only => [ :new, :create ]
+      resources :critiques, :controller => 'assignment_critiques', :only => [:new, :create]
       #resource :sequence
     end
-    resources :forum_posts, :only => [ :edit, :update ]
-    get 'sequence/:id', :controller => "assignment_submissions", :action => 'sequence', as: :instructor_sequence 
-    
-    get 'lessons/:lesson_id/attachments/new',:controller => "upload_video", :action => 'new', :as => 'lession' 
-    get 'lessons/:lesson_id/attachments',:controller => "upload_video", :action => 'new',:as => 'lession1'
-    post 'lessons/:lesson_id/attachments',:controller => "upload_video", :action => 'create', :as => 'path_video'
-#    
-    get 'lessons/:lesson_id/upload',:controller => "upload_video", :action => 'upload', :as => 'inst_assignment'
-    get 'lessons/:lesson_id',:controller => "upload_video", :action => 'upload', :as => 'inst_assignment1'
-    post 'lessons/:lesson_id',:controller => "upload_video", :action => 'upload_video', :as => 'path_video_attach'
+    resources :forum_posts, :only => [:edit, :update]
+    get 'sequence/:id', :controller => "assignment_submissions", :action => 'sequence', as: :instructor_sequence
+
+    get 'lessons/:lesson_id/attachments/new', :controller => "upload_video", :action => 'new', :as => 'lession'
+    get 'lessons/:lesson_id/attachments', :controller => "upload_video", :action => 'new', :as => 'lession1'
+    post 'lessons/:lesson_id/attachments', :controller => "upload_video", :action => 'create', :as => 'path_video'
+    #
+    get 'lessons/:lesson_id/upload', :controller => "upload_video", :action => 'upload', :as => 'inst_assignment'
+    get 'lessons/:lesson_id', :controller => "upload_video", :action => 'upload', :as => 'inst_assignment1'
+    post 'lessons/:lesson_id', :controller => "upload_video", :action => 'upload_video', :as => 'path_video_attach'
   end
   get 'courses/fulldownload', :controller => 'courses', :action => 'fulldownload'
-  
-   
+
   namespace :student do
-    resource :account, :controller => 'users', :only => [ :edit, :update ]
+    resource :account, :controller => 'users', :only => [:edit, :update]
     resources :attachments do
       member do
         get 'delete'
@@ -253,61 +255,63 @@ Rails.application.routes.draw do
         post 'order'
       end
     end
-    
+
     resources :courses, :controller => 'scheduled_courses' do
       resources :lessons, :controller => 'scheduled_lessons', :only => :show
-      resources :reviews, only: [ :new, :create, :destroy ]
-    end
-    
-    resources :assignments, :controller => 'scheduled_assignments' do
-      resources :submissions, :controller => 'assignment_submissions', :only => [ :new, :create ]
+      resources :reviews, only: [:new, :create, :destroy]
     end
 
-    resources :submissions, :controller => 'assignment_submissions', :except => [ :new, :create ] do
-      resources :attachments, :only => [ :index, :new, :create ] do
+    resources :assignments, :controller => 'scheduled_assignments' do
+      resources :submissions, :controller => 'assignment_submissions', :only => [:new, :create]
+    end
+
+    resources :submissions, :controller => 'assignment_submissions', :except => [:new, :create] do
+      resources :attachments, :only => [:index, :new, :create] do
         collection do
           post 'order'
           get 'sequence'
         end
       end
       resources :critiques do
-        resources :critiques, :only => [ :new, :create ]
+        resources :critiques, :only => [:new, :create]
       end
     end
 
     resources :forum_topics, :except => :destroy do
-      resources :posts, :controller => 'forum_posts', :only => [ :new, :create ]
+      resources :posts, :controller => 'forum_posts', :only => [:new, :create]
     end
     resources :updates, :only => [:index]
-    resources :forum_posts, :only => [ :edit, :update ]
+    resources :forum_posts, :only => [:edit, :update]
 
     get 'sequence/:id', :controller => "assignment_submissions", :action => 'sequence', as: :student_sequence
-    
-    get 'lessons/:lesson_id/assignments/:assignments_id/attachments/new',:controller => "upload_video", :action => 'new', :as =>'stdunt_post_video'
-    get 'lessons/:lesson_id/assignments/:assignments_id/attachments',:controller => "upload_video", :action => 'new', :as =>'stdunt_post_video1'
-    post 'lessons/:lesson_id/assignments/:assignments_id/attachments',:controller => "upload_video", :action => 'create', :as => 'post_video'
+
+    get 'lessons/:lesson_id/assignments/:assignments_id/attachments/new', :controller => "upload_video", :action => 'new', :as => 'stdunt_post_video'
+    get 'lessons/:lesson_id/assignments/:assignments_id/attachments', :controller => "upload_video", :action => 'new', :as => 'stdunt_post_video1'
+    post 'lessons/:lesson_id/assignments/:assignments_id/attachments', :controller => "upload_video", :action => 'create', :as => 'post_video'
   end
   get 'attachments/:id/:style.:format', :controller => 'attachments', :action => 'download', as: :attachment_download
- 
-  get "paypal" => "purchase_notifications#paypal" ,:path => "purchase_notifications/paypal"
-  
-  post 'purchase_notifications/:gateway', :controller => 'purchase_notifications', :action => 'create', :requirements => { :gateway => /[a-z_]+/i }, as: :purchase_notifications
 
-  post 'package_purchase_notifications/:gateway', :controller => 'package_purchase_notifications', :action => 'create', :requirements => { :gateway => /[a-z_]+/i }, as: :package_purchase_notifications
+  get "paypal" => "purchase_notifications#paypal", :path => "purchase_notifications/paypal"
 
-  get 'purchase_complete/:gateway', :controller => 'purchase_completions', :action => 'create', :requirements => { :gateway => /[a-z_]+/i }, as: :purchase_completions
+  post 'purchase_notifications/:gateway', :controller => 'purchase_notifications', :action => 'create', :requirements => {:gateway => /[a-z_]+/i}, as: :purchase_notifications
 
-  resources :instructors, :only => [ :index, :show ]
+  post 'package_purchase_notifications/:gateway', :controller => 'package_purchase_notifications', :action => 'create', :requirements => {:gateway => /[a-z_]+/i}, as: :package_purchase_notifications
 
-  resources :courses, :only => [ :index, :show ] do
-    resource :purchase, :only => [ :new, :create ] do
+  get 'purchase_complete/:gateway', :controller => 'purchase_completions', :action => 'create', :requirements => {:gateway => /[a-z_]+/i}, as: :purchase_completions
+
+  resources :instructors, :only => [:index, :show]
+
+  resources :courses, :only => [:index, :show] do
+    resource :purchase, :only => [:new, :create] do
       get 'renew' => 'purchases#renew'
       post 'renew_subscription' => 'purchases#renew_subscription'
     end
   end
-  
+  resources :gifts
+
   put '/courses/:course_id/enrolments/:id/unsubscribe', to: 'purchases#unsubscribe', as: :unsubscribe_course
   get '/courses/:course_id/purchases/:id/execute', to: 'purchases#execute', as: :payment_execute
+  get '/gifts/:gift_id/execute', to: 'gifts#execute', as: :gift_execute
 
   get '/courses/:course_id/purchases/:id/renew_execute', to: 'purchases#renew_execute', as: :renew_payment_execute
   # put '/courses/:course_id/purchase/:id/payment', to: 'purchase#payment', as: :payment
@@ -317,38 +321,36 @@ Rails.application.routes.draw do
   get 'courses/tags/:tag', :controller => 'courses', :action => 'index', as: :course_tags
 
   get 'courses/types/:course_type', :controller => 'courses', :action => 'index', as: :course_type
-  
-  	
+
   get 'files/courses/:id/:style', :controller => 'courses', :action => 'photo', as: :course_photo
-   get 'files/blogs/:id/:style', :controller => 'courses', :action => 'blogphoto', as: :blog_photo
-	
-	post '/tinymce_assets' => 'tinymce_assets#create'
-	
+  get 'files/blogs/:id/:style', :controller => 'courses', :action => 'blogphoto', as: :blog_photo
+
+  post '/tinymce_assets' => 'tinymce_assets#create'
+
   get 'tags', :controller => 'courses', :action => 'tag_cloud', as: :tags
-	get 'blog', :controller => 'blogs', :action => 'index'
+  get 'blog', :controller => 'blogs', :action => 'index'
 
   get 'contest/', :controller => 'contests', :action => 'index'
 
-
-	post 'blogs/savecomment', :controller => 'blogs', :action => 'savecomment'
+  post 'blogs/savecomment', :controller => 'blogs', :action => 'savecomment'
   get 'blog/:id', :controller => 'blogs', :action => 'show', as: :inner_blog
-  resources :packages, :only => [ :index, :show ] do
-    resource :purchase, :controller => 'package_purchases', :only => [ :new, :create ]
+  resources :packages, :only => [:index, :show] do
+    resource :purchase, :controller => 'package_purchases', :only => [:new, :create]
   end
 
   get 'files/packages/:id/:style', :controller => 'packages', :action => 'photo', as: :package_photo
 
-  resources :workshops, :only => [ :index, :show ]
+  resources :workshops, :only => [:index, :show]
 
   get 'files/workshops/:offset/:id/:style', :controller => 'workshops', :action => 'photo', as: :workshop_photo
 
   resources :enquiries, :only => [:new, :create] do
-    collection  do
+    collection do
       get 'submitted'
     end
   end
-	
-  resource :session, :only => [:new, :create ]
+
+  resource :session, :only => [:new, :create]
 
   get '/sessions/login', to: 'sessions#new', as: :login
   get '/sessions/logout', to: 'sessions#destroy', as: :logout
@@ -358,21 +360,21 @@ Rails.application.routes.draw do
   #   session.logout 'logout', :action => 'destroy'
   # end
 
-  resources :simple_signups, :only => [ :create ]
+  resources :simple_signups, :only => [:create]
 
-  resource :activation, :only => [ :new, :create ]
+  resource :activation, :only => [:new, :create]
 
-  resource :password, :only => [ :new, :create ]
+  resource :password, :only => [:new, :create]
 
   post 'set_currency', to: 'application#set_currency'
   get 'users/:user_id/activation/:activation_code_confirmation',
-                             :controller => 'activations',
-                             :action => 'create',
-                             :requirements => { :user_id => /\d+/, :activation_code_confirmation => /[a-f\d]+/i }, as: :create_user_activation
+      :controller => 'activations',
+      :action => 'create',
+      :requirements => {:user_id => /\d+/, :activation_code_confirmation => /[a-f\d]+/i}, as: :create_user_activation
 
   resource :user, :controller => 'usersnew', :only => [:new, :create]
-  get "user"=>"usersnew#new"
-  get "enquiries"=>"enquiries#new"
+  get "user" => "usersnew#new"
+  get "enquiries" => "enquiries#new"
   get 'files/users/:id/:style', :controller => 'users', :action => 'photo', as: :user_photo
 
   get 'files/users/instructors/:id/:style', :controller => 'users', :action => 'instructor_photo', as: :user_instructor_photo
@@ -404,18 +406,18 @@ Rails.application.routes.draw do
   resources :contests, only: [:index]
 
   resources :image_order, :only => [:new] do
-    collection  do
+    collection do
       post 'change_image_order'
     end
   end
-  
+
   #get '/facebook/connect', to: 'omniauth_callbacks#connect'
 
   get '/auth/facebook/callback', to: 'omniauth_callbacks#facebook'
 
   get 'sitemap' => 'sitemaps#index', :as => :sitemap
-  
-  #get '/blog', to: 'blog#redirect' , :as => :blog 
+
+  #get '/blog', to: 'blog#redirect' , :as => :blog
 
   get "/instagram/connect" do
     redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
