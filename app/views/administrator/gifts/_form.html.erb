@@ -5,6 +5,7 @@
     <%= f.select(:category, Gift::CATEGORIES.map { |cat| [cat[1], cat[0]] }) %>
     <%= f.select(:course_id, Course.category_3.map { |course| [course.title, course.id] }.unshift(['None', '']),{}, disabled: true) %>
     <%= f.text_field(:title, :size => '255', :label => "Title", :required => true, :style => "width: 99%;") %>
+    <%= f.check_box(:with_skype, :label => "With Skype Session", :required => true, :style => "width: 99%;") %>    
     <%= f.number_field(:lessons_amount, :size => '30', :label => "Amount of lessons", :required => false, :style => "width: 99%;") %>
     <%= f.number_field(:price, :label => "Price $",:style => "width: 99%;") %>
     <%= f.text_area(:description, :label => "Description", :style => "width: 99%;") %>
@@ -25,6 +26,12 @@ jQuery(function ($) {
       $('#gift_course_id').attr('disabled', false)
     } else {
       $('#gift_course_id').attr('disabled', true)      
+    }
+
+    if(target.options[target.selectedIndex].value === '1') {
+      $('#gift_with_skype').attr('disabled', false)
+    } else {
+      $('#gift_with_skype').attr('disabled', true)
     }
   }
 });

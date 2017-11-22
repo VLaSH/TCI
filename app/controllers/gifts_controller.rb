@@ -67,7 +67,10 @@ class GiftsController < ApplicationController
   end
 
   def gift
-    @gift ||= params[:gift_id].present? ? Gift.find_by(id: params[:gift_id]) : Gift.find_by_category_and_lessons_amount(params[:course], params[:lessons_amount])
+    @gift ||= params[:gift_id].present? ? Gift.find_by(id: params[:gift_id]) : Gift.find_by_category_and_lessons_amount(
+                                                                                 params[:course], params[:lessons_amount],
+                                                                                 ActiveRecord::Type::Boolean.new.type_cast_from_user(params[:with_skype])
+                                                                               )
   end
 
   def delay_size
@@ -75,7 +78,7 @@ class GiftsController < ApplicationController
   end
 
   def verify_params
-    unless params[:gift_id].present? || (params[:course].present? && params[:lessons_amount].present?)
+    unless params[:gift_id].present? || (params[:course].present? && params[:lessons_amount].present? && params[:with_skype])
       redirect_to student_root_path
     end
   end

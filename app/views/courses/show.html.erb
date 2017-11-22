@@ -54,7 +54,7 @@
         </dt>
         <% if (@course.category_3 && @course.gift.present?) || !@course.category_3 %>
           <dt class='slider-btns'>
-            <%= link_to 'Gift this Course', new_gift_path(lessons_amount: @course.lessons.size, course: @course.id) %>
+            <%= link_to 'Gift this Course', new_gift_path(lessons_amount: @course.lessons.size, course: @course.id), class: 'gift-course-link', data: { link: new_gift_path(lessons_amount: @course.lessons.count, course: @course.id) } %>
           </dt>
         <% end %>
       </div>
@@ -105,14 +105,22 @@
 
 <% if @course.fee_price_in_cents && @course.fee_price_in_cents > 0 %>
   <script>
-    $('.skype-option-selector').on('change', function(e){
-      val = e.target.value
-      if (val === 'true') {
-        $('.buy-course-link').attr('href', $('.buy-course-link').data('link') + '?with=skype')
-        href = $('.buy-course-link').data('link')
-      } else {
-        $('.buy-course-link').attr('href', $('.buy-course-link').data('link'))
+    jQuery(function ($) {
+      toggleWithSkype($('.skype-option-selector'))
+      function toggleWithSkype(target) {
+        val = target.value;
+        if (val === 'true') {
+          $('.buy-course-link').attr('href', $('.buy-course-link').data('link') + '?with=skype')
+          $('.gift-course-link').attr('href', $('.gift-course-link').data('link') + '&with_skype=true')
+          href = $('.buy-course-link').data('link')
+        } else {
+          $('.buy-course-link').attr('href', $('.buy-course-link').data('link'))
+          $('.gift-course-link').attr('href', $('.gift-course-link').data('link') + '&with_skype=false')
+        }
       }
+      $('.skype-option-selector').on('change', function(e){
+        toggleWithSkype(e.target);
+      })
     })
   </script>
 <% end %>

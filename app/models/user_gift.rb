@@ -8,18 +8,22 @@ class UserGift < ActiveRecord::Base
 
   attr_accessor :gateway, :return_url, :payment_method, :amount, :state, :redirect_url
 
-  delegate :price, :description, :lessons_amount, to: :gift
+  delegate :price, :description, :lessons_amount, :with_skype, to: :gift
 
   validates :gift, :recipient_email, :recipient_name, presence: true
   validates :recipient_email, format: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   scope :available, -> { where(is_used: false, status: UserGift.statuses[:active]) }
 
-  def self.check_coupon_code(coupon_code, course)
+  def self.check_coupon_code(coupon_code, with_skype, course)
     return {status: :error, message: 'Code length should be 6 digits'} if coupon_code.to_s.length != 6
-
+    
     user_gift = available.find_by(coupon_code: coupon_code)
     if user_gift.present?
+      unless user_gift.with_skype && ActiveRecord::Type::Boolean.new.type_cast_from_user(with_skype)
+        return {status: :error, message: "Your gift works only for courses #{user_gift.with_skype ? 'with' : 'without'} \"With Skype Session\" option"}
+      end
+      
       case user_gift.gift.category
       when 1
         if course.lessons.count == user_gift.lessons_amount

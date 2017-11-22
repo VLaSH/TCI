@@ -41,7 +41,7 @@ class Administrator::GiftsController < Administrator::BaseController
   private
 
   def gift_params
-    params.require(:gift).permit(:title, :lessons_amount, :price, :description, :category, :course_id)
+    params.require(:gift).permit(:title, :lessons_amount, :price, :description, :category, :course_id, :with_skype)
   end
 
   def gift
