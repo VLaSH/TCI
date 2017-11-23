@@ -205,7 +205,7 @@ class PurchasesController < ApplicationController
   end
 
   def activate_coupon
-    result = current_user.user_gifts.check_coupon_code(params[:coupon_code], @course)
+    result = current_user.user_gifts.check_coupon_code(params[:coupon_code], params[:purchase][:with_skype], @course)
 
     if result[:status] == :error
       redirect_to :back, alert: result[:message]

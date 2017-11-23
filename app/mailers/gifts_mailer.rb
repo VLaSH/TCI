@@ -1,7 +1,8 @@
 class GiftsMailer < ActionMailer::Base
   def notify_buyer(user_gift, user)
+    with_skype = user_gift.with_skype ? 'with Skype session' : ''
     pdf = WickedPdf.new.pdf_from_string(
-      render_to_string template: 'gifts_mailer/pdf_template.html.erb', locals: {name: "#{user.given_name} #{user.family_name}", lessons_amount: user_gift.lessons_amount}
+      render_to_string template: 'gifts_mailer/pdf_template.html.erb', locals: {name: "#{user.given_name} #{user.family_name}", lessons_amount: user_gift.lessons_amount, with_skype: with_skype}
     )
 
     attachments['gift-purchase-certificate.pdf'] = pdf

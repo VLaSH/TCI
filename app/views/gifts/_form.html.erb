@@ -5,7 +5,7 @@
     <%= hidden_field_tag :gift_id, @gift.id %>
     <% f.fieldset(:legend => "Gift Details") do %>
       <div class="ctrlHolder">
-        <%= @gift.description %>
+        <%= @gift.description %> <%= ' With Skype Session' if @gift.with_skype%>
       </div>
     <% end %>
     <% f.fieldset(:legend => "Payment Method") do %>

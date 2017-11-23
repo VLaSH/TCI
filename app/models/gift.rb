@@ -22,7 +22,7 @@ class Gift < ActiveRecord::Base
   has_many :users, through: :user_gifts
   belongs_to :course
 
-  def self.find_by_category_and_lessons_amount(course_id, lessons_amount)
+  def self.find_by_category_and_lessons_amount(course_id, lessons_amount, with_skype)
     course = Course.find_by(id: course_id)
     return nil if course.nil?
 
@@ -31,7 +31,7 @@ class Gift < ActiveRecord::Base
     elsif course.category_3
       course.gift
     else
-      find_by(category: 1, lessons_amount: lessons_amount)
+      find_by(category: 1, lessons_amount: lessons_amount, with_skype: with_skype)
     end
   end
 

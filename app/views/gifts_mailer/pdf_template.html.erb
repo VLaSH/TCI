@@ -8,7 +8,7 @@
 
 <div class="TCICertificate">
 <div class="txtName"><%= name %></div>
-<div class="des">Has successfully purchased a <%= lessons_amount %> lessons course</div>
+<div class="des">Has successfully purchased a <%= lessons_amount %> lessons course <%= with_skype %></div>
 <div class="date"><%= Date.current.strftime("%B %d, %Y") %></div>
 
 <%= image_tag wicked_pdf_asset_base64('gift_certificate.jpg') %>
