@@ -139,3 +139,34 @@ footer {background-color: #2C2929;margin: 0;padding: 0;display: block;}
   .wrapper-content p {font-size: 16px;width:85%;line-height: 20px;}
   .flinks {width: 100%;}
 }
+
+.gift-page-form {
+  margin-top: 5%;
+}
+
+.gift-page-title,
+.gift-page-dropdown,
+.gift-page-price,
+.gift-page-submit {
+  display: inline-block!important;
+  bottom: 0;
+}
+
+.gift-page-dropdown,
+.gift-page-price {
+  margin-left: 5%;
+}
+
+.gift-page-submit {
+  float: right;
+  background-color: #179BD5!important;
+  color: #FFF;
+}
+
+.gift-page-dropdown {
+  min-width: 20%;
+}
+
+.gift-page-price {
+  font-size: 2rem;  
+}
