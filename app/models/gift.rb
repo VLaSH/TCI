@@ -8,6 +8,7 @@ class Gift < ActiveRecord::Base
   }
 
   attr_accessor :price
+  attr_accessible :title, :lessons_amount, :price, :description, :category, :course_id, :with_skype
 
   acts_as_money
 
