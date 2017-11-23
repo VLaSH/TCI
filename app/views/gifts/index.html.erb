@@ -24,9 +24,11 @@ end
     <div class="page_title">Gift a Course</div>
       <!-- Page Title -->
       <p>With courses ranging from beginner through aspiring professional levels, The Compelling Image (TCI) School of Photography and Visual Storytelling is the affordable and convenient way to learn photography - interactively, right from your own home and in tune with your busy schedule. All you need is a computer or mobile device and connection to the internet.</p>
-      <% @gifts.each do |gift| %>
-        <p><span class="bigtext" style="color: #E30613;">Buy a <%= gift.title %></span></p>
-        <%= link_to 'BUY NOW', new_gift_path(gift_id: gift.id), class: 'enroll'%>
+      <%= form_for('', :url => new_gift_path, method: :get, html: { class: 'gift-page-form' }) do |f| %>
+          <span class='gift-page-title'>Choose  what you want to gift</span>
+          <%= f.select(:gift_id, @gifts.map { |g| [g.title, g.id, 'data-price': g.price] }, {}, class: 'gift-page-dropdown') %>
+          <b class='gift-page-price'></b>
+          <button class='enroll gift-page-submit' type='submit'>BUY</button>
       <% end %>
   </div>
   <!-- Left Content -->
@@ -37,3 +39,16 @@ end
   </div><!-- Sidebar -->
 </div><!-- Inner Content Container -->
 </div><!-- Container -->
+<script>
+  jQuery(function ($) {
+    setPrice($('#_gift_id option:selected'))
+
+    $('#_gift_id').on('change', function(e) {
+      setPrice(e.target.options[e.target.selectedIndex]);
+    })
+
+    function setPrice(target) {
+      $('.gift-page-price').text('$' + $(target).data('price'))
+    }
+  })
+</script>
