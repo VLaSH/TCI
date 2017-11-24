@@ -14,16 +14,18 @@
 ActiveRecord::Schema.define(version: 20171122175807) do
 
   create_table "assignment_submissions", force: :cascade do |t|
-    t.integer  "enrolment_id",            limit: 4,                        null: false
-    t.string   "title",                   limit: 255,                      null: false
-    t.text     "summary",                 limit: 65535
-    t.text     "description",             limit: 16777215
-    t.boolean  "completed",                                default: false, null: false
+    t.integer  "enrolment_id",             limit: 4,                        null: false
+    t.string   "title",                    limit: 255,                      null: false
+    t.text     "summary",                  limit: 65535
+    t.text     "description",              limit: 16777215
+    t.boolean  "completed",                                 default: false, null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "scheduled_assignment_id", limit: 4,                        null: false
-    t.text     "rearrangement",           limit: 65535
+    t.integer  "scheduled_assignment_id",  limit: 4,                        null: false
+    t.text     "rearrangement",            limit: 65535
+    t.text     "instructor_rearrangement", limit: 65535
+    t.integer  "instructor_unread",        limit: 1,        default: 1,     null: false
   end
 
   add_index "assignment_submissions", ["enrolment_id"], name: "idx_enrolment_id", using: :btree
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.text     "meta_data",          limit: 65535
     t.string   "vimeo_video_id",     limit: 255
     t.string   "youtube_video_id",   limit: 255
+    t.string   "vimeo_asset",        limit: 255
   end
 
   add_index "attachments", ["attachable_type", "attachable_id"], name: "idx_attachable_type_attachable_id", using: :btree
@@ -84,6 +87,52 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.string   "url",        limit: 1024
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "blogcomments", force: :cascade do |t|
+    t.integer  "blog_id",    limit: 4
+    t.text     "comment",    limit: 65535, null: false
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.string   "title",                     limit: 255,                  null: false
+    t.text     "content",                   limit: 65535,                null: false
+    t.string   "page_title",                limit: 255,                  null: false
+    t.text     "meta_description",          limit: 65535,                null: false
+    t.text     "meta_keywords",             limit: 65535,                null: false
+    t.boolean  "available",                               default: true, null: false
+    t.boolean  "hidden",                                  default: true, null: false
+    t.string   "photo_file_name",           limit: 255
+    t.string   "photo_content_type",        limit: 255
+    t.string   "photo_file_size",           limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "banner_photo_file_name",    limit: 255
+    t.string   "banner_photo_content_type", limit: 255
+    t.string   "banner_photo_conte",        limit: 255
+    t.string   "banner_photo_file_size",    limit: 255
+    t.datetime "banner_photo_updated_at"
+    t.string   "vimeo_video_id",            limit: 255
+  end
+
+  create_table "contest_descriptions", force: :cascade do |t|
+    t.text     "content",       limit: 65535
+    t.datetime "modified_date"
+  end
+
+  create_table "contests", force: :cascade do |t|
+    t.string  "year",               limit: 2000
+    t.string  "month",              limit: 2000
+    t.string  "winner_name",        limit: 5000
+    t.string  "photo_file_name",    limit: 255
+    t.string  "photo_content_type", limit: 255
+    t.string  "photo_file_size",    limit: 255
+    t.string  "winner_date",        limit: 5000
+    t.string  "winner_prize",       limit: 5000
+    t.integer "status",             limit: 4,    default: 1, null: false
   end
 
   create_table "course_types", force: :cascade do |t|
@@ -233,6 +282,17 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.boolean  "with_skype",                   default: false
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string   "alt_text",          limit: 111, default: "1", null: false
+    t.string   "hint",              limit: 111
+    t.string   "file_file_name",    limit: 111
+    t.string   "file_content_type", limit: 111
+    t.string   "file_file_size",    limit: 111
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "instructorships", force: :cascade do |t|
     t.integer  "course_id",          limit: 4, null: false
     t.integer  "instructor_user_id", limit: 4, null: false
@@ -250,6 +310,8 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.text     "description",        limit: 16777215
     t.integer  "duration",           limit: 4,        default: 0, null: false
     t.integer  "position",           limit: 4,        default: 0, null: false
+    t.string   "vimeo_asset",        limit: 255
+    t.integer  "delete_vimeo",       limit: 1,        default: 0, null: false
     t.string   "photo_file_name",    limit: 255
     t.string   "photo_content_type", limit: 255
     t.integer  "photo_file_size",    limit: 4
@@ -460,7 +522,7 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.boolean  "is_used",                     default: false
     t.integer  "status",          limit: 4,   default: 0
     t.integer  "coupon_code",     limit: 4,                          null: false
-    t.date     "notify_on",                   default: '2017-11-21'
+    t.date     "notify_on",                   default: '2017-11-22'
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
   end
@@ -502,6 +564,7 @@ ActiveRecord::Schema.define(version: 20171122175807) do
     t.boolean  "mentor"
     t.string   "youtube_video_id",              limit: 255,      default: "",       null: false
     t.string   "vimeo_video_id",                limit: 255,      default: "",       null: false
+    t.string   "provider_id",                   limit: 50
     t.string   "uid",                           limit: 255
     t.text     "custom_video_code",             limit: 65535
   end
@@ -509,51 +572,55 @@ ActiveRecord::Schema.define(version: 20171122175807) do
   add_index "users", ["email"], name: "idx_email", length: {"email"=>100}, using: :btree
 
   create_table "workshops", force: :cascade do |t|
-    t.string   "title",                  limit: 255,                      null: false
-    t.string   "page_title",             limit: 255
-    t.text     "summary",                limit: 65535
-    t.text     "description",            limit: 16777215
-    t.text     "enrolment",              limit: 65535
-    t.text     "upcoming",               limit: 65535
-    t.text     "terms",                  limit: 65535
-    t.integer  "full_price_in_cents",    limit: 4,        default: 0,     null: false
-    t.string   "full_price_currency",    limit: 3,        default: "USD", null: false
-    t.integer  "deposit_price_in_cents", limit: 4,        default: 0,     null: false
-    t.string   "deposit_price_currency", limit: 3,        default: "USD", null: false
-    t.string   "photo_1_file_name",      limit: 255
-    t.string   "photo_1_content_type",   limit: 255
-    t.integer  "photo_1_file_size",      limit: 4
+    t.string   "title",                     limit: 255,                      null: false
+    t.string   "page_title",                limit: 255
+    t.text     "summary",                   limit: 65535
+    t.text     "description",               limit: 16777215
+    t.text     "enrolment",                 limit: 65535
+    t.text     "upcoming",                  limit: 65535
+    t.text     "terms",                     limit: 65535
+    t.integer  "full_price_in_cents",       limit: 4,        default: 0,     null: false
+    t.string   "full_price_currency",       limit: 3,        default: "USD", null: false
+    t.integer  "deposit_price_in_cents",    limit: 4,        default: 0,     null: false
+    t.string   "deposit_price_currency",    limit: 3,        default: "USD", null: false
+    t.string   "photo_1_file_name",         limit: 255
+    t.string   "photo_1_content_type",      limit: 255
+    t.integer  "photo_1_file_size",         limit: 4
     t.datetime "photo_1_updated_at"
-    t.string   "photo_2_file_name",      limit: 255
-    t.string   "photo_2_content_type",   limit: 255
-    t.integer  "photo_2_file_size",      limit: 4
+    t.string   "photo_2_file_name",         limit: 255
+    t.string   "photo_2_content_type",      limit: 255
+    t.integer  "photo_2_file_size",         limit: 4
     t.datetime "photo_2_updated_at"
-    t.string   "photo_3_file_name",      limit: 255
-    t.string   "photo_3_content_type",   limit: 255
-    t.integer  "photo_3_file_size",      limit: 4
+    t.string   "photo_3_file_name",         limit: 255
+    t.string   "photo_3_content_type",      limit: 255
+    t.integer  "photo_3_file_size",         limit: 4
     t.datetime "photo_3_updated_at"
-    t.string   "photo_4_file_name",      limit: 255
-    t.string   "photo_4_content_type",   limit: 255
-    t.integer  "photo_4_file_size",      limit: 4
+    t.string   "photo_4_file_name",         limit: 255
+    t.string   "photo_4_content_type",      limit: 255
+    t.integer  "photo_4_file_size",         limit: 4
     t.datetime "photo_4_updated_at"
-    t.string   "photo_5_file_name",      limit: 255
-    t.string   "photo_5_content_type",   limit: 255
-    t.integer  "photo_5_file_size",      limit: 4
+    t.string   "photo_5_file_name",         limit: 255
+    t.string   "photo_5_content_type",      limit: 255
+    t.integer  "photo_5_file_size",         limit: 4
     t.datetime "photo_5_updated_at"
-    t.string   "photo_6_file_name",      limit: 255
-    t.string   "photo_6_content_type",   limit: 255
-    t.integer  "photo_6_file_size",      limit: 4
+    t.string   "photo_6_file_name",         limit: 255
+    t.string   "photo_6_content_type",      limit: 255
+    t.integer  "photo_6_file_size",         limit: 4
     t.datetime "photo_6_updated_at"
-    t.string   "vimeo_video_id",         limit: 255
-    t.integer  "instructor_1_id",        limit: 4
-    t.integer  "instructor_2_id",        limit: 4
-    t.integer  "instructor_3_id",        limit: 4
-    t.integer  "instructor_4_id",        limit: 4
+    t.string   "vimeo_video_id",            limit: 255
+    t.integer  "instructor_1_id",           limit: 4
+    t.integer  "instructor_2_id",           limit: 4
+    t.integer  "instructor_3_id",           limit: 4
+    t.integer  "instructor_4_id",           limit: 4
     t.boolean  "visible"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "youtube_video_id",       limit: 255
+    t.string   "youtube_video_id",          limit: 255
+    t.integer  "balance_price_in_cents",    limit: 4
+    t.string   "balance_price_currency",    limit: 5
+    t.integer  "supplement_price_in_cents", limit: 4
+    t.string   "supplement_price_currency", limit: 5
   end
 
 end

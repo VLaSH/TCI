@@ -25,7 +25,7 @@ end
       <!-- Page Title -->
       <p>With courses ranging from beginner through aspiring professional levels, The Compelling Image (TCI) School of Photography and Visual Storytelling is the affordable and convenient way to learn photography - interactively, right from your own home and in tune with your busy schedule. All you need is a computer or mobile device and connection to the internet.</p>
       <%= form_for('', :url => new_gift_path, method: :get, html: { class: 'gift-page-form' }) do |f| %>
-          <span class='gift-page-title'>Choose  what you want to gift</span>
+          <span class='gift-page-title'>choose your gift</span>
           <%= f.select(:gift_id, @gifts.map { |g| [g.title, g.id, 'data-price': g.price] }, {}, class: 'gift-page-dropdown') %>
           <b class='gift-page-price'></b>
           <button class='enroll gift-page-submit' type='submit'>BUY</button>

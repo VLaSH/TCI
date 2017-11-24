@@ -107,7 +107,7 @@ class Enrolment < ActiveRecord::Base
   def schedule_for!
     unless self.parent_id
       starts_on = created_at
-      course.lessons.all.order(:position).each do |lesson|
+      course.lessons.order(:position).each do |lesson|
         unless scheduled_course.scheduled_lessons.where('lesson_id= ? and enrolment_id = ?', lesson.id, id).first
           ScheduledLesson.create(student_user_id: self.student_user_id, enrolment_id: self.id, scheduled_course_id: scheduled_course.id, lesson_id: lesson.id)
         end
