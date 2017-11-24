@@ -7,7 +7,7 @@ class UserGift < ActiveRecord::Base
   before_create :generate_coupon_code
 
   attr_accessor :gateway, :return_url, :payment_method, :amount, :state, :redirect_url
-  attr_accessible :status, :gateway, :recipient_name, :recipient_email, :lessons_amount, :notify_on
+  attr_accessible :is_used, :status, :gateway, :recipient_name, :recipient_email, :lessons_amount, :notify_on
 
   delegate :price, :description, :lessons_amount, :with_skype, to: :gift
 
