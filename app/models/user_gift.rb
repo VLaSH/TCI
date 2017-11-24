@@ -18,13 +18,13 @@ class UserGift < ActiveRecord::Base
 
   def self.check_coupon_code(coupon_code, with_skype, course)
     return {status: :error, message: 'Code length should be 6 digits'} if coupon_code.to_s.length != 6
-    
+
     user_gift = available.find_by(coupon_code: coupon_code)
     if user_gift.present?
       unless user_gift.with_skype && ActiveRecord::Type::Boolean.new.type_cast_from_user(with_skype)
         return {status: :error, message: "Your gift works only for courses #{user_gift.with_skype ? 'with' : 'without'} \"With Skype Session\" option"}
       end
-      
+
       case user_gift.gift.category
       when 1
         if course.lessons.count == user_gift.lessons_amount

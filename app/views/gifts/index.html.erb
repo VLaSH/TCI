@@ -15,7 +15,7 @@ end
 <!-- <div class="banner">
   <%= image_tag how_it_work_banner_image, alt: "" %>
   <span>
-    How It Works
+    Gift a Course
   </span>
 </div> -->
 <!-- Banner -->
@@ -23,7 +23,9 @@ end
   <div class="inner_content_left">
     <div class="page_title">Gift a Course</div>
       <!-- Page Title -->
-      <p>With courses ranging from beginner through aspiring professional levels, The Compelling Image (TCI) School of Photography and Visual Storytelling is the affordable and convenient way to learn photography - interactively, right from your own home and in tune with your busy schedule. All you need is a computer or mobile device and connection to the internet.</p>
+      <p>With courses ranging from beginner through aspiring professional levels, you’re sure to find just the right online and interactive TCI course for the photographer on your gift-giving list. Choose from two-, four-, or six-lesson courses, with or without an optional 30-minute instructor consultation call on Skype. Portfolio reviews and one-on-one mentorships are available, too.</p>
+      <br>
+      <p>Here’s how it works. If you’re not already a TCI acount holder, you’ll be prompted to sign up for free. You’re then set to place your order. Choose the course category (two-, four-, six-lesson, portfolio review or one-on-one mentorship) you wish to purchase, make your secure payment using Pay Pal or a major credit card (Stripe Gateway), and select the date you’d like the recipient to be notified of their gift arrival. On that date, they’ll receive email notification of their gift and a code number for enrolling (within category) on the offering of their choice. That’s it! They’ll then be set - straight away - to begin learning and practicing a whole new set of photography skills and techniques, taught at TCI!</p>
       <%= form_for('', :url => new_gift_path, method: :get, html: { class: 'gift-page-form' }) do |f| %>
           <span class='gift-page-title'>choose your gift</span>
           <%= f.select(:gift_id, @gifts.map { |g| [g.title, g.id, 'data-price': g.price] }, {}, class: 'gift-page-dropdown') %>

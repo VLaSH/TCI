@@ -1,2 +1,19 @@
-<p>Choose a course by <%= link_to 'this link', login_url %> and enter your coupon code:</p>
-<h1><%= @coupon_code %></h1>
+Dear <%= @user_name %>,
+<br>
+<br>
+Greetings!
+<br>
+<br>
+You’ve just received a valuable gift of online-interactive photography education at The Compelling Image. To choose a course, follow <%= link_to 'this link', login_url %>, make your course selection from our course list, and place the code on the payment page. Then simply go to your Student Area - and you’re ready to begin!
+<br>
+<br>
+Code No.  <b><%= @coupon_code %></b>
+<br>
+<br>
+And if you ever have questions or difficulties with your enrollment, you’re always welcome to contact us at: <%= mail_to 'support@thecompellingimage.com' %>
+<br>
+<br>
+Enjoy your course!
+<br>
+<br>
+The Team at TCI
